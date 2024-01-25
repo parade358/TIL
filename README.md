@@ -5,6 +5,9 @@
 ### JAVA
 [library function](https://github.com/parade358/TIL/blob/main/JAVA/library%20function.md)
 
+### Python
+[gugudan](https://github.com/parade358/TIL/blob/main/Python/gugudan.md)
+
 ### Algorithm
 [2024.01.22](https://github.com/parade358/TIL/blob/main/Algorithm/2024.01.22.md)
 
