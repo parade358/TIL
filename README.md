@@ -1,6 +1,5 @@
 # TIL_Kevin
 
-## 분류
 
 ### JAVA
 [library function](https://github.com/parade358/TIL/blob/main/JAVA/library%20function.md)
