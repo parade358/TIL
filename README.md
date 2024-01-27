@@ -6,7 +6,7 @@
 [library function](https://github.com/parade358/TIL/blob/main/JAVA/library%20function.md)
 
 ### Python
-[library function] (https://github.com/parade358/TIL/blob/main/Python/library%20function.md)
+[library function](https://github.com/parade358/TIL/blob/main/Python/library%20function.md)
 [gugudan](https://github.com/parade358/TIL/blob/main/Python/gugudan.md)
 
 ### Node.js
