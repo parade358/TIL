@@ -40,5 +40,23 @@
    최대단어 = max(단어들)  # "오렌지"를 반환합니다.
    ```
 
-   
 
+
+
+4. `lower()`와 `upper()`
+
+   ```python
+   pythonCopy code
+   string = "Hello, World!"
+   
+   # 소문자로 변환
+   lower_case = string.lower()
+   print(lower_case)  # 출력: hello, world!
+   
+   # 대문자로 변환
+   upper_case = string.upper()
+   print(upper_case)  # 출력: HELLO, WORLD!
+   ```
+
+   - `lower()` 함수는 모든 문자를 소문자로 변환
+   -  `upper()` 함수는 모든 문자를 대문자로 변환.
