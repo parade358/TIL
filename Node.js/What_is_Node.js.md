@@ -1,6 +1,6 @@
 #### Node.js 란?
 
-Node.js는 브라우저 외부에서 JavaScript 코드를 실행하는 오픈 소스, 크로스 플랫폼 JavaScript 런타임 환경이다다. 
+Node.js는 브라우저 외부에서 JavaScript 코드를 실행하는 오픈 소스, 크로스 플랫폼 JavaScript 런타임 환경이다. 
 
 개발자가 서버 측 스크립팅을 위해 JavaScript를 사용할 수 있게 하며 확장 가능하고 고성능의 네트워크 애플리케이션을 구축할 수 있게 한다. 
 
