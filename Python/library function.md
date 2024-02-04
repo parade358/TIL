@@ -104,3 +104,44 @@
    # `x`가 `y`보다 크면 `max_value`에는 `x`의 값이 들어가고, 그렇지 않으면 `y`의 값이 들어간다.
    ```
 
+
+
+7. **리스트 슬라이싱**
+
+   - 파이썬에서 리스트에서 일부분을 추출하는 편리하고 강력한 기능. 리스트 슬라이싱을 사용하면 리스트의 일부를 복사하거나 추출하여 새로운 리스트를 생성할 수 있다. 
+
+   ```python
+   new_list = original_list[start:stop:step]
+   
+   #start: 추출을 시작할 인덱스
+   #stop: 추출을 종료할 인덱스 (이 위치의 원소는 포함되지 않음)
+   #step: 추출할 원소 간의 간격(기본값은 1)
+   ```
+
+   - ex
+
+   ```python
+   pythonCopy codeoriginal_list = [1, 2, 3, 4, 5]
+   
+   # 인덱스 1부터 3까지의 부분 리스트 추출
+   new_list = original_list[1:4]
+   print(new_list)  # 출력: [2, 3]
+   ```
+
+   ```python
+   pythonCopy codeoriginal_list = [1, 2, 3, 4, 5]
+   
+   # 인덱스 1부터 끝까지 2칸 간격으로 추출
+   new_list = original_list[1::2]
+   print(new_list)  # 출력: [2, 4]
+   ```
+
+   ```python
+   pythonCopy codeoriginal_list = [1, 2, 3, 4, 5]
+   
+   # 뒤에서부터 두 번째 원소부터 시작하여 끝까지 추출
+   new_list = original_list[-2:]
+   print(new_list)  # 출력: [4, 5]
+   ```
+
+   
