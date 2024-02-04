@@ -83,4 +83,24 @@
    [0, -1, -2, -3, -4, -5, -6, -7, -8, -9]
    ```
 
+
+
+
+6. **삼항 조건 연산자(ternary conditional operator)**
+
+   - 삼항 조건 연산자는 조건에 따라 두 가지 값 중 하나를 선택하는 간결한 방법을 제공하는 파이썬의 표현식
+
+   ```python
+   value_if_true if condition else value_if_false
    
+   #  condition은 참 또는 거짓을 평가할 조건이고, value_if_true는 조건이 참일 때 반환될 값이며, value_if_false는 조건이 거짓일 때 반환될 값
+   ```
+
+   ```python
+   pythonCopy codex = 10
+   y = 20
+   max_value = x if x > y else y
+   
+   # `x`가 `y`보다 크면 `max_value`에는 `x`의 값이 들어가고, 그렇지 않으면 `y`의 값이 들어간다.
+   ```
+
