@@ -1,0 +1,64 @@
+/*******************************************************************************************	
+■ 페이지명	: contactsList.css
+■ 작성목적	: 전화번호 리스트 컴포넌트 CSS
+■ 기타참고	: X
+
+■ 주요변경내역    
+VER			DATE		AUTHOR			DESCRIPTION
+----------  ----------	---------------	------------------------------- 
+0.01		2024-03-04	ys_choi		    1.신규생성.
+*******************************************************************************************/
+
+#contactsListWrap{
+    margin-top: 15px;
+    margin-right: 15px;
+    margin-left: 15px;
+    margin-bottom: 15px;
+}
+
+#buttonsWrapper{
+    display: flex;
+    justify-content: space-between;
+}
+
+#buttonsWrapper Button{
+    background-color: #34DCA1;
+    border-radius: 0px;
+}
+
+#editBtn{
+    background-color: #ED5D54;
+    color: white;
+    border: 0px;
+    border-radius: 3px;
+}
+
+.table{
+    border: 1px solid #E0E0E0;
+}
+
+.tableHead{
+    background-color: #FAFAFA;
+}
+
+.tableRowRed {
+    background-color: white;
+}
+
+.tableRowBlue {
+    background-color: #FAFAFA;
+}
+
+/* contactsList.css 파일에 추가 */
+.tableHeadCell {
+    border: 1px solid #E0E0E0; /* 테이블 헤드 셀에 구분선 추가 */
+}
+
+.tableCell {
+    border: 1px solid #E0E0E0; /* 테이블 헤드 셀에 구분선 추가 */
+}
+
+#contactsListWrap Dialog DialogActions button {
+    background-color: aqua;
+}
+
