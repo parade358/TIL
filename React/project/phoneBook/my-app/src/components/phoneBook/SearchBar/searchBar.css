@@ -1,0 +1,28 @@
+/*******************************************************************************************	
+■ 페이지명	: searchBar.css
+■ 작성목적	: searchBar 컴포넌트 CSS
+■ 기타참고	: X
+
+■ 주요변경내역    
+VER			DATE		AUTHOR			DESCRIPTION
+----------  ----------	---------------	------------------------------- 
+0.01		2024-03-04	ys_choi		    1.신규생성.
+*******************************************************************************************/
+
+#searchBarWrap{
+    text-align: center;
+}
+
+#searchInput{
+    display: flex;
+    justify-content: flex-end;
+}
+
+#searchInput Button{
+    margin-left: 15px;
+    margin-right: 15px;
+    color: #34DCA1;
+    background-color: #F6F6F6;
+    border-radius: 0;
+    border: 2px solid #34DCA1;
+}
