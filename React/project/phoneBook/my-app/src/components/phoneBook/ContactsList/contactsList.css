@@ -16,36 +16,55 @@ VER			DATE		AUTHOR			DESCRIPTION
     margin-bottom: 15px;
 }
 
-#buttonsWrapper{
+#buttonsWrapper {
     display: flex;
     justify-content: space-between;
 }
 
-#buttonsWrapper Button{
+#buttonsWrapper > div {
+    display: flex;
+}
+
+#addBtn{
     background-color: #34DCA1;
     border-radius: 0px;
 }
 
-#editBtn{
+#cancelBtn {
+    background-color: #E8E8E8;
+    border-radius: 0px;
+    color: #777777;
+}
+
+#deleteBtn {
+    background-color: #34DCA1;
+    margin-right: 10px;
+    border-radius: 0px;
+}
+
+#editBtn {
     background-color: #ED5D54;
     color: white;
     border: 0px;
     border-radius: 3px;
 }
 
-.table{
+.table {
     border: 1px solid #E0E0E0;
+    width: 100px; /* 테이블의 너비를 100%로 설정합니다. */
+    height: 300px; /* 테이블의 높이를 300px로 설정합니다. */
+    overflow: auto; /* 테이블 내용이 넘칠 경우 스크롤을 표시합니다. */
 }
 
-.tableHead{
+.tableHead {
     background-color: #FAFAFA;
 }
 
-.tableRowRed {
+.tableRowWhite {
     background-color: white;
 }
 
-.tableRowBlue {
+.tableRow {
     background-color: #FAFAFA;
 }
 
@@ -61,4 +80,30 @@ VER			DATE		AUTHOR			DESCRIPTION
 #contactsListWrap Dialog DialogActions button {
     background-color: aqua;
 }
+
+#phoneNumberField {
+    width: 200px;
+}
+
+#nameField {
+    width: 200px;
+}
+
+#group-select {
+    width: 182px;
+    background-color: #F3F3F3;
+}
+
+#directInput {
+    color: #B0AEFA;
+    cursor: 'pointer';
+    margin-left: 150px;
+}
+
+#dropdownInput{
+    color: #B0AEFA;
+    cursor: 'pointer';
+    margin-left: 180px;
+}
+
 

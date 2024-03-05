@@ -6,23 +6,40 @@
 ■ 주요변경내역    
 VER			DATE		AUTHOR			DESCRIPTION
 ----------  ----------	---------------	------------------------------- 
-0.01		2024-03-04	ys_choi		    1.신규생성.
+0.01		2024-03-04	ys_choi		    1. 신규 생성.
+                                        2. 디자인 및 영역 잡기
+                                        3. 버튼 및 테이블 구현 완료
+                                        4. 페이징바 구현 완료
+0.02        2024-03-05  ys_choi		    1. 전화번호 추가 팝업창 구현 완료
+                                        2. 체크박스 기능 구현
 *******************************************************************************************/
 
 // React
 import React, { useState } from "react";
 
 // MUI
-import { Table, TableHead, TableBody, TableCell, TableRow, Button, TextField, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
-import SearchIcon from '@mui/icons-material/Search';
-import SaveIcon from '@mui/icons-material/Save';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
+import {
+       Table,
+       TableHead,
+       TableBody,
+       TableCell,
+       TableRow,
+       Button,
+       TextField,
+       FormControl,
+       InputLabel,
+       Select,
+       MenuItem,
+       Dialog,
+       DialogActions,
+       DialogContent,
+       DialogTitle,
+       Grid
+}                       from '@mui/material';
+import DeleteIcon       from '@mui/icons-material/Delete';
+import SearchIcon       from '@mui/icons-material/Search';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import SaveIcon         from '@mui/icons-material/Save';
 
 // Component
 import PagingBar from '../PagingBar/index';
@@ -31,51 +48,62 @@ import PagingBar from '../PagingBar/index';
 import './contactsList.css';
 
 export default function ContactsList() {
-    const [open, setOpen] = React.useState(false);
-    const [name, setName] = useState('');
-    const [picture, setPicture] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
-    const [dept, setDept] = useState('');
-    const [group, setGroup] = useState(''); // 추가: 그룹 상태 변수
-    const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(1);
 
+    const [page,         setPage]         = useState(0);     // 페이지 상태
+    const [rowsPerPage,  setRowsPerPage]  = useState(2);     // 페이지당 보여지는 행 갯수 상태
+    const [open,         setOpen]         = useState(false); // 다이얼로그 상태
+    const [picture,      setPicture]      = useState('');    // 사진 상태
+    const [name,         setName]         = useState('');    // 이름 상태
+    const [phoneNumber,  setPhoneNumber]  = useState('');    // 전화번호 상태
+    const [group,        setGroup]        = useState('');    // 그룹 상태
+    const [diret,        setDiret]        = useState(true);  // 직접입력 상태
+    const [showCheckbox, setShowCheckbox] = useState(false);
+
+    // 전화번호부 테이블 컬럼 정의
     const columns = [
-        { field: 'picture', headerName: '사진', width: 100 },
-        { field: 'name', headerName: '이름', width: 70 },
-        { field: 'phoneNumber', headerName: '전화번호', width: 130 },
-        { field: 'dept', headerName: '그룹', width: 130 },
-        { field: 'editBtn', headerName: '수정', width: 130 },
-    ];
+        showCheckbox ?  { field: 'checkbox',    headerName: '체크박스', width: 100 } : null,
+        !showCheckbox ? { field: 'picture',     headerName: '사진',     width: 100 } : null,
+                        { field: 'name',        headerName: '이름',     width: 70 },
+                        { field: 'phoneNumber', headerName: '전화번호', width: 130 },
+                        { field: 'group',       headerName: '그룹',     width: 130 },
+                        { field: 'editBtn',     headerName: '수정',     width: 130 },
+    ].filter(Boolean);
 
+    // 초기 데이터
     const [rows, setRows] = useState([
-        { name: '최유성', picture: 'https://via.placeholder.com/100', phoneNumber: '010-1146-6529', dept: 'ACS' },
-        { name: '가유성', picture: 'https://via.placeholder.com/100', phoneNumber: '010-1146-6529', dept: 'ACS' },
-        { name: '나유성', picture: 'https://via.placeholder.com/100', phoneNumber: '010-1146-6529', dept: 'ACS' },
-        { name: '다유성', picture: 'https://via.placeholder.com/100', phoneNumber: '010-1146-6529', dept: 'ACS' },
-        { name: '라유성', picture: 'https://via.placeholder.com/100', phoneNumber: '010-1146-6529', dept: 'ACS' },
-        { name: '마유성', picture: 'https://via.placeholder.com/100', phoneNumber: '010-1146-6529', dept: 'ACS' },
-        { name: '바유성', picture: 'https://via.placeholder.com/100', phoneNumber: '010-1146-6529', dept: 'ACS' },
-        { name: '사유성', picture: 'https://via.placeholder.com/100', phoneNumber: '010-1146-6529', dept: 'ACS' },
-        { name: '아유성', picture: 'https://via.placeholder.com/100', phoneNumber: '010-1146-6529', dept: 'ACS' },
-        { name: '자유성', picture: 'https://via.placeholder.com/100', phoneNumber: '010-1146-6529', dept: 'ACS' },
-        { name: '차유성', picture: 'https://via.placeholder.com/100', phoneNumber: '010-1146-6529', dept: 'ACS' },
-        { name: '카유성', picture: 'https://via.placeholder.com/100', phoneNumber: '010-1146-6529', dept: 'ACS' },
-        { name: '타유성', picture: 'https://via.placeholder.com/100', phoneNumber: '010-1146-6529', dept: 'ACS' },
-        { name: '파유성', picture: 'https://via.placeholder.com/100', phoneNumber: '010-1146-6529', dept: 'ACS' },
-        { name: '하유성', picture: 'https://via.placeholder.com/100', phoneNumber: '010-1146-6529', dept: 'ACS' },
+        { name: '최유성', picture: 'https://via.placeholder.com/100', phoneNumber: '010-1146-6529', group: 'ACS' },
+        { name: '가유성', picture: 'https://via.placeholder.com/100', phoneNumber: '010-1146-6529', group: 'ACS' },
+        { name: '나유성', picture: 'https://via.placeholder.com/100', phoneNumber: '010-1146-6529', group: 'ACS' },
+        { name: '다유성', picture: 'https://via.placeholder.com/100', phoneNumber: '010-1146-6529', group: 'ACS' },
+        { name: '라유성', picture: 'https://via.placeholder.com/100', phoneNumber: '010-1146-6529', group: 'ACS' },
     ]);
 
-    const handleClickOpen = () => {
+    // 삭제 시작 함수
+    const appearCheckbox = () => {
+        setShowCheckbox(true);
+    };
+
+    // 삭제 취소 함수
+    const hideCheckbox = () => {
+        setShowCheckbox(false);
+    };
+
+    // 다이얼로그 열기 함수
+    const openDialog = () => {
         setOpen(true);
     };
 
-    const handleClose = () => {
+    // 다이얼로그 닫기 함수
+    const closeDialog = () => {
+        setName('');
+        setPicture('');
+        setPhoneNumber('');
+        setGroup('');
         setOpen(false);
     };
 
-    const handleImageChange = (event) => {
-        // 이미지 변경 이벤트 처리
+    // 사진 삽입 함수
+    const insertPicture = (event) => {
         const file = event.target.files[0];
         const reader = new FileReader();
         reader.onloadend = () => {
@@ -86,133 +114,209 @@ export default function ContactsList() {
         }
     };
 
-    const insertBtn = () => {
+    // 직접입력 변경 함수
+    const directInputClick = () => {
+        setDiret(false);
+        setGroup('');
+    };
+
+    const dropdownInputClick = () => {
+        setDiret(true);
+        setGroup('');
+    }
+
+    // 전화번호 추가 함수
+    const addContact = () => {
         const newItem = {
             name: name,
             picture: picture,
             phoneNumber: phoneNumber,
-            dept: dept,
+            group: group,
         };
         setRows([...rows, newItem]);
-        setOpen(false); // 다이얼로그 닫기
-        // 추가: 입력 필드 초기화
+        setOpen(false);
         setName('');
         setPicture('');
         setPhoneNumber('');
-        setDept('');
+        setGroup('');
     };
 
-    const deleteBtn = () => {
+    // 전화번호 삭제버튼 클릭시 실행 함수
+    const deleteContact = () => {
         console.log('삭제버튼');
     };
 
-    const editBtn = (id) => {
+    // 전화번호 수정버튼 클릭시 실행 함수
+    const editContact = (id) => {
         console.log('수정버튼 + ', id);
     };
 
     return (
+    <>
         <div id="contactsListWrap">
             <Table className="table">
+                {/* 테이블의 헤더 부분 */}
                 <TableHead className="tableHead">
+                    {/* 헤더의 첫 번째 행 */}
                     <TableRow>
+                        {/* 첫 번째 행의 셀 */}
                         <TableCell className="tableHeadCell" colSpan={5}>
+                            {/* 버튼 그룹 */}
                             <div id="buttonsWrapper">
-                                <Button variant="contained" color="primary" startIcon={<SearchIcon />} onClick={handleClickOpen} disableElevation>추가</Button>
-                                <Button variant="contained" color="primary" startIcon={<DeleteIcon />} onClick={deleteBtn} disableElevation>삭제</Button>    
+                                {/* 연락처 추가 버튼 */}
+                                <Button id="addBtn" variant="contained" color="primary" startIcon={<SearchIcon />} onClick={openDialog} disableElevation>추가</Button>
+                                {/* 연락처 삭제 버튼 */}
+                                <div>
+                                    <Button id="deleteBtn" variant="contained" color="primary" startIcon={<DeleteIcon />} onClick={appearCheckbox} disableElevation>삭제</Button>
+                                    {showCheckbox ? (
+                                        <Button id="cancelBtn" variant="contained" color="primary" startIcon={<HighlightOffIcon />} onClick={hideCheckbox} disableElevation>취소</Button>
+                                    ) : null}
+                                </div>
                             </div>
                         </TableCell>
                     </TableRow>
+                    {/* 헤더의 두 번째 행 */}
                     <TableRow>
-                        <TableCell className="tableHeadCell">사진</TableCell>
+                        {/* 각 열의 제목 */}
+                        {showCheckbox ? (
+                            <TableCell className="tableHeadCell">선택</TableCell>
+                        ) : (
+                            <TableCell className="tableHeadCell">사진</TableCell>
+                        )}
                         <TableCell className="tableHeadCell">이름</TableCell>
                         <TableCell className="tableHeadCell">전화번호</TableCell>
                         <TableCell className="tableHeadCell">그룹</TableCell>
                         <TableCell className="tableHeadCell">수정</TableCell>
                     </TableRow>
                 </TableHead>
+                {/* 테이블의 본문 부분 */}
                 <TableBody>
+                    {/* 테이블의 각 행을 매핑하여 렌더링 */}
                     {(rowsPerPage > 0 ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : rows).map((row, index) => (
-                        <TableRow key={row.name} className={index % 2 === 0 ? 'tableRowRed' : 'tableRowBlue'}>
-                            {columns.map((column) => (
-                                <TableCell key={column.field} className="tableCell">
-                                    {column.field === 'picture' ? (
-                                        <img src={row.picture} alt="picture" style={{ width: '50px', height: '50px' }} />
-                                    ) : column.field !== 'editBtn' ? (
-                                        row[column.field]
-                                    ) : (
-                                        <div>
-                                            <Button variant="outlined" onClick={() => editBtn(row.name)} id="editBtn">수정</Button>
-                                        </div>
-                                    )}
+                        <TableRow key={row.name} className={index % 2 === 0 ? 'tableRowWhite' : 'tableRow'}>
+                            {/* 각 행의 셀을 매핑하여 렌더링 */}
+                            {columns.map((column, columnIndex) => (
+                                <TableCell key={columnIndex} className="tableCell">
+                                    {/* 사진 셀 또는 데이터 셀을 렌더링 */}
+                                    {column.field === 'checkbox' ? 
+                                        (
+                                            <input
+                                                type="checkbox"
+                                                // checked={selectedRows[index] || false}
+                                                // onChange={() => handleCheckboxChange(index)}
+                                            />
+                                        ) 
+                                        : column.field === 'picture' ? 
+                                        (
+                                            <img src={row.picture} alt="picture" style={{ width: '50px', height: '50px' }} />
+                                        )
+                                        : column.field !== 'editBtn' ? 
+                                        (
+                                            row[column.field]
+                                        ) 
+                                        : 
+                                        (
+                                            <div>
+                                                <Button variant="outlined" onClick={() => editContact(row.name)} id="editBtn">수정</Button>
+                                            </div>
+                                        )}
                                 </TableCell>
                             ))}
                         </TableRow>
                     ))}
                 </TableBody>
             </Table>
+            {/*페이징바*/}
             <PagingBar totalItems={rows.length} itemsPerPage={rowsPerPage} onPageChange={setPage} />
-                                        
-            <Dialog
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-            >
+            {/*전화번호 추가 다이얼로그*/}                
+            <Dialog open={open} onClose={closeDialog} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
+                {/*다이얼로그 제목*/}
                 <DialogTitle id="alert-dialog-title" align="center">
                     {"연락처 추가"}
                 </DialogTitle>
+                {/*다이얼로그 내용*/}
                 <DialogContent>
-                    <Grid container spacing={2}>
-                        <Grid item xs={8} style={{ display: 'flex', flexDirection: 'column' }}>
-                            <input type="file" accept="image/*" onChange={handleImageChange} />
-                            <img src={picture} alt="사진" style={{ maxWidth: '100%', maxHeight: '100%', marginTop: '10px' }} />
+                    {/*전체 그리드*/}
+                    <Grid container spacing={10} style={{height: '400px'}}>
+                        {/*사진 추가 그리드*/}
+                        <Grid item xs={6} style={{ display: 'flex', flexDirection: 'column' }}>
+                            <label htmlFor="imageInput" style={{ width: '300px', height: '300px', overflow: 'hidden' }}>
+                                {picture ? 
+                                    (
+                                        <img src={picture} alt="이미지 버튼" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                    ) 
+                                    : 
+                                    (
+                                        <img src={`${process.env.PUBLIC_URL}/images/addImg.png`} alt="이미지 버튼" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                    )
+                                }
+                            </label>
+                            <input id="imageInput" type="file" accept="image/*" style={{ display: 'none' }} onChange={insertPicture} />
                         </Grid>
+                        {/*정보 추가 그리드*/}
                         <Grid item xs={4} container direction="column" spacing={2}>
                             <Grid item>
-                                <TextField
-                                    id="name"
-                                    label="이름"
-                                    variant="outlined"
-                                    value={name}
-                                    onChange={(e) => setName(e.target.value)}
-                                />
+                                {"이름"}
+                                <TextField id="nameField"  variant="outlined" placeholder="Input Value" value={name} onChange={(e) => setName(e.target.value)}/>
                             </Grid>
                             <Grid item>
-                                <TextField
-                                    id="phoneNumber"
-                                    label="번호"
-                                    variant="outlined"
-                                    value={phoneNumber}
-                                    onChange={(e) => setPhoneNumber(e.target.value)}
-                                />
+                                {"전화번호"}
+                                <TextField id="phoneNumberField" variant="outlined" placeholder="Input Value" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)}/>
                             </Grid>
                             <Grid item>
-                                <FormControl variant="outlined">
-                                    <InputLabel id="group-select-label">그룹</InputLabel>
-                                    <Select
-                                        labelId="group-select-label"
-                                        id="group-select"
-                                        value={dept}
-                                        onChange={(e) => setDept(e.target.value)}
-                                        label="그룹"
-                                    >
-                                        <MenuItem value="ACS">ACS</MenuItem>
-                                        <MenuItem value="CO">CO</MenuItem>
-                                        <MenuItem value="KR">KR</MenuItem>
-                                    </Select>
-                                </FormControl>
+                                {"그룹"}
+                                {diret ?
+                                    (
+                                        <FormControl variant="outlined">
+                                            <InputLabel>Dropdown List</InputLabel>
+                                            <Select 
+                                                id="group-select" 
+                                                value={group} 
+                                                onChange={(e) => setGroup(e.target.value)} 
+                                                label="그룹"
+                                            >
+                                                <MenuItem value="ACS">ACS</MenuItem>
+                                                <MenuItem value="CO">CO</MenuItem>
+                                                <MenuItem value="KR">KR</MenuItem>
+                                            </Select>
+                                        </FormControl>
+                                    ) 
+                                    : 
+                                    (
+                                        <TextField 
+                                            id="group-textfield" 
+                                            variant="outlined" 
+                                            value={group} 
+                                            onChange={(e) => setGroup(e.target.value)} 
+                                            placeholder="그룹을 입력하세요"
+                                        />
+                                    )}
+
+                                {diret ?                                 
+                                    (
+                                        <span id="directInput" style={{ cursor: 'pointer'}} onClick={directInputClick} >
+                                            {'직접입력'}
+                                        </span>
+                                    ) 
+                                    : 
+                                    (
+                                        <span id="dropdownInput" style={{ cursor: 'pointer'}} onClick={dropdownInputClick}>
+                                            {'취소'}
+                                        </span>
+                                    )}
                             </Grid>
                         </Grid>
                     </Grid>
                 </DialogContent>
+                {/*다이얼로그 액션*/}
                 <DialogActions style={{ justifyContent: 'center' }}>
                     {/* 저장 버튼 */}
-                    <Button onClick={() => insertBtn(name, picture, phoneNumber, group)} startIcon={<SaveIcon />} autoFocus style={{ backgroundColor: '#508EF5', color: 'white', width: '316px'}}>
+                    <Button onClick={() => addContact()} startIcon={<SaveIcon />} autoFocus style={{ backgroundColor: '#508EF5', color: 'white', width: '550px'}}>
                         저장
                     </Button>
                 </DialogActions>
             </Dialog>
-        
         </div>
+    </>
     );
 };
