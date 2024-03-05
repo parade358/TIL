@@ -10,7 +10,7 @@ VER			DATE		AUTHOR			DESCRIPTION
 *******************************************************************************************/
 
 // 리액트
-import React from "react";
+import React, { useState } from "react";
 
 // 컴포넌트
 import SearchBar from "./SearchBar/index.jsx";
@@ -21,11 +21,13 @@ import './phoneBook.css'
 
 export default function PhoneBook() {
 
+    const [handlePageChange, setHandlePageChange] = useState(0);
+
     return(
     <>
         <div id="wrap">
-            <SearchBar/>
-            <ContatctsList/>
+            <SearchBar onPageChange={setHandlePageChange} />
+            <ContatctsList handlePageChange={handlePageChange} />
         </div>
     </>
     );

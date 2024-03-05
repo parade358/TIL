@@ -13,11 +13,11 @@ VER			DATE		AUTHOR			DESCRIPTION
 import React, { useState, useEffect  } from "react";
 
 // MUI
-import { Button } from "@mui/material";
-import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+import { Button }                   from "@mui/material";
+import KeyboardDoubleArrowLeftIcon  from '@mui/icons-material/KeyboardDoubleArrowLeft';
+import KeyboardArrowLeftIcon        from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import KeyboardArrowRightIcon       from '@mui/icons-material/KeyboardArrowRight';
 
 // CSS Style
 import './pagingBar.css'

@@ -15,7 +15,7 @@ VER			DATE		AUTHOR			DESCRIPTION
 *******************************************************************************************/
 
 // React
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 
 // MUI
 import {
@@ -47,7 +47,7 @@ import PagingBar from '../PagingBar/index';
 // CSS Style
 import './contactsList.css';
 
-export default function ContactsList() {
+export default function ContactsList(props) {
 
     const [page,         setPage]         = useState(0);     // 페이지 상태
     const [rowsPerPage,  setRowsPerPage]  = useState(2);     // 페이지당 보여지는 행 갯수 상태
@@ -57,8 +57,12 @@ export default function ContactsList() {
     const [phoneNumber,  setPhoneNumber]  = useState('');    // 전화번호 상태
     const [group,        setGroup]        = useState('');    // 그룹 상태
     const [diret,        setDiret]        = useState(true);  // 직접입력 상태
-    const [showCheckbox, setShowCheckbox] = useState(false);
-    const [selectedRows, setSelectedRows] = useState([]);   // 체크된 행 상태
+    const [showCheckbox, setShowCheckbox] = useState(false); // 체크박스 보여지기
+    const [selectedRows, setSelectedRows] = useState([]);    // 체크된 행 상태
+
+    useEffect(() => {
+        setPage(props.handlePageChange)
+    }, [props.handlePageChange]);
 
     // 전화번호부 테이블 컬럼 정의
     const columns = [
