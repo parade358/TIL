@@ -1,0 +1,43 @@
+/*******************************************************************************************	
+■ 페이지명	: habits.css
+■ 작성목적	: habits 컴포넌트 css
+■ 기타참고	: X
+
+■ 주요변경내역    
+VER			DATE		AUTHOR			DESCRIPTION
+----------  ----------	---------------	------------------------------- 
+0.01		2024-02-28	ys_choi		    1.신규생성
+0.02		2024-02-29	ys_choi		    1.div 및 버튼 스타일 추가
+*******************************************************************************************/
+
+#habits_wrap{
+    margin-top: 50px;
+}
+
+#habits_wrap > div {
+    margin-bottom: 10px;
+}
+
+#habits_wrap Button {
+    margin-left: 5px;
+    height: 56px;
+    font-size: 30px;
+}
+
+#increaseBtn{
+    background-color: #3C53B1;
+}
+
+#decreaseBtn{
+    background-color: #E0E0E0;
+    color: black;
+}
+
+#removeBtn{
+    background-color: #F40057;
+}
+
+#resetBtn{
+    width: 220px;
+    background-color: #F40057;
+}
