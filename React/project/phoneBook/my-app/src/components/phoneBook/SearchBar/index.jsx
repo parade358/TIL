@@ -1,4 +1,4 @@
-/*******************************************************************************************	
+/*******************************************************************************************
 ■ 페이지명	: index.jsx
 ■ 작성목적	: 검색바 컴포넌트
 ■ 기타참고	: X
@@ -10,7 +10,7 @@ VER			DATE		AUTHOR			DESCRIPTION
 *******************************************************************************************/
 
 // 리액트
-import React from "react";
+import React, { useState } from "react";
 
 // 임포트
 import TextField from '@mui/material/TextField';
@@ -20,13 +20,18 @@ import SearchIcon from '@mui/icons-material/Search';
 import RefreshIcon from '@mui/icons-material/Refresh';
 
 // CSS Style
-import './searchBar.css'
+import './searchBar.css';
 
-export default function SearchBar(){
+export default function SearchBar({onPageChange}){
 
-    
+    const [searchText, setSearchText] = useState('');
 
+    const resetList = () => {
+        console.log('리셋버튼 클릭');
+        setSearchText('');
+        onPageChange(0);
 
+    };
 
     return(
     <>
@@ -48,7 +53,7 @@ export default function SearchBar(){
                 }}
                 variant="outlined"
             />
-                <Button variant="contained" startIcon={<RefreshIcon />} disableElevation>
+                <Button variant="contained" startIcon={<RefreshIcon />} onClick={resetList} disableElevation>
                     초기화
                 </Button>
             </div>
