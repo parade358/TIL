@@ -58,6 +58,7 @@ export default function ContactsList() {
     const [group,        setGroup]        = useState('');    // 그룹 상태
     const [diret,        setDiret]        = useState(true);  // 직접입력 상태
     const [showCheckbox, setShowCheckbox] = useState(false);
+    const [selectedRows, setSelectedRows] = useState([]);   // 체크된 행 상태
 
     // 전화번호부 테이블 컬럼 정의
     const columns = [
@@ -73,6 +74,9 @@ export default function ContactsList() {
     const [rows, setRows] = useState([
         { name: '최유성', picture: 'https://via.placeholder.com/100', phoneNumber: '010-1146-6529', group: 'ACS' },
         { name: '가유성', picture: 'https://via.placeholder.com/100', phoneNumber: '010-1146-6529', group: 'ACS' },
+        { name: '나유성', picture: 'https://via.placeholder.com/100', phoneNumber: '010-1146-6529', group: 'ACS' },
+        { name: '다유성', picture: 'https://via.placeholder.com/100', phoneNumber: '010-1146-6529', group: 'ACS' },
+        { name: '라유성', picture: 'https://via.placeholder.com/100', phoneNumber: '010-1146-6529', group: 'ACS' },
     ]);
 
     // 삭제 시작 함수
@@ -141,11 +145,24 @@ export default function ContactsList() {
     // 전화번호 삭제버튼 클릭시 실행 함수
     const deleteContact = () => {
         console.log('삭제버튼');
+        const updatedRows = rows.filter(row => !selectedRows[row.name]); // 선택되지 않은 행만 필터링
+        setRows(updatedRows);
+        setSelectedRows({}); // 선택된 행들 초기화
+        setPage(0);
     };
 
     // 전화번호 수정버튼 클릭시 실행 함수
     const editContact = (id) => {
         console.log('수정버튼 + ', id);
+    };
+
+    // 체크박스 변경 시 실행 함수
+    const handleCheckboxChange = (id) => {
+        console.log(id);
+        setSelectedRows(prevState => ({
+            ...prevState,
+            [id]: !prevState[id]
+        }));
     };
 
     return (
@@ -164,7 +181,7 @@ export default function ContactsList() {
                                 <Button id="addBtn" variant="contained" color="primary" startIcon={<SearchIcon />} onClick={openDialog} disableElevation>추가</Button>
                                 {/* 연락처 삭제 버튼 */}
                                 <div>
-                                    <Button id="deleteBtn" variant="contained" color="primary" startIcon={<DeleteIcon />} onClick={appearCheckbox} disableElevation>삭제</Button>
+                                    <Button id="deleteBtn" variant="contained" color="primary" startIcon={<DeleteIcon />} onClick={showCheckbox ? deleteContact : appearCheckbox} disableElevation>삭제</Button>
                                     {showCheckbox ? (
                                         <Button id="cancelBtn" variant="contained" color="primary" startIcon={<HighlightOffIcon />} onClick={hideCheckbox} disableElevation>취소</Button>
                                     ) : null}
@@ -199,8 +216,8 @@ export default function ContactsList() {
                                         (
                                             <input
                                                 type="checkbox"
-                                                // checked={selectedRows[index] || false}
-                                                // onChange={() => handleCheckboxChange(index)}
+                                                checked={selectedRows[row.name] || false} // 해당 행의 ID를 이용하여 체크 여부 확인
+                                                onChange={() => handleCheckboxChange(row.name)} // 행의 ID를 이용하여 체크박스 변경 핸들러 호출
                                             />
                                         ) 
                                         : column.field === 'picture' ? 
@@ -222,6 +239,7 @@ export default function ContactsList() {
                         </TableRow>
                     ))}
                 </TableBody>
+
             </Table>
             {/*페이징바*/}
             <PagingBar totalItems={rows.length} itemsPerPage={rowsPerPage} onPageChange={setPage} />
