@@ -73,7 +73,6 @@ export default function ContactsList() {
     const [rows, setRows] = useState([
         { name: '최유성', picture: 'https://via.placeholder.com/100', phoneNumber: '010-1146-6529', group: 'ACS' },
         { name: '가유성', picture: 'https://via.placeholder.com/100', phoneNumber: '010-1146-6529', group: 'ACS' },
-        // ... 나머지 데이터
     ]);
 
     // 삭제 시작 함수
