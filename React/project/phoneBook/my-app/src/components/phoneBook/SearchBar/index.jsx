@@ -30,7 +30,6 @@ export default function SearchBar({onPageChange}){
         console.log('리셋버튼 클릭');
         setSearchText('');
         onPageChange(0);
-
     };
 
     return(
@@ -44,6 +43,8 @@ export default function SearchBar({onPageChange}){
             <TextField
                 id="input-with-icon-textfield"
                 label="TextField"
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
                 InputProps={{
                 startAdornment: (
                     <InputAdornment position="start">
