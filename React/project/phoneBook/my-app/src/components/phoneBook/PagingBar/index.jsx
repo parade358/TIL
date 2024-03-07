@@ -10,10 +10,16 @@ VER			DATE		AUTHOR			DESCRIPTION
 *******************************************************************************************/
 
 //리액트
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 // MUI
-import { Button } from "@mui/material";
+import {
+    Button,
+    Select,
+    InputLabel,
+    MenuItem,
+    FormControl,
+} from "@mui/material";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
@@ -22,7 +28,14 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 // CSS Style
 import "./pagingBar.css";
 
-export default function PagingBar({ page, totalLength, rowsPerPage, setPage }) {
+export default function PagingBar({
+    page,
+    totalLength,
+    rowsPerPage,
+    setRowsPerPage,
+    setPage,
+    originRows,
+}) {
     const totalPages = Math.ceil(totalLength / rowsPerPage);
 
     const selectedPageChange = (event) => {
@@ -82,6 +95,21 @@ export default function PagingBar({ page, totalLength, rowsPerPage, setPage }) {
                 <Button variant="text" onClick={goToLastPage}>
                     <KeyboardDoubleArrowRightIcon />
                 </Button>
+            </div>
+            <div>
+                <FormControl id="rowsPerPage">
+                    <InputLabel>Rows Per Page</InputLabel>
+                    <Select
+                        value={rowsPerPage}
+                        onChange={(e) => setRowsPerPage(e.target.value)}
+                    >
+                        {[...Array(originRows.length).keys()].map((num) => (
+                            <MenuItem key={num + 1} value={num + 1}>
+                                {num + 1} 개
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
             </div>
         </>
     );

@@ -15,7 +15,7 @@ VER			DATE		AUTHOR			DESCRIPTION
 *******************************************************************************************/
 
 // React
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 // MUI
 import {
@@ -52,17 +52,67 @@ export default function ContactsList({
     setRows,
 }) {
     const [open, setOpen] = useState(false); // 다이얼로그 상태
-
-    //여기부터
     const [picture, setPicture] = useState(""); // 사진 상태
     const [name, setName] = useState(""); // 이름 상태
     const [phoneNumber, setPhoneNumber] = useState(""); // 전화번호 상태
     const [group, setGroup] = useState(""); // 그룹 상태
-    const [diret, setDiret] = useState(true); // 직접입력 상태
-    // 여기까지 다이얼로그
-
+    const [dropDown, setDropDown] = useState(true); // 직접입력 상태
+    const [menuItems, setMenuItems] = useState(["ACS", "CO", "KR"]); // 그룹 메뉴 아이템 상태
     const [showCheckbox, setShowCheckbox] = useState(false); // 체크박스 보여지기
     const [selectedRows, setSelectedRows] = useState([]); // 체크된 행 상태
+    const [rowIndex, setRowIndex] = useState(null);
+    const [changeName, setChangeName] = useState("");
+    const [changePhoneNumber, setChangePhoneNumber] = useState("");
+    const [changeGroup, setChangeGroup] = useState("");
+
+    const addGroupToMenu = (groupItem) => {
+        if (!menuItems.includes(groupItem)) {
+            setMenuItems([...menuItems, groupItem]);
+        }
+    };
+
+    const editBtnClick = (index, name, phoneNumber, group) => {
+        console.log(index, name, phoneNumber, group);
+        setRowIndex(index);
+        setChangeName(name);
+        setChangePhoneNumber(phoneNumber);
+        setChangeGroup(group);
+    };
+
+    const contactChange = (index, field, value) => {
+        const newRows = [...rows];
+        const rowIndex = newRows.findIndex((row) => row.index === index); // 여기서 'identifier'는 행의 고유한 식별자라고 가정합니다.
+        if (rowIndex !== -1) {
+            newRows[rowIndex][field] = value;
+            setRows(newRows);
+        } else {
+            console.error("Row not found"); // 예외 처리: 행을 찾을 수 없는 경우
+        }
+    };
+
+    const saveChanges = () => {
+        setRowIndex(null);
+    };
+
+    const cancelChanges = (index) => {
+        const updatedRows = [...rows]; // 현재 행 배열의 복사본 생성
+        const rowIndex = updatedRows.findIndex((row) => row.index === index); // 주어진 인덱스에 해당하는 행을 찾음
+        if (rowIndex !== -1) {
+            // 주어진 인덱스에 해당하는 행을 찾은 경우
+            updatedRows[rowIndex] = {
+                ...updatedRows[rowIndex],
+                name: changeName,
+                phoneNumber: changePhoneNumber,
+                group: changeGroup,
+            };
+            setRows(updatedRows); // 변경된 행 배열을 설정하여 업데이트
+        }
+        // 상태들을 초기화하여 이전 값으로 복구
+        setChangeName("");
+        setChangePhoneNumber("");
+        setChangeGroup("");
+        setRowIndex(null);
+    };
 
     // 전화번호부 테이블 컬럼 정의
     const columns = [
@@ -74,7 +124,7 @@ export default function ContactsList({
             : null,
         { field: "name", headerName: "이름", width: 70 },
         { field: "phoneNumber", headerName: "전화번호", width: 130 },
-        { field: "group", headerName: "그룹", width: 130 },
+        { field: "group", headerName: "그룹", width: 100 },
         { field: "editBtn", headerName: "수정", width: 130 },
     ].filter(Boolean);
 
@@ -90,6 +140,7 @@ export default function ContactsList({
 
     // 다이얼로그 열기 함수
     const openDialog = () => {
+        setDropDown(true);
         setOpen(true);
     };
 
@@ -114,19 +165,20 @@ export default function ContactsList({
         }
     };
 
-    // 직접입력 변경 함수
-    const directInputClick = () => {
-        setDiret(false);
-        setGroup("");
-    };
-
-    const dropdownInputClick = () => {
-        setDiret(true);
-        setGroup("");
-    };
-
     // 전화번호 추가 함수
     const addContact = () => {
+        if (
+            picture === "" ||
+            name === "" ||
+            phoneNumber === "" ||
+            group === ""
+        ) {
+            alert("값이 비어있습니다. 모든 필드에 값을 입력하세요.");
+            return;
+        }
+
+        addGroupToMenu(group);
+
         const newItem = {
             name: name,
             picture: picture,
@@ -144,23 +196,18 @@ export default function ContactsList({
     // 전화번호 삭제버튼 클릭시 실행 함수
     const deleteContact = () => {
         console.log("삭제버튼");
-        const updatedRows = rows.filter((row) => !selectedRows[row.name]); // 선택되지 않은 행만 필터링
+        const updatedRows = rows.filter((row) => !selectedRows[row.index]); // 선택되지 않은 행만 필터링
         setRows(updatedRows);
         setSelectedRows({}); // 선택된 행들 초기화
         setPage(0);
     };
 
-    // 전화번호 수정버튼 클릭시 실행 함수
-    const editContact = (id) => {
-        console.log("수정버튼 + ", id);
-    };
-
     // 체크박스 변경 시 실행 함수
-    const handleCheckboxChange = (id) => {
-        console.log(id);
+    const handleCheckboxChange = (index) => {
+        console.log(index);
         setSelectedRows((prevState) => ({
             ...prevState,
-            [id]: !prevState[id],
+            [index]: !prevState[index],
         }));
     };
 
@@ -256,7 +303,7 @@ export default function ContactsList({
                             : rows
                         ).map((row, index) => (
                             <TableRow
-                                key={row.name}
+                                key={row.index}
                                 className={
                                     index % 2 === 0
                                         ? "tableRowWhite"
@@ -274,12 +321,12 @@ export default function ContactsList({
                                             <input
                                                 type="checkbox"
                                                 checked={
-                                                    selectedRows[row.name] ||
+                                                    selectedRows[row.index] ||
                                                     false
                                                 } // 해당 행의 ID를 이용하여 체크 여부 확인
                                                 onChange={() =>
                                                     handleCheckboxChange(
-                                                        row.name
+                                                        row.index
                                                     )
                                                 } // 행의 ID를 이용하여 체크박스 변경 핸들러 호출
                                             />
@@ -293,18 +340,67 @@ export default function ContactsList({
                                                 }}
                                             />
                                         ) : column.field !== "editBtn" ? (
-                                            row[column.field]
+                                            rowIndex === row.index ? (
+                                                <TextField
+                                                    value={row[column.field]}
+                                                    onChange={(e) =>
+                                                        contactChange(
+                                                            row.index,
+                                                            column.field,
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                    style={{ width: "150px" }}
+                                                />
+                                            ) : (
+                                                row[column.field]
+                                            )
                                         ) : (
                                             <div>
-                                                <Button
-                                                    variant="outlined"
-                                                    onClick={() =>
-                                                        editContact(row.name)
-                                                    }
-                                                    id="editBtn"
-                                                >
-                                                    수정
-                                                </Button>
+                                                {rowIndex === row.index ? (
+                                                    // 수정 중일 때만 저장 버튼과 취소 버튼 렌더링
+                                                    <div>
+                                                        <Button
+                                                            variant="outlined"
+                                                            onClick={() =>
+                                                                saveChanges()
+                                                            }
+                                                            id="saveBtn"
+                                                        >
+                                                            Update
+                                                        </Button>
+                                                        <Button
+                                                            variant="outlined"
+                                                            onClick={() =>
+                                                                cancelChanges(
+                                                                    row.index
+                                                                )
+                                                            }
+                                                            id="updateCancelBtn"
+                                                            style={{
+                                                                marginLeft:
+                                                                    "20px",
+                                                            }}
+                                                        >
+                                                            Cancel
+                                                        </Button>
+                                                    </div>
+                                                ) : (
+                                                    <Button
+                                                        variant="outlined"
+                                                        onClick={() =>
+                                                            editBtnClick(
+                                                                row.index,
+                                                                row.name,
+                                                                row.phoneNumber,
+                                                                row.group
+                                                            )
+                                                        }
+                                                        id="editBtn"
+                                                    >
+                                                        수정
+                                                    </Button>
+                                                )}
                                             </div>
                                         )}
                                     </TableCell>
@@ -414,12 +510,13 @@ export default function ContactsList({
                                 </Grid>
                                 <Grid item>
                                     {"그룹"}
-                                    {diret ? (
+                                    {dropDown ? (
                                         <FormControl variant="outlined">
-                                            <InputLabel>
+                                            <InputLabel id="group-select-label">
                                                 Dropdown List
                                             </InputLabel>
                                             <Select
+                                                labelId="group-select-label"
                                                 id="group-select"
                                                 value={group}
                                                 onChange={(e) =>
@@ -427,15 +524,16 @@ export default function ContactsList({
                                                 }
                                                 label="그룹"
                                             >
-                                                <MenuItem value="ACS">
-                                                    ACS
-                                                </MenuItem>
-                                                <MenuItem value="CO">
-                                                    CO
-                                                </MenuItem>
-                                                <MenuItem value="KR">
-                                                    KR
-                                                </MenuItem>
+                                                {menuItems.map(
+                                                    (item, index) => (
+                                                        <MenuItem
+                                                            key={index}
+                                                            value={item}
+                                                        >
+                                                            {item}
+                                                        </MenuItem>
+                                                    )
+                                                )}
                                             </Select>
                                         </FormControl>
                                     ) : (
@@ -450,11 +548,11 @@ export default function ContactsList({
                                         />
                                     )}
 
-                                    {diret ? (
+                                    {dropDown ? (
                                         <span
                                             id="directInput"
                                             style={{ cursor: "pointer" }}
-                                            onClick={directInputClick}
+                                            onClick={() => setDropDown(false)}
                                         >
                                             {"직접입력"}
                                         </span>
@@ -462,7 +560,7 @@ export default function ContactsList({
                                         <span
                                             id="dropdownInput"
                                             style={{ cursor: "pointer" }}
-                                            onClick={dropdownInputClick}
+                                            onClick={() => setDropDown(true)}
                                         >
                                             {"취소"}
                                         </span>

@@ -9,7 +9,7 @@ VER			DATE		AUTHOR			DESCRIPTION
 0.01		2024-03-04	ys_choi		    1.신규생성.
 *******************************************************************************************/
 
-#wrap{
+#wrap {
     display: flex;
     flex-direction: column;
     border-radius: 10px;

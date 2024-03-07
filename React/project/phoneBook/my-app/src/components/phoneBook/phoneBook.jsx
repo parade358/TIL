@@ -27,33 +27,38 @@ export default function PhoneBook() {
     // 초기 데이터
     const [originRows, setOriginRows] = useState([
         {
+            index: 1,
             name: "최유성",
             picture: "https://via.placeholder.com/100",
             phoneNumber: "010-1146-6529",
             group: "ACS",
         },
         {
+            index: 2,
             name: "가유성",
             picture: "https://via.placeholder.com/100",
-            phoneNumber: "010-1146-6529",
+            phoneNumber: "010-2146-6529",
             group: "ACS",
         },
         {
+            index: 3,
             name: "나유성",
             picture: "https://via.placeholder.com/100",
-            phoneNumber: "010-1146-6529",
+            phoneNumber: "010-3146-6529",
             group: "ACS",
         },
         {
+            index: 4,
             name: "다유성",
             picture: "https://via.placeholder.com/100",
-            phoneNumber: "010-1146-6529",
+            phoneNumber: "010-4146-6529",
             group: "ACS",
         },
         {
+            index: 5,
             name: "라유성",
             picture: "https://via.placeholder.com/100",
-            phoneNumber: "010-1146-6529",
+            phoneNumber: "010-5146-6529",
             group: "ACS",
         },
     ]);
@@ -78,9 +83,11 @@ export default function PhoneBook() {
                 />
                 <PagingBar
                     rowsPerPage={rowsPerPage}
+                    setRowsPerPage={setRowsPerPage}
                     page={page}
                     setPage={setPage}
                     totalLength={rows.length}
+                    originRows={originRows}
                 />
             </div>
         </>

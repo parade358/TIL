@@ -26,7 +26,6 @@ export default function SearchBar({ setPage, originRows, setRows }) {
     const [searchText, setSearchText] = useState("");
 
     const resetList = () => {
-        console.log("리셋버튼 클릭");
         setSearchText("");
         setPage(0);
     };
@@ -41,12 +40,13 @@ export default function SearchBar({ setPage, originRows, setRows }) {
             if (!searchText) {
                 setRows(originRows);
             } else {
+                const sText = new RegExp(searchText, "i");
                 setRows(
                     originRows.filter(
                         (row) =>
-                            row.name === searchText ||
-                            row.phoneNumber === searchText ||
-                            row.group === searchText
+                            row.name.match(sText) ||
+                            row.phoneNumber.match(sText) ||
+                            row.group.match(sText)
                     )
                 );
                 setPage(0);
@@ -58,7 +58,7 @@ export default function SearchBar({ setPage, originRows, setRows }) {
     return (
         <>
             <div id="searchBarWrap">
-                <div>연락처 00개</div>
+                <div id="contactsCount">연락처 {originRows.length}개</div>
 
                 <div id="searchInput">
                     <TextField

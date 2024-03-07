@@ -9,7 +9,7 @@ VER			DATE		AUTHOR			DESCRIPTION
 0.01		2024-03-04	ys_choi		    1.신규생성.
 *******************************************************************************************/
 
-#contactsListWrap{
+#contactsListWrap {
     margin-top: 15px;
     margin-right: 15px;
     margin-left: 15px;
@@ -25,56 +25,65 @@ VER			DATE		AUTHOR			DESCRIPTION
     display: flex;
 }
 
-#addBtn{
-    background-color: #34DCA1;
+#addBtn {
+    background-color: #34dca1;
     border-radius: 0px;
 }
 
 #cancelBtn {
-    background-color: #E8E8E8;
+    background-color: #e8e8e8;
     border-radius: 0px;
     color: #777777;
 }
 
 #deleteBtn {
-    background-color: #34DCA1;
+    background-color: #34dca1;
     margin-right: 10px;
     border-radius: 0px;
 }
 
-#editBtn {
-    background-color: #ED5D54;
+#editBtn,
+#saveBtn {
+    background-color: #ed5d54;
     color: white;
     border: 0px;
     border-radius: 3px;
 }
 
+#updateCancelBtn {
+    background-color: #777777;
+    color: #e8e8e8;
+    border: 0px;
+    border-radius: 3px;
+}
+
 .table {
-    border: 1px solid #E0E0E0;
-    width: 100px; /* 테이블의 너비를 100%로 설정합니다. */
-    height: 300px; /* 테이블의 높이를 300px로 설정합니다. */
-    overflow: auto; /* 테이블 내용이 넘칠 경우 스크롤을 표시합니다. */
+    border: 1px solid #e0e0e0;
+    width: 100px;
+    overflow: auto;
 }
 
 .tableHead {
-    background-color: #FAFAFA;
+    background-color: #fafafa;
+    height: 50px;
 }
 
 .tableRowWhite {
     background-color: white;
+    height: 50px;
 }
 
 .tableRow {
-    background-color: #FAFAFA;
+    background-color: #fafafa;
+    height: 50px;
 }
 
-/* contactsList.css 파일에 추가 */
 .tableHeadCell {
-    border: 1px solid #E0E0E0; /* 테이블 헤드 셀에 구분선 추가 */
+    border: 1px solid #e0e0e0;
 }
 
 .tableCell {
-    border: 1px solid #E0E0E0; /* 테이블 헤드 셀에 구분선 추가 */
+    border: 1px solid #e0e0e0;
 }
 
 #contactsListWrap Dialog DialogActions button {
@@ -91,19 +100,17 @@ VER			DATE		AUTHOR			DESCRIPTION
 
 #group-select {
     width: 182px;
-    background-color: #F3F3F3;
+    background-color: #f3f3f3;
 }
 
 #directInput {
-    color: #B0AEFA;
-    cursor: 'pointer';
+    color: #b0aefa;
+    cursor: "pointer";
     margin-left: 150px;
 }
 
-#dropdownInput{
-    color: #B0AEFA;
-    cursor: 'pointer';
+#dropdownInput {
+    color: #b0aefa;
+    cursor: "pointer";
     margin-left: 180px;
 }
-
-
