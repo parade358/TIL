@@ -9,20 +9,25 @@ VER			DATE		AUTHOR			DESCRIPTION
 0.01		2024-03-04	ys_choi		    1.신규생성.
 *******************************************************************************************/
 
-#searchBarWrap{
+#searchBarWrap {
     text-align: center;
 }
 
-#searchInput{
+#searchInput {
     display: flex;
     justify-content: flex-end;
 }
 
-#searchInput Button{
+#searchInput Button {
     margin-left: 15px;
     margin-right: 15px;
-    color: #34DCA1;
-    background-color: #F6F6F6;
+    color: #34dca1;
+    background-color: #f6f6f6;
     border-radius: 0;
-    border: 2px solid #34DCA1;
+    border: 2px solid #34dca1;
+}
+
+#contactsCount {
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
