@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FIVE_PROBLEMS
 {
-    internal class DiffDateTime
+    internal class DiffDateTime : __itrfDiffDateTime
     {
         DateTime _dtStartDt;
         DateTime _dtEndDt;
