@@ -1,0 +1,7 @@
+CREATE PROC P_SELECT  
+  
+AS  
+  
+BEGIN  
+ SELECT *  FROM CONTACTS;  
+END  

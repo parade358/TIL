@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import "./App.css";
 // Add Page
 import PhoneBook from "./components/phoneBook/phoneBook";

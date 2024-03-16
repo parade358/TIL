@@ -1,19 +1,3 @@
-/*******************************************************************************************	
-■ 페이지명	: index.jsx
-■ 작성목적	: 전화번호 리스트 컴포넌트
-■ 기타참고	: X
-
-■ 주요변경내역    
-VER			DATE		AUTHOR			DESCRIPTION
-----------  ----------	---------------	------------------------------- 
-0.01		2024-03-04	ys_choi		    1. 신규 생성.
-                                        2. 디자인 및 영역 잡기
-                                        3. 버튼 및 테이블 구현 완료
-                                        4. 페이징바 구현 완료
-0.02        2024-03-05  ys_choi		    1. 전화번호 추가 팝업창 구현 완료
-                                        2. 체크박스 기능 구현
-*******************************************************************************************/
-
 // React
 import React, { useState } from "react";
 
@@ -35,11 +19,11 @@ import {
     DialogContent,
     DialogTitle,
     Grid,
-} from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import SearchIcon from "@mui/icons-material/Search";
+}                       from "@mui/material";
+import DeleteIcon       from "@mui/icons-material/Delete";
+import SearchIcon       from "@mui/icons-material/Search";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
-import SaveIcon from "@mui/icons-material/Save";
+import SaveIcon         from "@mui/icons-material/Save";
 
 // CSS Style
 import "./contactsList.css";
@@ -50,69 +34,24 @@ export default function ContactsList({
     rows,
     rowsPerPage,
     setRows,
+    groupList,
+    reload,
+    setReload,
 }) {
-    const [open, setOpen] = useState(false); // 다이얼로그 상태
-    const [picture, setPicture] = useState(""); // 사진 상태
-    const [name, setName] = useState(""); // 이름 상태
-    const [phoneNumber, setPhoneNumber] = useState(""); // 전화번호 상태
-    const [group, setGroup] = useState(""); // 그룹 상태
-    const [dropDown, setDropDown] = useState(true); // 직접입력 상태
-    const [menuItems, setMenuItems] = useState(["ACS", "CO", "KR"]); // 그룹 메뉴 아이템 상태
-    const [showCheckbox, setShowCheckbox] = useState(false); // 체크박스 보여지기
-    const [selectedRows, setSelectedRows] = useState([]); // 체크된 행 상태
-    const [rowIndex, setRowIndex] = useState(null);
-    const [changeName, setChangeName] = useState("");
-    const [changePhoneNumber, setChangePhoneNumber] = useState("");
-    const [changeGroup, setChangeGroup] = useState("");
-
-    const addGroupToMenu = (groupItem) => {
-        if (!menuItems.includes(groupItem)) {
-            setMenuItems([...menuItems, groupItem]);
-        }
-    };
-
-    const editBtnClick = (index, name, phoneNumber, group) => {
-        console.log(index, name, phoneNumber, group);
-        setRowIndex(index);
-        setChangeName(name);
-        setChangePhoneNumber(phoneNumber);
-        setChangeGroup(group);
-    };
-
-    const contactChange = (index, field, value) => {
-        const newRows = [...rows];
-        const rowIndex = newRows.findIndex((row) => row.index === index); // 여기서 'identifier'는 행의 고유한 식별자라고 가정합니다.
-        if (rowIndex !== -1) {
-            newRows[rowIndex][field] = value;
-            setRows(newRows);
-        } else {
-            console.error("Row not found"); // 예외 처리: 행을 찾을 수 없는 경우
-        }
-    };
-
-    const saveChanges = () => {
-        setRowIndex(null);
-    };
-
-    const cancelChanges = (index) => {
-        const updatedRows = [...rows]; // 현재 행 배열의 복사본 생성
-        const rowIndex = updatedRows.findIndex((row) => row.index === index); // 주어진 인덱스에 해당하는 행을 찾음
-        if (rowIndex !== -1) {
-            // 주어진 인덱스에 해당하는 행을 찾은 경우
-            updatedRows[rowIndex] = {
-                ...updatedRows[rowIndex],
-                name: changeName,
-                phoneNumber: changePhoneNumber,
-                group: changeGroup,
-            };
-            setRows(updatedRows); // 변경된 행 배열을 설정하여 업데이트
-        }
-        // 상태들을 초기화하여 이전 값으로 복구
-        setChangeName("");
-        setChangePhoneNumber("");
-        setChangeGroup("");
-        setRowIndex(null);
-    };
+    const [open,                setOpen]                = useState(false);  // 다이얼로그 상태
+    const [picture,             setPicture]             = useState("");     // 사진 상태
+    const [name,                setName]                = useState("");     // 이름 상태
+    const [phoneNumber,         setPhoneNumber]         = useState("");     // 전화번호 상태
+    const [group,               setGroup]               = useState("");     // 그룹 상태
+    const [dropDown,            setDropDown]            = useState(true);   // 직접입력 상태
+    const [showCheckbox,        setShowCheckbox]        = useState(false);  // 체크박스 상태
+    const [selectedRows,        setSelectedRows]        = useState([]);     // 체크된 행 상태
+    const [rowIndex,            setRowIndex]            = useState(null);   // 선택된 행 인덱스 상태
+    const [revertName,          setRevertName]          = useState("");     // 수정 전 이름 상태
+    const [revertPhoneNumber,   setRevertPhoneNumber]   = useState("");     // 수정 전 전화번호 상태
+    const [revertGroup,         setRevertGroup]         = useState("");     // 수정 전 그룹 상태
+    const [error,               setError]               = useState('');     // 에러메세지
+    const API_RESULT_URL = process.env.REACT_APP_API_RESULT_URL;
 
     // 전화번호부 테이블 컬럼 정의
     const columns = [
@@ -165,7 +104,19 @@ export default function ContactsList({
         }
     };
 
-    // 전화번호 추가 함수
+    // 정규표현식 이용 전화번호 필터링 함수
+    const handleChange = (e) => {
+        const input = e.target.value;
+        const regex = /^[0-9-]*$/;
+        if (regex.test(input) || input === "") {
+            setPhoneNumber(input);
+            setError(""); // 에러 초기화
+        } else {
+            setError("숫자와 하이픈(-)만 입력할 수 있습니다.");
+        }
+    };
+
+    // 전화번호부 추가 함수
     const addContact = () => {
         if (
             picture === "" ||
@@ -177,38 +128,188 @@ export default function ContactsList({
             return;
         }
 
-        addGroupToMenu(group);
-
-        const newItem = {
-            name: name,
-            picture: picture,
-            phoneNumber: phoneNumber,
-            group: group,
+        const bodyparam = {
+            userID: "sa",
+            userPlant: "ContactsDB",
+            serviceID: "P_INSERT",
+            serviceParam: `'${picture}', '${name}', '${phoneNumber}', '${group}'`,
+            serviceCallerEventType: "이벤트타입",
+            serviceCallerEventName: "이벤트명",
+            clientNetworkType: navigator.connection.effectiveType,
         };
-        setRows([...rows, newItem]);
-        setOpen(false);
-        setName("");
-        setPicture("");
-        setPhoneNumber("");
-        setGroup("");
+
+        fetch(API_RESULT_URL, {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(bodyparam),
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json();
+            })
+            .then((data) => {
+                setReload(reload + 1);
+                setOpen(false);
+                setName("");
+                setPicture("");
+                setPhoneNumber("");
+                setGroup("");
+                alert("전화번호 추가 성공!");
+            })
+            .catch((error) => {
+                console.error("Error:", error.message);
+            });
     };
 
     // 전화번호 삭제버튼 클릭시 실행 함수
     const deleteContact = () => {
-        console.log("삭제버튼");
-        const updatedRows = rows.filter((row) => !selectedRows[row.index]); // 선택되지 않은 행만 필터링
-        setRows(updatedRows);
-        setSelectedRows({}); // 선택된 행들 초기화
-        setPage(0);
+        const selectedIndex = rows
+            .filter((row) => selectedRows[row.index])
+            .map((row) => row.index);
+
+        const indexString = selectedIndex.join(".");
+
+        if (selectedIndex.length === 0) {
+            alert("삭제할 전화번호를 선택하세요.");
+            return;
+        }
+
+        fetch(API_RESULT_URL, {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                userID: "sa",
+                userPlant: "ContactsDB",
+                serviceID: "DeleteRowsByNumber",
+                serviceParam: `${indexString}`,
+                serviceCallerEventType: "",
+                serviceCallerEventName: "",
+                clientNetworkType: navigator.connection.effectiveType,
+            }),
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("네트워크 응답이 올바르지 않습니다");
+                }
+                return response.json();
+            })
+            .then((data) => {
+                setReload(reload + 1);
+                setShowCheckbox(false);
+                setSelectedRows([]);
+                setPage(0);
+                alert("전화번호 삭제 성공!");
+            })
+            .catch((error) => {
+                console.error("에러:", error.message);
+            });
     };
 
     // 체크박스 변경 시 실행 함수
     const handleCheckboxChange = (index) => {
-        console.log(index);
         setSelectedRows((prevState) => ({
             ...prevState,
             [index]: !prevState[index],
         }));
+    };
+
+    // 수정버튼 클릭시 해당 행 정보 담아두기
+    const editBtnClick = (index, name, phoneNumber, group) => {
+        setRowIndex(index);
+        setName(name);
+        setRevertName(name);
+        setPhoneNumber(phoneNumber);
+        setRevertPhoneNumber(phoneNumber);
+        setGroup(group);
+        setRevertGroup(group);
+    };
+
+    // 텍스트필드에 타이핑시 수정
+    const contactChange = (index, field, value) => {
+        const newRows = [...rows];
+        const rowIndex = newRows.findIndex((row) => row.index === index);
+        if (rowIndex !== -1) {
+            newRows[rowIndex][field] = value;
+            if (field === "name") {
+                setName(value);
+            } else if (field === "phoneNumber") {
+                setPhoneNumber(value);
+            } else if (field === "group") {
+                setGroup(value);
+            }
+            setRows(newRows);
+        } else {
+            console.error("Row not found");
+        }
+    };
+
+    // 연락처 업데이트
+    const saveChanges = () => {
+        const bodyparam = {
+            userID: "sa",
+            userPlant: "ContactsDB",
+            serviceID: "P_UPDATE",
+            serviceParam: `'${rowIndex}', '${name}', '${phoneNumber}', '${group}'`,
+            serviceCallerEventType: "이벤트타입",
+            serviceCallerEventName: "이벤트명",
+            clientNetworkType: navigator.connection.effectiveType,
+        };
+
+        fetch(API_RESULT_URL, {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(bodyparam),
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("네트워크 오류");
+                }
+                return response.json();
+            })
+            .catch((error) => {
+                console.error("Error:", error.message);
+            });
+
+        setName("");
+        setPhoneNumber("");
+        setGroup("");
+
+        setReload(reload + 1);
+
+        setRowIndex(null);
+
+        alert("전화번호 수정 완료!");
+    };
+
+    // 수정 취소 (되돌릴 데이터 넣어주기)
+    const cancelChanges = (index) => {
+        const revertRows = [...rows];
+        const rowIndex = revertRows.findIndex((row) => row.index === index);
+        if (rowIndex !== -1) {
+            revertRows[rowIndex] = {
+                ...revertRows[rowIndex],
+                name: revertName,
+                phoneNumber: revertPhoneNumber,
+                group: revertGroup,
+            };
+            setRows(revertRows);
+        }
+
+        setRevertName("");
+        setRevertPhoneNumber("");
+        setRevertGroup("");
+        setRowIndex(null);
     };
 
     return (
@@ -250,6 +351,7 @@ export default function ContactsList({
                                         >
                                             삭제
                                         </Button>
+                                        {/* 삭제 버튼 눌렀을 시 취소버튼 생성*/}
                                         {showCheckbox ? (
                                             <Button
                                                 id="cancelBtn"
@@ -293,121 +395,129 @@ export default function ContactsList({
                         </TableRow>
                     </TableHead>
                     {/* 테이블의 본문 부분 */}
-                    <TableBody>
-                        {/* 테이블의 각 행을 매핑하여 렌더링 */}
-                        {(rowsPerPage > 0
-                            ? rows.slice(
-                                  page * rowsPerPage,
-                                  page * rowsPerPage + rowsPerPage
-                              )
-                            : rows
-                        ).map((row, index) => (
-                            <TableRow
-                                key={row.index}
-                                className={
-                                    index % 2 === 0
-                                        ? "tableRowWhite"
-                                        : "tableRow"
-                                }
-                            >
-                                {/* 각 행의 셀을 매핑하여 렌더링 */}
-                                {columns.map((column, columnIndex) => (
-                                    <TableCell
-                                        key={columnIndex}
-                                        className="tableCell"
-                                    >
-                                        {/* 사진 셀 또는 데이터 셀을 렌더링 */}
-                                        {column.field === "checkbox" ? (
-                                            <input
-                                                type="checkbox"
-                                                checked={
-                                                    selectedRows[row.index] ||
-                                                    false
-                                                } // 해당 행의 ID를 이용하여 체크 여부 확인
-                                                onChange={() =>
-                                                    handleCheckboxChange(
-                                                        row.index
-                                                    )
-                                                } // 행의 ID를 이용하여 체크박스 변경 핸들러 호출
-                                            />
-                                        ) : column.field === "picture" ? (
-                                            <img
-                                                src={row.picture}
-                                                alt="picture"
-                                                style={{
-                                                    width: "50px",
-                                                    height: "50px",
-                                                }}
-                                            />
-                                        ) : column.field !== "editBtn" ? (
-                                            rowIndex === row.index ? (
-                                                <TextField
-                                                    value={row[column.field]}
-                                                    onChange={(e) =>
-                                                        contactChange(
-                                                            row.index,
-                                                            column.field,
-                                                            e.target.value
+                    {rows.length > 0 && rows[0].index !== "" ? (
+                        <TableBody>
+                            {/* 테이블의 각 행을 매핑하여 렌더링 */}
+                            {(rowsPerPage > 0
+                                ? rows.slice(
+                                      page * rowsPerPage,
+                                      page * rowsPerPage + rowsPerPage
+                                  )
+                                : rows
+                            ).map((row, index) => (
+                                <TableRow
+                                    key={row.index}
+                                    className={
+                                        index % 2 === 0
+                                            ? "tableRowWhite"
+                                            : "tableRow"
+                                    }
+                                >
+                                    {/* 각 행의 셀을 매핑하여 렌더링 */}
+                                    {columns.map((column, columnIndex) => (
+                                        <TableCell
+                                            key={columnIndex}
+                                            className="tableCell"
+                                        >
+                                            {/* 체크박스 */}
+                                            {column.field === "checkbox" ? (
+                                                <input
+                                                    type="checkbox"
+                                                    checked={
+                                                        selectedRows[
+                                                            row.index
+                                                        ] || false
+                                                    } // 해당 행의 인덱스를 이용하여 체크 여부 확인
+                                                    onChange={() =>
+                                                        handleCheckboxChange(
+                                                            row.index
                                                         )
-                                                    }
-                                                    style={{ width: "150px" }}
+                                                    } // 행의 인덱스를 이용하여 체크박스 변경 핸들러 호출
                                                 />
-                                            ) : (
-                                                row[column.field]
-                                            )
-                                        ) : (
-                                            <div>
-                                                {rowIndex === row.index ? (
-                                                    // 수정 중일 때만 저장 버튼과 취소 버튼 렌더링
-                                                    <div>
-                                                        <Button
-                                                            variant="outlined"
-                                                            onClick={() =>
-                                                                saveChanges()
-                                                            }
-                                                            id="saveBtn"
-                                                        >
-                                                            Update
-                                                        </Button>
-                                                        <Button
-                                                            variant="outlined"
-                                                            onClick={() =>
-                                                                cancelChanges(
-                                                                    row.index
-                                                                )
-                                                            }
-                                                            id="updateCancelBtn"
-                                                            style={{
-                                                                marginLeft:
-                                                                    "20px",
-                                                            }}
-                                                        >
-                                                            Cancel
-                                                        </Button>
-                                                    </div>
-                                                ) : (
-                                                    <Button
-                                                        variant="outlined"
-                                                        onClick={() =>
-                                                            editBtnClick(
+                                            ) : column.field === "picture" ? ( // 프로필 사진
+                                                <img
+                                                    src={row.picture}
+                                                    alt="사용자 프로필 사진"
+                                                    style={{
+                                                        width: "50px",
+                                                        height: "50px",
+                                                    }}
+                                                />
+                                            ) : column.field !== "editBtn" ? ( //수정버튼이 눌린 상태면 컬럼 필드 대신 텍스트 필드 보여줌
+                                                rowIndex === row.index ? (
+                                                    <TextField
+                                                        value={
+                                                            row[column.field]
+                                                        }
+                                                        onChange={(e) =>
+                                                            contactChange(
                                                                 row.index,
-                                                                row.name,
-                                                                row.phoneNumber,
-                                                                row.group
+                                                                column.field,
+                                                                e.target.value
                                                             )
                                                         }
-                                                        id="editBtn"
-                                                    >
-                                                        수정
-                                                    </Button>
-                                                )}
-                                            </div>
-                                        )}
-                                    </TableCell>
-                                ))}
-                            </TableRow>
-                        ))}
-                    </TableBody>
+                                                        style={{
+                                                            width: "150px",
+                                                        }}
+                                                    />
+                                                ) : (
+                                                    row[column.field] // 컬럼 필드
+                                                )
+                                            ) : (
+                                                <div>
+                                                    {rowIndex === row.index ? ( // 수정 중일 때만 저장 버튼과 취소 버튼 렌더링
+                                                        <div>
+                                                            <Button
+                                                                variant="outlined"
+                                                                onClick={() =>
+                                                                    saveChanges()
+                                                                }
+                                                                id="saveBtn"
+                                                            >
+                                                                Update
+                                                            </Button>
+                                                            <Button
+                                                                variant="outlined"
+                                                                onClick={() =>
+                                                                    cancelChanges(
+                                                                        row.index
+                                                                    )
+                                                                }
+                                                                id="updateCancelBtn"
+                                                                style={{
+                                                                    marginLeft:
+                                                                        "20px",
+                                                                }}
+                                                            >
+                                                                Cancel
+                                                            </Button>
+                                                        </div>
+                                                    ) : (
+                                                        <Button
+                                                            variant="outlined"
+                                                            onClick={() =>
+                                                                editBtnClick(
+                                                                    row.index,
+                                                                    row.name,
+                                                                    row.phoneNumber,
+                                                                    row.group
+                                                                )
+                                                            }
+                                                            id="editBtn"
+                                                        >
+                                                            수정
+                                                        </Button>
+                                                    )}
+                                                </div>
+                                            )}
+                                        </TableCell>
+                                    ))}
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    ) : (
+                        <TableBody></TableBody>
+                    )}
                 </Table>
                 {/*페이징바*/}
                 {/*전화번호 추가 다이얼로그*/}
@@ -503,9 +613,10 @@ export default function ContactsList({
                                         variant="outlined"
                                         placeholder="Input Value"
                                         value={phoneNumber}
-                                        onChange={(e) =>
-                                            setPhoneNumber(e.target.value)
-                                        }
+                                        onChange={handleChange}
+                                        error={!!error}
+                                        helperText={error}
+                                        inputProps={{ inputMode: "numeric" }}
                                     />
                                 </Grid>
                                 <Grid item>
@@ -524,13 +635,13 @@ export default function ContactsList({
                                                 }
                                                 label="그룹"
                                             >
-                                                {menuItems.map(
-                                                    (item, index) => (
+                                                {groupList.map(
+                                                    (groupList, index) => (
                                                         <MenuItem
                                                             key={index}
-                                                            value={item}
+                                                            value={groupList}
                                                         >
-                                                            {item}
+                                                            {groupList}
                                                         </MenuItem>
                                                     )
                                                 )}
