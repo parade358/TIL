@@ -1,0 +1,7 @@
+C:\Users\Lenovo\source\repos\FirstAPI\obj\Debug\netcoreapp3.1\FirstAPI.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Lenovo\source\repos\FirstAPI\obj\Debug\netcoreapp3.1\FirstAPI.AssemblyInfoInputs.cache
+C:\Users\Lenovo\source\repos\FirstAPI\obj\Debug\netcoreapp3.1\FirstAPI.AssemblyInfo.cs
+C:\Users\Lenovo\source\repos\FirstAPI\obj\Debug\netcoreapp3.1\FirstAPI.csproj.CoreCompileInputs.cache
+C:\Users\Lenovo\source\repos\FirstAPI\obj\Debug\netcoreapp3.1\FirstAPI.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Lenovo\source\repos\FirstAPI\obj\Debug\netcoreapp3.1\FirstAPI.RazorAssemblyInfo.cache
+C:\Users\Lenovo\source\repos\FirstAPI\obj\Debug\netcoreapp3.1\FirstAPI.RazorAssemblyInfo.cs
