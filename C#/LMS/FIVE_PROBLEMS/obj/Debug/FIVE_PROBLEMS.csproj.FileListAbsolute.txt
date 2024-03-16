@@ -1,0 +1,7 @@
+C:\dev\GitHub\TIL\C#\LMS\FIVE_PROBLEMS\bin\Debug\FIVE_PROBLEMS.exe.config
+C:\dev\GitHub\TIL\C#\LMS\FIVE_PROBLEMS\bin\Debug\FIVE_PROBLEMS.exe
+C:\dev\GitHub\TIL\C#\LMS\FIVE_PROBLEMS\bin\Debug\FIVE_PROBLEMS.pdb
+C:\dev\GitHub\TIL\C#\LMS\FIVE_PROBLEMS\obj\Debug\FIVE_PROBLEMS.csproj.AssemblyReference.cache
+C:\dev\GitHub\TIL\C#\LMS\FIVE_PROBLEMS\obj\Debug\FIVE_PROBLEMS.csproj.CoreCompileInputs.cache
+C:\dev\GitHub\TIL\C#\LMS\FIVE_PROBLEMS\obj\Debug\FIVE_PROBLEMS.exe
+C:\dev\GitHub\TIL\C#\LMS\FIVE_PROBLEMS\obj\Debug\FIVE_PROBLEMS.pdb
