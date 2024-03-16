@@ -3,16 +3,16 @@
   "WorkspaceRootPath": "C:\\dev\\GitHub\\TIL\\C#\\LMS\\C#_FIVE_PROBLEM\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\dev\\GitHub\\TIL\\C#\\LMS\\C#_FIVE_PROBLEM\\DiffDateTime.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:DiffDateTime.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E8C26FED-9DD1-48BF-B6F9-E4F6CCBE9771}|C#_FIVE_PROBLEM.csproj|c:\\dev\\github\\til\\c#\\lms\\c#_five_problem\\diffdatetime.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E8C26FED-9DD1-48BF-B6F9-E4F6CCBE9771}|C#_FIVE_PROBLEM.csproj|solutionrelative:diffdatetime.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\dev\\GitHub\\TIL\\C#\\LMS\\C#_FIVE_PROBLEM\\Interface1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Interface1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E8C26FED-9DD1-48BF-B6F9-E4F6CCBE9771}|C#_FIVE_PROBLEM.csproj|C:\\dev\\GitHub\\TIL\\C#\\LMS\\C#_FIVE_PROBLEM\\Interface1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E8C26FED-9DD1-48BF-B6F9-E4F6CCBE9771}|C#_FIVE_PROBLEM.csproj|solutionrelative:Interface1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\dev\\GitHub\\TIL\\C#\\LMS\\C#_FIVE_PROBLEM\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E8C26FED-9DD1-48BF-B6F9-E4F6CCBE9771}|C#_FIVE_PROBLEM.csproj|C:\\dev\\GitHub\\TIL\\C#\\LMS\\C#_FIVE_PROBLEM\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E8C26FED-9DD1-48BF-B6F9-E4F6CCBE9771}|C#_FIVE_PROBLEM.csproj|solutionrelative:Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,8 +34,7 @@
               "RelativeToolTip": "Interface1.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-15T07:06:15.565Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-15T07:06:15.565Z"
             },
             {
               "$type": "Document",
@@ -45,7 +44,7 @@
               "RelativeDocumentMoniker": "DiffDateTime.cs",
               "ToolTip": "C:\\dev\\GitHub\\TIL\\C#\\LMS\\C#_FIVE_PROBLEM\\DiffDateTime.cs",
               "RelativeToolTip": "DiffDateTime.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAIAAAAZAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAA0AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-03-15T07:05:03.515Z",
               "EditorCaption": ""
@@ -60,8 +59,7 @@
               "RelativeToolTip": "Program.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAANgAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-15T07:04:12.011Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-15T07:04:12.011Z"
             }
           ]
         }
