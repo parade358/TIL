@@ -1,0 +1,10 @@
+C:\Users\Lenovo\source\repos\WinformCalculator\bin\Debug\WinformCalculator.exe.config
+C:\Users\Lenovo\source\repos\WinformCalculator\bin\Debug\WinformCalculator.exe
+C:\Users\Lenovo\source\repos\WinformCalculator\bin\Debug\WinformCalculator.pdb
+C:\Users\Lenovo\source\repos\WinformCalculator\obj\Debug\WinformCalculator.csproj.AssemblyReference.cache
+C:\Users\Lenovo\source\repos\WinformCalculator\obj\Debug\WinformCalculator.Form1.resources
+C:\Users\Lenovo\source\repos\WinformCalculator\obj\Debug\WinformCalculator.Properties.Resources.resources
+C:\Users\Lenovo\source\repos\WinformCalculator\obj\Debug\WinformCalculator.csproj.GenerateResource.cache
+C:\Users\Lenovo\source\repos\WinformCalculator\obj\Debug\WinformCalculator.csproj.CoreCompileInputs.cache
+C:\Users\Lenovo\source\repos\WinformCalculator\obj\Debug\WinformCalculator.exe
+C:\Users\Lenovo\source\repos\WinformCalculator\obj\Debug\WinformCalculator.pdb
