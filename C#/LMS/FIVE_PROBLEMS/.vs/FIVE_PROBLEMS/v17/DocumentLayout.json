@@ -7,11 +7,11 @@
       "RelativeMoniker": "D:0:0:{1AB76956-DBE9-4485-B885-09772E8C2B38}|FIVE_PROBLEMS.csproj|solutionrelative:__itrfdiffdatetime.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1AB76956-DBE9-4485-B885-09772E8C2B38}|FIVE_PROBLEMS.csproj|c:\\dev\\github\\til\\c#\\lms\\five_problems\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{1AB76956-DBE9-4485-B885-09772E8C2B38}|FIVE_PROBLEMS.csproj|C:\\dev\\GitHub\\TIL\\C#\\LMS\\FIVE_PROBLEMS\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1AB76956-DBE9-4485-B885-09772E8C2B38}|FIVE_PROBLEMS.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1AB76956-DBE9-4485-B885-09772E8C2B38}|FIVE_PROBLEMS.csproj|c:\\dev\\github\\til\\c#\\lms\\five_problems\\diffdatetime.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{1AB76956-DBE9-4485-B885-09772E8C2B38}|FIVE_PROBLEMS.csproj|C:\\dev\\GitHub\\TIL\\C#\\LMS\\FIVE_PROBLEMS\\diffdatetime.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1AB76956-DBE9-4485-B885-09772E8C2B38}|FIVE_PROBLEMS.csproj|solutionrelative:diffdatetime.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -47,8 +47,7 @@
               "RelativeToolTip": "DiffDateTime.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAfAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-16T02:30:42.29Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-16T02:30:42.29Z"
             },
             {
               "$type": "Document",
@@ -60,8 +59,7 @@
               "RelativeToolTip": "Program.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAMAAAAAgAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-15T07:33:44.784Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-15T07:33:44.784Z"
             }
           ]
         }
