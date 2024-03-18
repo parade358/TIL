@@ -28,33 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.name = new System.Windows.Forms.TextBox();
+            this.nameTextBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.passwordTextBox = new System.Windows.Forms.TextBox();
-            this.id = new System.Windows.Forms.TextBox();
+            this.idTextBox = new System.Windows.Forms.TextBox();
             this.addUserBtn = new System.Windows.Forms.Button();
             this.closeBtn = new System.Windows.Forms.Button();
             this.email = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.emailTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.codeTextBox = new System.Windows.Forms.TextBox();
+            this.checkIdBtn = new System.Windows.Forms.Button();
+            this.emailCheckBtn = new System.Windows.Forms.Button();
+            this.codeCheckBtn = new System.Windows.Forms.Button();
             this.passwordStatusLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // name
+            // nameTextBox
             // 
-            this.name.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.name.Font = new System.Drawing.Font("굴림", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.name.Location = new System.Drawing.Point(324, 262);
-            this.name.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.name.Name = "name";
-            this.name.Size = new System.Drawing.Size(447, 39);
-            this.name.TabIndex = 13;
+            this.nameTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.nameTextBox.Font = new System.Drawing.Font("굴림", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.nameTextBox.Location = new System.Drawing.Point(324, 262);
+            this.nameTextBox.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.nameTextBox.Name = "nameTextBox";
+            this.nameTextBox.Size = new System.Drawing.Size(447, 39);
+            this.nameTextBox.TabIndex = 13;
             // 
             // label4
             // 
@@ -101,16 +101,16 @@
             this.passwordTextBox.TabIndex = 9;
             this.passwordTextBox.TextChanged += new System.EventHandler(this.password_TextChanged);
             // 
-            // id
+            // idTextBox
             // 
-            this.id.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.id.Font = new System.Drawing.Font("굴림", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.id.ForeColor = System.Drawing.Color.Black;
-            this.id.Location = new System.Drawing.Point(324, 67);
-            this.id.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.id.Name = "id";
-            this.id.Size = new System.Drawing.Size(447, 39);
-            this.id.TabIndex = 8;
+            this.idTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.idTextBox.Font = new System.Drawing.Font("굴림", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.idTextBox.ForeColor = System.Drawing.Color.Black;
+            this.idTextBox.Location = new System.Drawing.Point(324, 67);
+            this.idTextBox.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.idTextBox.Name = "idTextBox";
+            this.idTextBox.Size = new System.Drawing.Size(447, 39);
+            this.idTextBox.TabIndex = 8;
             // 
             // addUserBtn
             // 
@@ -119,7 +119,7 @@
             this.addUserBtn.FlatAppearance.BorderSize = 0;
             this.addUserBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.addUserBtn.Font = new System.Drawing.Font("굴림", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.addUserBtn.Location = new System.Drawing.Point(127, 607);
+            this.addUserBtn.Location = new System.Drawing.Point(293, 583);
             this.addUserBtn.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.addUserBtn.Name = "addUserBtn";
             this.addUserBtn.Size = new System.Drawing.Size(271, 101);
@@ -135,7 +135,7 @@
             this.closeBtn.FlatAppearance.BorderSize = 0;
             this.closeBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.closeBtn.Font = new System.Drawing.Font("굴림", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.closeBtn.Location = new System.Drawing.Point(488, 607);
+            this.closeBtn.Location = new System.Drawing.Point(654, 583);
             this.closeBtn.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.closeBtn.Name = "closeBtn";
             this.closeBtn.Size = new System.Drawing.Size(271, 101);
@@ -155,15 +155,15 @@
             this.email.TabIndex = 16;
             this.email.Text = "E-MAIL";
             // 
-            // textBox1
+            // emailTextBox
             // 
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox1.Font = new System.Drawing.Font("굴림", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.textBox1.Location = new System.Drawing.Point(324, 360);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(447, 39);
-            this.textBox1.TabIndex = 17;
+            this.emailTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.emailTextBox.Font = new System.Drawing.Font("굴림", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.emailTextBox.Location = new System.Drawing.Point(324, 360);
+            this.emailTextBox.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.emailTextBox.Name = "emailTextBox";
+            this.emailTextBox.Size = new System.Drawing.Size(447, 39);
+            this.emailTextBox.TabIndex = 17;
             // 
             // label1
             // 
@@ -176,60 +176,63 @@
             this.label1.TabIndex = 18;
             this.label1.Text = "인증번호";
             // 
-            // textBox2
+            // codeTextBox
             // 
-            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox2.Font = new System.Drawing.Font("굴림", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.textBox2.Location = new System.Drawing.Point(324, 456);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(447, 39);
-            this.textBox2.TabIndex = 19;
+            this.codeTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.codeTextBox.Font = new System.Drawing.Font("굴림", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.codeTextBox.Location = new System.Drawing.Point(324, 456);
+            this.codeTextBox.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.codeTextBox.Name = "codeTextBox";
+            this.codeTextBox.Size = new System.Drawing.Size(447, 39);
+            this.codeTextBox.TabIndex = 19;
             // 
-            // button1
+            // checkIdBtn
             // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
-            this.button1.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("굴림", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button1.Location = new System.Drawing.Point(814, 67);
-            this.button1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(197, 39);
-            this.button1.TabIndex = 20;
-            this.button1.Text = "중복확인";
-            this.button1.UseVisualStyleBackColor = false;
+            this.checkIdBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
+            this.checkIdBtn.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.checkIdBtn.FlatAppearance.BorderSize = 0;
+            this.checkIdBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.checkIdBtn.Font = new System.Drawing.Font("굴림", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.checkIdBtn.Location = new System.Drawing.Point(814, 67);
+            this.checkIdBtn.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.checkIdBtn.Name = "checkIdBtn";
+            this.checkIdBtn.Size = new System.Drawing.Size(197, 39);
+            this.checkIdBtn.TabIndex = 20;
+            this.checkIdBtn.Text = "중복확인";
+            this.checkIdBtn.UseVisualStyleBackColor = false;
+            this.checkIdBtn.Click += new System.EventHandler(this.checkIdBtn_Click);
             // 
-            // button2
+            // emailCheckBtn
             // 
-            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
-            this.button2.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("굴림", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button2.Location = new System.Drawing.Point(814, 362);
-            this.button2.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(197, 37);
-            this.button2.TabIndex = 21;
-            this.button2.Text = "전송";
-            this.button2.UseVisualStyleBackColor = false;
+            this.emailCheckBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
+            this.emailCheckBtn.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.emailCheckBtn.FlatAppearance.BorderSize = 0;
+            this.emailCheckBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.emailCheckBtn.Font = new System.Drawing.Font("굴림", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.emailCheckBtn.Location = new System.Drawing.Point(814, 362);
+            this.emailCheckBtn.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.emailCheckBtn.Name = "emailCheckBtn";
+            this.emailCheckBtn.Size = new System.Drawing.Size(197, 37);
+            this.emailCheckBtn.TabIndex = 21;
+            this.emailCheckBtn.Text = "전송";
+            this.emailCheckBtn.UseVisualStyleBackColor = false;
+            this.emailCheckBtn.Click += new System.EventHandler(this.emailCheckBtn_Click);
             // 
-            // button3
+            // codeCheckBtn
             // 
-            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
-            this.button3.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Font = new System.Drawing.Font("굴림", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button3.Location = new System.Drawing.Point(814, 459);
-            this.button3.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(197, 36);
-            this.button3.TabIndex = 22;
-            this.button3.Text = "인증";
-            this.button3.UseVisualStyleBackColor = false;
+            this.codeCheckBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
+            this.codeCheckBtn.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.codeCheckBtn.FlatAppearance.BorderSize = 0;
+            this.codeCheckBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.codeCheckBtn.Font = new System.Drawing.Font("굴림", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.codeCheckBtn.Location = new System.Drawing.Point(814, 459);
+            this.codeCheckBtn.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.codeCheckBtn.Name = "codeCheckBtn";
+            this.codeCheckBtn.Size = new System.Drawing.Size(197, 36);
+            this.codeCheckBtn.TabIndex = 22;
+            this.codeCheckBtn.Text = "인증";
+            this.codeCheckBtn.UseVisualStyleBackColor = false;
+            this.codeCheckBtn.Click += new System.EventHandler(this.codeCheckBtn_Click);
             // 
             // passwordStatusLabel
             // 
@@ -248,21 +251,21 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1180, 772);
             this.Controls.Add(this.passwordStatusLabel);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.codeCheckBtn);
+            this.Controls.Add(this.emailCheckBtn);
+            this.Controls.Add(this.checkIdBtn);
+            this.Controls.Add(this.codeTextBox);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.emailTextBox);
             this.Controls.Add(this.email);
             this.Controls.Add(this.closeBtn);
             this.Controls.Add(this.addUserBtn);
-            this.Controls.Add(this.name);
+            this.Controls.Add(this.nameTextBox);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.passwordTextBox);
-            this.Controls.Add(this.id);
+            this.Controls.Add(this.idTextBox);
             this.Font = new System.Drawing.Font("굴림", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.Name = "frmUserAdd";
@@ -275,21 +278,21 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox name;
+        private System.Windows.Forms.TextBox nameTextBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox passwordTextBox;
-        private System.Windows.Forms.TextBox id;
+        private System.Windows.Forms.TextBox idTextBox;
         private System.Windows.Forms.Button addUserBtn;
         private System.Windows.Forms.Button closeBtn;
         private System.Windows.Forms.Label email;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox emailTextBox;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.TextBox codeTextBox;
+        private System.Windows.Forms.Button checkIdBtn;
+        private System.Windows.Forms.Button emailCheckBtn;
+        private System.Windows.Forms.Button codeCheckBtn;
         private System.Windows.Forms.Label passwordStatusLabel;
     }
 }
