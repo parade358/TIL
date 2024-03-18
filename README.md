@@ -29,7 +29,7 @@
 
 [WinformCalculator](https://github.com/parade358/TIL/tree/main/C%23/LMS/WinformCalculator)
 
-[Login_Project] (https://github.com/parade358/TIL/tree/main/C%23/LMS/Login_Project)
+[Login_Project](https://github.com/parade358/TIL/tree/main/C%23/LMS/Login_Project)
 
 ### MSSQL
 [What_is_MSSQL](https://github.com/parade358/TIL/blob/main/MSSQL/What_is_MSSQL.md)
@@ -45,7 +45,7 @@
 
 [function](https://github.com/parade358/TIL/blob/main/React/function.md)
 
-[React_Hook] (https://github.com/parade358/TIL/blob/main/React/React_Hook.md)
+[React_Hook](https://github.com/parade358/TIL/blob/main/React/React_Hook.md)
 
 [React_Practice](https://github.com/parade358/TIL/tree/main/React/project/React_Practice/my-app)
 
