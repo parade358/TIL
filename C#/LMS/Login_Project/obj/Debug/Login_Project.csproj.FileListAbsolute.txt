@@ -1,0 +1,14 @@
+C:\dev\GitHub\TIL\C#\LMS\Login_Project\bin\Debug\Login_Project.exe.config
+C:\dev\GitHub\TIL\C#\LMS\Login_Project\bin\Debug\Login_Project.exe
+C:\dev\GitHub\TIL\C#\LMS\Login_Project\bin\Debug\Login_Project.pdb
+C:\dev\GitHub\TIL\C#\LMS\Login_Project\obj\Debug\Login_Project.csproj.AssemblyReference.cache
+C:\dev\GitHub\TIL\C#\LMS\Login_Project\obj\Debug\Login_Project.Properties.Resources.resources
+C:\dev\GitHub\TIL\C#\LMS\Login_Project\obj\Debug\Login_Project.csproj.GenerateResource.cache
+C:\dev\GitHub\TIL\C#\LMS\Login_Project\obj\Debug\Login_Project.csproj.CoreCompileInputs.cache
+C:\dev\GitHub\TIL\C#\LMS\Login_Project\obj\Debug\Login_Project.exe
+C:\dev\GitHub\TIL\C#\LMS\Login_Project\obj\Debug\Login_Project.pdb
+C:\dev\GitHub\TIL\C#\LMS\Login_Project\obj\Debug\Login_Project.frmLogin.resources
+C:\dev\GitHub\TIL\C#\LMS\Login_Project\obj\Debug\Login_Project.frmUserAdd.resources
+C:\dev\GitHub\TIL\C#\LMS\Login_Project\obj\Debug\Login_Project.frmUserDelete.resources
+C:\dev\GitHub\TIL\C#\LMS\Login_Project\obj\Debug\Login_Project.frmUserUpdate.resources
+C:\dev\GitHub\TIL\C#\LMS\Login_Project\obj\Debug\Login_Project.frmUserInfoFind.resources
