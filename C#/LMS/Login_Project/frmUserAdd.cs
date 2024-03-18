@@ -21,8 +21,8 @@ namespace Login_Project
         }
 
         public static Random ranNum = new Random();
-
         public static int checkNum = ranNum.Next(10000000, 99999999);
+
 
         private bool IsValidEmail(string email)
         {
@@ -50,18 +50,14 @@ namespace Login_Project
             }
         }
 
-
         private void password_TextChanged(object sender, EventArgs e)
         {
-            if (passwordTextBox.Text.Length >= 8)
+            bool isValidPassword = Password.Validated(passwordTextBox.Text);
+
+            if (isValidPassword)
             {
                 passwordStatusLabel.Text = "사용 가능한 비밀번호입니다.";
                 passwordStatusLabel.ForeColor = System.Drawing.Color.Green;
-            }
-            else if(passwordTextBox.Text.Length <1)
-            {
-                passwordStatusLabel.Text = "비밀번호를 입력해주세요.";
-                passwordStatusLabel.ForeColor = System.Drawing.Color.Black;
             }
             else
             {
@@ -69,7 +65,6 @@ namespace Login_Project
                 passwordStatusLabel.ForeColor = System.Drawing.Color.Red;
             }
         }
-
 
         private void emailCheckBtn_Click(object sender, EventArgs e)
         {
@@ -143,9 +138,10 @@ namespace Login_Project
                 MessageBox.Show("인증 번호가 다릅니다.", "인증 실패");
             }
         }
+
         private void closeBtn_Click(object sender, EventArgs e)
         {
-
+           this.Close();
         }
 
         private void addUserBtn_Click(object sender, EventArgs e)

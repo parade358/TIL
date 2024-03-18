@@ -8,10 +8,9 @@ namespace Login_Project
 {
     internal class Password
     {
-        static bool Validated(string password)
+        public static bool Validated(string password)
         {
-            // 비밀번호 유효성을 검사하는 로직을 구현합니다.
-            // 예를 들어, 여기서는 비밀번호가 8자 이상이어야 유효하다고 가정합니다.
+
             if (password.Length >= 8)
             {
                 return true; // 유효한 경우 true를 반환합니다.

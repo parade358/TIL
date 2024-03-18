@@ -3,12 +3,16 @@
   "WorkspaceRootPath": "C:\\dev\\GitHub\\TIL\\C#\\LMS\\Login_Project\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{6C9A906F-893B-4882-96D4-E7166FE503F7}|Login_Project.csproj|c:\\dev\\github\\til\\c#\\lms\\login_project\\frmlogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{6C9A906F-893B-4882-96D4-E7166FE503F7}|Login_Project.csproj|solutionrelative:frmlogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{6C9A906F-893B-4882-96D4-E7166FE503F7}|Login_Project.csproj|c:\\dev\\github\\til\\c#\\lms\\login_project\\frmuseradd.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6C9A906F-893B-4882-96D4-E7166FE503F7}|Login_Project.csproj|solutionrelative:frmuseradd.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6C9A906F-893B-4882-96D4-E7166FE503F7}|Login_Project.csproj|c:\\dev\\github\\til\\c#\\lms\\login_project\\frmuseradd.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{6C9A906F-893B-4882-96D4-E7166FE503F7}|Login_Project.csproj|solutionrelative:frmuseradd.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{6C9A906F-893B-4882-96D4-E7166FE503F7}|Login_Project.csproj|c:\\dev\\github\\til\\c#\\lms\\login_project\\frmlogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C9A906F-893B-4882-96D4-E7166FE503F7}|Login_Project.csproj|solutionrelative:frmlogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,25 +26,38 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "frmUserAdd.cs [\uB514\uC790\uC778]",
-              "DocumentMoniker": "C:\\dev\\GitHub\\TIL\\C#\\LMS\\Login_Project\\frmUserAdd.cs",
-              "RelativeDocumentMoniker": "frmUserAdd.cs",
-              "ToolTip": "C:\\dev\\GitHub\\TIL\\C#\\LMS\\Login_Project\\frmUserAdd.cs [\uB514\uC790\uC778]",
-              "RelativeToolTip": "frmUserAdd.cs [\uB514\uC790\uC778]",
+              "DocumentIndex": 2,
+              "Title": "frmLogin.cs",
+              "DocumentMoniker": "C:\\dev\\GitHub\\TIL\\C#\\LMS\\Login_Project\\frmLogin.cs",
+              "RelativeDocumentMoniker": "frmLogin.cs",
+              "ToolTip": "C:\\dev\\GitHub\\TIL\\C#\\LMS\\Login_Project\\frmLogin.cs",
+              "RelativeToolTip": "frmLogin.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAABFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-18T07:50:49.332Z",
-              "EditorCaption": " [\uB514\uC790\uC778]"
+              "WhenOpened": "2024-03-18T08:40:17.428Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "frmLogin.cs [\uB514\uC790\uC778]",
+              "DocumentMoniker": "C:\\dev\\GitHub\\TIL\\C#\\LMS\\Login_Project\\frmLogin.cs",
+              "RelativeDocumentMoniker": "frmLogin.cs",
+              "ToolTip": "C:\\dev\\GitHub\\TIL\\C#\\LMS\\Login_Project\\frmLogin.cs [\uB514\uC790\uC778]",
+              "RelativeToolTip": "frmLogin.cs [\uB514\uC790\uC778]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-18T08:40:12.411Z",
+              "EditorCaption": " [\uB514\uC790\uC778]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "frmUserAdd.cs",
               "DocumentMoniker": "C:\\dev\\GitHub\\TIL\\C#\\LMS\\Login_Project\\frmUserAdd.cs",
               "RelativeDocumentMoniker": "frmUserAdd.cs",
               "ToolTip": "C:\\dev\\GitHub\\TIL\\C#\\LMS\\Login_Project\\frmUserAdd.cs",
               "RelativeToolTip": "frmUserAdd.cs",
-              "ViewState": "AQIAAHoAAAAAAAAAAAAowIoAAAAUAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-03-18T06:59:10.457Z",
               "EditorCaption": ""
