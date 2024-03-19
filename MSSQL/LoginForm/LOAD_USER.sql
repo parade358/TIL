@@ -2,19 +2,12 @@ CREATE PROCEDURE UTB_EMPUSER_L
 (
     @ID VARCHAR(50),
     @PW VARCHAR(50),
-    @UserName VARCHAR(50) OUTPUT,
-    @Result INT OUTPUT
+    @UserName VARCHAR(50) OUTPUT
 )
 AS
 BEGIN
     IF EXISTS (SELECT 1 FROM UTB_EMPUSER WHERE ID = @ID AND PW = @PW)
     BEGIN
         SELECT @UserName = NAME FROM UTB_EMPUSER WHERE ID = @ID;
-
-        SET @Result = 1;
-    END
-    ELSE
-    BEGIN
-        SET @Result = -1;
     END
 END
