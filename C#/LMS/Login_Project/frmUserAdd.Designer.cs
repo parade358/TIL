@@ -55,6 +55,7 @@
             this.nameTextBox.Name = "nameTextBox";
             this.nameTextBox.Size = new System.Drawing.Size(447, 39);
             this.nameTextBox.TabIndex = 13;
+            this.nameTextBox.TextChanged += new System.EventHandler(this.nameTextBox_TextChanged);
             // 
             // label4
             // 
@@ -66,6 +67,7 @@
             this.label4.Size = new System.Drawing.Size(91, 27);
             this.label4.TabIndex = 12;
             this.label4.Text = "NAME";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // label3
             // 
@@ -77,6 +79,7 @@
             this.label3.Size = new System.Drawing.Size(55, 27);
             this.label3.TabIndex = 11;
             this.label3.Text = "PW";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // label2
             // 
@@ -88,6 +91,7 @@
             this.label2.Size = new System.Drawing.Size(40, 27);
             this.label2.TabIndex = 10;
             this.label2.Text = "ID";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // passwordTextBox
             // 
@@ -111,6 +115,7 @@
             this.idTextBox.Name = "idTextBox";
             this.idTextBox.Size = new System.Drawing.Size(447, 39);
             this.idTextBox.TabIndex = 8;
+            this.idTextBox.TextChanged += new System.EventHandler(this.idTextBox_TextChanged);
             // 
             // addUserBtn
             // 
