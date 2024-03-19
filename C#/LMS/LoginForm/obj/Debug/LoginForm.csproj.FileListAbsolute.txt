@@ -1,0 +1,12 @@
+C:\dev\GitHub\TIL\C#\LMS\LoginForm\bin\Debug\LoginForm.exe.config
+C:\dev\GitHub\TIL\C#\LMS\LoginForm\bin\Debug\LoginForm.exe
+C:\dev\GitHub\TIL\C#\LMS\LoginForm\bin\Debug\LoginForm.pdb
+C:\dev\GitHub\TIL\C#\LMS\LoginForm\obj\Debug\LoginForm.csproj.AssemblyReference.cache
+C:\dev\GitHub\TIL\C#\LMS\LoginForm\obj\Debug\LoginForm.frmLogin.resources
+C:\dev\GitHub\TIL\C#\LMS\LoginForm\obj\Debug\LoginForm.frmUserAdd.resources
+C:\dev\GitHub\TIL\C#\LMS\LoginForm\obj\Debug\LoginForm.Properties.Resources.resources
+C:\dev\GitHub\TIL\C#\LMS\LoginForm\obj\Debug\LoginForm.csproj.GenerateResource.cache
+C:\dev\GitHub\TIL\C#\LMS\LoginForm\obj\Debug\LoginForm.csproj.CoreCompileInputs.cache
+C:\dev\GitHub\TIL\C#\LMS\LoginForm\obj\Debug\LoginForm.exe
+C:\dev\GitHub\TIL\C#\LMS\LoginForm\obj\Debug\LoginForm.pdb
+C:\dev\GitHub\TIL\C#\LMS\LoginForm\obj\Debug\LoginForm.Forms.frmUpdatePw.resources
