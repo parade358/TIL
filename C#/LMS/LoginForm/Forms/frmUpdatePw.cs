@@ -49,9 +49,9 @@ namespace LoginForm.Forms
 
             String newPassword = password.Text;
 
-            UserImpl userImple = new UserImpl();
+            User user = new UserImpl();
 
-            int result = userImple.Update(userId, newPassword, databaseInfo);
+            int result = user.Update(userId, newPassword, databaseInfo);
 
             if (result == 1)
             {
