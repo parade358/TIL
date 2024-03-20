@@ -1,0 +1,10 @@
+C:\dev\GitHub\TIL\C#\LMS\Calculator\bin\Debug\Calculator.exe.config
+C:\dev\GitHub\TIL\C#\LMS\Calculator\bin\Debug\Calculator.exe
+C:\dev\GitHub\TIL\C#\LMS\Calculator\bin\Debug\Calculator.pdb
+C:\dev\GitHub\TIL\C#\LMS\Calculator\obj\Debug\Calculator.csproj.AssemblyReference.cache
+C:\dev\GitHub\TIL\C#\LMS\Calculator\obj\Debug\Calculator.Properties.Resources.resources
+C:\dev\GitHub\TIL\C#\LMS\Calculator\obj\Debug\Calculator.csproj.GenerateResource.cache
+C:\dev\GitHub\TIL\C#\LMS\Calculator\obj\Debug\Calculator.csproj.CoreCompileInputs.cache
+C:\dev\GitHub\TIL\C#\LMS\Calculator\obj\Debug\Calculator.exe
+C:\dev\GitHub\TIL\C#\LMS\Calculator\obj\Debug\Calculator.pdb
+C:\dev\GitHub\TIL\C#\LMS\Calculator\obj\Debug\Calculator.frmCalculator.resources
