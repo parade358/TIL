@@ -1,0 +1,25 @@
+CREATE PROCEDURE UTB_EMPUSER_U
+(
+    @P_ID VARCHAR(50),
+    @P_NEW_PW VARCHAR(50),
+    @Result INT OUTPUT
+)
+AS
+BEGIN
+    IF EXISTS (SELECT 1 FROM UTB_EMPUSER WITH(NOLOCK) WHERE ID = @P_ID)
+    BEGIN
+		IF EXISTS (SELECT 1 FROM UTB_EMPUSER WITH(NOLOCK) WHERE ID = @P_ID AND PW = @P_NEW_PW)
+        BEGIN
+            SET @Result = 0;
+        END
+        ELSE
+        BEGIN
+            UPDATE UTB_EMPUSER SET PW = @P_NEW_PW WHERE ID = @P_ID;
+            SET @Result = 1;
+        END
+    END
+	ELSE
+	BEGIN
+        SET @Result = -1;
+	END
+END

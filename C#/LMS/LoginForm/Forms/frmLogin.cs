@@ -24,7 +24,7 @@ namespace LoginForm
             // 아무런 값도 없이 “로그인” 버튼을 클릭했을 때 “ID 또는 PW가 입력되지 않았습니다”라고 알려준다.
             if (userId == "" || userPw == "")
             {
-                MessageBox.Show("ID 또는 PW가 입력되지 않았습니다", "로그인 오류");
+                MessageBox.Show("ID 또는 PW가 입력되지 않았습니다", "알림");
                 return;
             }
 
@@ -34,7 +34,7 @@ namespace LoginForm
 
             if (result != "")
             {
-                MessageBox.Show($"{result}님, 환영합니다.", "로그인 성공");
+                MessageBox.Show($"{result}님, 환영합니다.", "알림");
 
                 name.Text = result;
 
@@ -44,7 +44,7 @@ namespace LoginForm
             }
             else
             {
-                MessageBox.Show("아이디 또는 비밀번호가 잘못되었습니다.", "로그인 오류");
+                MessageBox.Show("아이디 또는 비밀번호가 잘못되었습니다.", "알림");
             }
 
         }

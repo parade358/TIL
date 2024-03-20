@@ -17,30 +17,31 @@ namespace LoginForm.Forms
             this.databaseInfo = databaseInfo;
         }
 
-
-        private void passwordCheck_TextChanged(object sender, EventArgs e)
+        private new void Validated(object sender, EventArgs e)
         {
 
-            passwordRule = Password.passwordMatch(password.Text, passwordCheck.Text);
+            passwordRule = Password.Validated(password.Text);
+            
 
-            if (passwordRule)
+            if (!passwordRule)
             {
-                pwCheck.Text = "비밀번호가 일치합니다.";
-                pwCheck.ForeColor = System.Drawing.Color.Green;
+                passwodCheck.Text = "비밀번호는 8자 이상이어야 합니다.";
+                passwodCheck.ForeColor = System.Drawing.Color.Red;
             }
             else
             {
-                pwCheck.Text = "비밀번호가 일치하지 않습니다.";
-                pwCheck.ForeColor = System.Drawing.Color.Red;
+                passwodCheck.Text = "사용 가능한 비밀번호입니다.";
+                passwodCheck.ForeColor = System.Drawing.Color.Green;
             }
         }
+
 
         private void saveBtn_Click(object sender, EventArgs e)
         {
 
-            passwordRule = Password.updatePasswordCheck(password.Text, passwordCheck.Text);
+            passwordRule = Password.Validated(password.Text);
 
-            if (passwordRule)
+            if (!passwordRule || password.Text == "")
             {
                 MessageBox.Show("비밀번호를 확인해 주세요.", "알림");
                 return;
@@ -56,6 +57,9 @@ namespace LoginForm.Forms
             {
                 MessageBox.Show("비밀번호가 성공적으로 변경되었습니다.", "알림");
                 Close();
+            }else if(result == 0) 
+            {
+                MessageBox.Show("비밀번호가 기존과 동일합니다.", "알림");
             }
             else
             {
@@ -64,21 +68,6 @@ namespace LoginForm.Forms
 
         }
 
-        private void password_TextChanged_1(object sender, EventArgs e)
-        {
-            passwordRule = Password.passwordRule(password.Text);
-
-            if (!passwordRule)
-            {
-                pwCheck.Text = "비밀번호는 8자 이상이어야 합니다.";
-                pwCheck.ForeColor = System.Drawing.Color.Red;
-            }
-            else
-            {
-                pwCheck.Text = "사용 가능한 비밀번호입니다.";
-                pwCheck.ForeColor = System.Drawing.Color.Green;
-            }
-        }
 
         //“닫기”를 클릭하면 그냥 팝업을 닫는다.
         private void closeBtn_Click(object sender, EventArgs e)

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Data;
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace LoginForm.Models
 {
@@ -19,14 +17,14 @@ namespace LoginForm.Models
 
             connection.Open();
 
-            // UTB_EMPUSER_I 프로시저 호출
+            // UTB_EMPUSER_I 프로시저 호출 (유저 정보 인서트)
             SqlCommand command = new SqlCommand("UTB_EMPUSER_I", connection);
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@ID", userId);
-            command.Parameters.AddWithValue("@PW", userPw);
-            command.Parameters.AddWithValue("@NAME", userName);
-            command.Parameters.AddWithValue("@CREATE_DTTM", currentTime);
-            command.Parameters.AddWithValue("@SAVE_DTTM", currentTime);
+            command.Parameters.AddWithValue("@P_ID", userId);
+            command.Parameters.AddWithValue("@P_PW", userPw);
+            command.Parameters.AddWithValue("@P_NAME", userName);
+            command.Parameters.AddWithValue("@P_CREATE_DTTM", currentTime);
+            command.Parameters.AddWithValue("@P_SAVE_DTTM", currentTime);
 
             SqlParameter resultParameter = new SqlParameter("@Result", SqlDbType.Int);
             resultParameter.Direction = ParameterDirection.Output;
@@ -48,10 +46,11 @@ namespace LoginForm.Models
 
             connection.Open();
 
+            // UTB_EMPUSER_U 프로시저 호출 (유저 정보 업데이트)
             SqlCommand command = new SqlCommand("UTB_EMPUSER_U", connection);
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@UserID", userId);
-            command.Parameters.AddWithValue("@NewPassword", newPassword);
+            command.Parameters.AddWithValue("@P_ID", userId);
+            command.Parameters.AddWithValue("@P_NEW_PW", newPassword);
 
             SqlParameter resultParameter = new SqlParameter("@Result", SqlDbType.Int);
             resultParameter.Direction = ParameterDirection.Output;
@@ -75,9 +74,10 @@ namespace LoginForm.Models
 
             connection.Open();
 
+            // UTB_EMPUSER_D 프로시저 호출 (유저 삭제)
             SqlCommand command = new SqlCommand("UTB_EMPUSER_D", connection);
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@UserID", userId);
+            command.Parameters.AddWithValue("@P_ID", userId);
 
             SqlParameter resultParameter = new SqlParameter("@Result", SqlDbType.Int);
             resultParameter.Direction = ParameterDirection.Output;
@@ -101,12 +101,13 @@ namespace LoginForm.Models
 
             connection.Open();
 
+            // UTB_EMPUSER_L 프로시저 호출 (유저 정보 로드)
             SqlCommand command = new SqlCommand("UTB_EMPUSER_L", connection);
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@ID", userId);
-            command.Parameters.AddWithValue("@PW", userPw);
+            command.Parameters.AddWithValue("@P_ID", userId);
+            command.Parameters.AddWithValue("@P_PW", userPw);
 
-            SqlParameter userNameParameter = new SqlParameter("@UserName", SqlDbType.VarChar, 50);
+            SqlParameter userNameParameter = new SqlParameter("@P_Name", SqlDbType.VarChar, 50);
             userNameParameter.Direction = ParameterDirection.Output;
             command.Parameters.Add(userNameParameter);
 
