@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Data;
-using System.Windows.Forms;
 
 namespace LoginForm.Models
 {
@@ -9,118 +8,118 @@ namespace LoginForm.Models
     {
         DateTime currentTime = DateTime.Now;
 
-        public int Add(String userId, String userPw, String userName, String conectionString)
+        // 조건 : DB 연동은 프로시저를 호출해서 처리해야 한다.
+
+        public int Add(String userId, String userPw, String userName, String databaseInfo)
         {
-            int result = 0;
 
-            using (SqlConnection connection = new SqlConnection(conectionString))
-            {
-                connection.Open();
+            SqlConnection connection = new SqlConnection(databaseInfo);
 
-                SqlCommand command = new SqlCommand("UTB_EMPUSER_I", connection);
-                command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@ID", userId);
-                command.Parameters.AddWithValue("@PW", userPw);
-                command.Parameters.AddWithValue("@NAME", userName);
-                command.Parameters.AddWithValue("@CREATE_DTTM", currentTime);
-                command.Parameters.AddWithValue("@SAVE_DTTM", currentTime);
+            connection.Open();
 
-                SqlParameter resultParameter = new SqlParameter("@Result", SqlDbType.Int);
-                resultParameter.Direction = ParameterDirection.Output;
-                command.Parameters.Add(resultParameter);
+            // UTB_EMPUSER_I 프로시저 호출 (유저 정보 인서트)
+            SqlCommand command = new SqlCommand("UTB_EMPUSER_I", connection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@P_ID", userId);
+            command.Parameters.AddWithValue("@P_PW", userPw);
+            command.Parameters.AddWithValue("@P_NAME", userName);
+            command.Parameters.AddWithValue("@P_CREATE_DTTM", currentTime);
+            command.Parameters.AddWithValue("@P_SAVE_DTTM", currentTime);
 
-                command.ExecuteNonQuery();
+            SqlParameter resultParameter = new SqlParameter("@Result", SqlDbType.Int);
+            resultParameter.Direction = ParameterDirection.Output;
+            command.Parameters.Add(resultParameter);
 
-                result = (int)resultParameter.Value;
+            command.ExecuteNonQuery();
 
-                connection.Close();
-            }
+            int result = (int)resultParameter.Value;
 
-            if (result == 1)
-            {
-                MessageBox.Show("저장되었습니다.", "알림", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else if (result == -1)
-            {
-                MessageBox.Show("이미 존재하는 ID입니다.", "알림", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            else
-            {
-                MessageBox.Show("오류가 발생했습니다.", "오류", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+            connection.Close();
 
             return result;
         }
 
 
-        public int Update(String userId, String newPassword, String connectionString)
+        public int Update(String userId, String newPassword, String databaseInfo)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                int result = 0;
+            SqlConnection connection = new SqlConnection(databaseInfo);
 
-                connection.Open();
+            connection.Open();
 
-                SqlCommand command = new SqlCommand("UTB_EMPUSER_U", connection);
-                command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@UserID", userId);
-                command.Parameters.AddWithValue("@NewPassword", newPassword);
+            // UTB_EMPUSER_U 프로시저 호출 (유저 정보 업데이트)
+            SqlCommand command = new SqlCommand("UTB_EMPUSER_U", connection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@P_ID", userId);
+            command.Parameters.AddWithValue("@P_NEW_PW", newPassword);
 
-                SqlParameter resultParameter = new SqlParameter("@Result", SqlDbType.Int);
-                resultParameter.Direction = ParameterDirection.Output;
-                command.Parameters.Add(resultParameter);
+            SqlParameter resultParameter = new SqlParameter("@Result", SqlDbType.Int);
+            resultParameter.Direction = ParameterDirection.Output;
+            command.Parameters.Add(resultParameter);
 
-                command.ExecuteNonQuery();
+            command.ExecuteNonQuery();
 
-                result = (int)resultParameter.Value;
+            int result = (int)resultParameter.Value;
 
-                connection.Close();
-
-                if (result == 1)
-                {
-                    MessageBox.Show("비밀번호가 성공적으로 변경되었습니다.", "알림", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return result;
-                }
-                else
-                {
-                    MessageBox.Show("비밀번호 변경에 실패했습니다.", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return result;
-                }
-            }
-        }
-
-        public int Delete(String userId, String connectionString)
-        {
-            int result = 0;
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-
-                SqlCommand command = new SqlCommand("UTB_EMPUSER_D", connection);
-                command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@UserID", userId);
-
-                SqlParameter resultParameter = new SqlParameter("@Result", SqlDbType.Int);
-                resultParameter.Direction = ParameterDirection.Output;
-                command.Parameters.Add(resultParameter);
-
-                command.ExecuteNonQuery();
-
-                result = (int)resultParameter.Value;
-
-                connection.Close();
-            }
-
-            if (result == 1)
-            {
-                MessageBox.Show("삭제 성공", "알림", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }else
-            {
-                MessageBox.Show("오류가 발생했습니다.", "오류", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+            connection.Close();
 
             return result;
+
+
+        }
+
+        public int Delete(String userId, String databaseInfo)
+        {
+
+            SqlConnection connection = new SqlConnection(databaseInfo);
+
+            connection.Open();
+
+            // UTB_EMPUSER_D 프로시저 호출 (유저 삭제)
+            SqlCommand command = new SqlCommand("UTB_EMPUSER_D", connection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@P_ID", userId);
+
+            SqlParameter resultParameter = new SqlParameter("@Result", SqlDbType.Int);
+            resultParameter.Direction = ParameterDirection.Output;
+            command.Parameters.Add(resultParameter);
+
+            command.ExecuteNonQuery();
+
+            int result = (int)resultParameter.Value;
+
+            connection.Close();
+
+            return result;
+        }
+
+        public String Load(String userId, String userPw, String databaseInfo)
+        {
+
+            String result;
+
+            SqlConnection connection = new SqlConnection(databaseInfo);
+
+            connection.Open();
+
+            // UTB_EMPUSER_L 프로시저 호출 (유저 정보 로드)
+            SqlCommand command = new SqlCommand("UTB_EMPUSER_L", connection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@P_ID", userId);
+            command.Parameters.AddWithValue("@P_PW", userPw);
+
+            SqlParameter userNameParameter = new SqlParameter("@P_Name", SqlDbType.VarChar, 50);
+            userNameParameter.Direction = ParameterDirection.Output;
+            command.Parameters.Add(userNameParameter);
+
+            command.ExecuteNonQuery();
+
+            result = userNameParameter.Value.ToString();
+
+            connection.Close();
+
+            return result;
+
+
         }
     }
 }

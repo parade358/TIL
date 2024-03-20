@@ -2,6 +2,7 @@
 {
     internal class Password
     {
+
         public static bool Validated(string password)
         {
             if (password.Length >= 8)
@@ -13,5 +14,6 @@
                 return false;
             }
         }
+
     }
 }
