@@ -14,21 +14,15 @@ namespace Calculator
     public partial class frmCalculator : Form
     {
 
-
-
         public frmCalculator()
         {
             InitializeComponent();
         }
 
 
-
-
         private String num1;
         private String num2;
         private String elemMath;
-
-
 
 
         private void clickNumber(object sender, EventArgs e)
@@ -75,6 +69,15 @@ namespace Calculator
                     else
                     {
                         expressionBox.Text = clickedButton.Text;
+                    }
+                }
+                else
+                {
+                    if (elemMath == "/")
+                    {
+                        num2 += clickedButton.Text;
+                        expressionBox.Text += clickedButton.Text;
+                        resultBox.Text = "null";
                     }
                 }
             }
@@ -183,8 +186,6 @@ namespace Calculator
         }
 
 
-
-
         private void clickClearBtn(object sender, EventArgs e)
         {
             resultBox.Text = "0";
@@ -193,6 +194,7 @@ namespace Calculator
             num1 = null;
             num2 = null;
         }
+
 
         private void equalsBtn_Click(object sender, EventArgs e)
         {
