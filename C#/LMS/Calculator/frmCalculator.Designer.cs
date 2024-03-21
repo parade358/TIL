@@ -76,6 +76,7 @@
             this.equalsBtn.TabIndex = 38;
             this.equalsBtn.Text = "=";
             this.equalsBtn.UseVisualStyleBackColor = false;
+            this.equalsBtn.Click += new System.EventHandler(this.equalsBtn_Click);
             // 
             // number0Btn
             // 

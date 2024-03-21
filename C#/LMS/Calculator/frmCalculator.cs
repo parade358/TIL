@@ -16,18 +16,10 @@ namespace Calculator
 
 
 
-
-
-
-
         public frmCalculator()
         {
             InitializeComponent();
         }
-
-
-
-
 
 
 
@@ -39,11 +31,6 @@ namespace Calculator
 
 
 
-
-
-
-
-
         private void clickNumber(object sender, EventArgs e)
         {
             Button clickedButton = sender as Button;
@@ -51,7 +38,45 @@ namespace Calculator
 
             if (expressionBox.Text.StartsWith("0"))
             {
-                expressionBox.Text += clickedButton.Text;
+                if (clickedButton.Text != "0")
+                {
+                    if (elemMath != null)
+                    {
+                        if (elemMath == "+")
+                        {
+                            num2 += clickedButton.Text;
+                            expressionBox.Text += clickedButton.Text;
+                            resultBox.Text = (Math.Round((double.Parse(num1) + double.Parse(num2)), 5)).ToString();
+                        }
+                        else if (elemMath == "-")
+                        {
+                            num2 += clickedButton.Text;
+                            expressionBox.Text += clickedButton.Text;
+                            resultBox.Text = (Math.Round((double.Parse(num1) - double.Parse(num2)), 5)).ToString();
+                        }
+                        else if (elemMath == "*")
+                        {
+                            num2 += clickedButton.Text;
+                            expressionBox.Text += clickedButton.Text;
+                            resultBox.Text = (Math.Round((double.Parse(num1) * double.Parse(num2)), 5)).ToString();
+                        }
+                        else if (elemMath == "/")
+                        {
+                            num2 += clickedButton.Text;
+                            expressionBox.Text += clickedButton.Text;
+                            resultBox.Text = (Math.Round((double.Parse(num1) / double.Parse(num2)), 5)).ToString();
+                        }
+                        else
+                        {
+                            num1 += clickedButton.Text;
+                            expressionBox.Text += clickedButton.Text;
+                        }
+                    }
+                    else
+                    {
+                        expressionBox.Text = clickedButton.Text;
+                    }
+                }
             }
             else
             {
@@ -59,8 +84,30 @@ namespace Calculator
                 {
                     if(num2 != null)
                     {
-                        num2 += clickedButton.Text;
-                        expressionBox.Text += clickedButton.Text;
+                        if (elemMath == "+")
+                        {
+                            num2 += clickedButton.Text;
+                            expressionBox.Text += clickedButton.Text;
+                            resultBox.Text = (Math.Round((double.Parse(num1) + double.Parse(num2)), 5)).ToString();
+                        }
+                        else if (elemMath == "-")
+                        {
+                            num2 += clickedButton.Text;
+                            expressionBox.Text += clickedButton.Text;
+                            resultBox.Text = (Math.Round((double.Parse(num1) - double.Parse(num2)), 5)).ToString();
+                        }
+                        else if (elemMath == "*")
+                        {
+                            num2 += clickedButton.Text;
+                            expressionBox.Text += clickedButton.Text;
+                            resultBox.Text = (Math.Round((double.Parse(num1) * double.Parse(num2)), 5)).ToString();
+                        }
+                        else if (elemMath == "/")
+                        {
+                            num2 += clickedButton.Text;
+                            expressionBox.Text += clickedButton.Text;
+                            resultBox.Text = (Math.Round((double.Parse(num1) / double.Parse(num2)), 5)).ToString();
+                        }
                     }
                     else
                     {
@@ -114,16 +161,7 @@ namespace Calculator
             Button clickedButton = sender as Button;
             string lastChar = expressionText[expressionText.Length-1].ToString();
 
-            if (expressionBox.Text.StartsWith("0"))
-            {
-                if (clickedButton.Text == "-")
-                {
-                    num1 += clickedButton.Text;
-                    expressionBox.Text = clickedButton.Text;
-                }
-            }
-            else
-            {
+            
                 if (lastChar != "+" && lastChar != "-" && lastChar != "*" && lastChar != "/")
                 {
                     if(num2 == null)
@@ -141,11 +179,8 @@ namespace Calculator
                         expressionBox.Text += resultBox.Text + clickedButton.Text;
                     }
                 }
-            }
+            
         }
-
-
-
 
 
 
@@ -154,13 +189,14 @@ namespace Calculator
         {
             resultBox.Text = "0";
             expressionBox.Text = "0";
+            elemMath = null;
             num1 = null;
             num2 = null;
         }
 
+        private void equalsBtn_Click(object sender, EventArgs e)
+        {
 
-
-
-
+        }
     }
 }
