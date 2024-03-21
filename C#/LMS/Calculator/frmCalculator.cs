@@ -194,8 +194,6 @@ namespace Calculator
             num1 = null;
             num2 = null;
         }
-
-
         private void equalsBtn_Click(object sender, EventArgs e)
         {
 
