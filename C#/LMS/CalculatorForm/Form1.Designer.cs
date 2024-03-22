@@ -1,6 +1,6 @@
-﻿namespace Calculator
+﻿namespace CalculatorForm
 {
-    partial class frmCalculator
+    partial class Form1
     {
         /// <summary>
         /// 필수 디자이너 변수입니다.
@@ -58,10 +58,9 @@
             this.divideBtn.Margin = new System.Windows.Forms.Padding(4);
             this.divideBtn.Name = "divideBtn";
             this.divideBtn.Size = new System.Drawing.Size(73, 32);
-            this.divideBtn.TabIndex = 39;
+            this.divideBtn.TabIndex = 57;
             this.divideBtn.Text = "/";
             this.divideBtn.UseVisualStyleBackColor = false;
-            this.divideBtn.Click += new System.EventHandler(this.clickOperatorBtn);
             // 
             // equalsBtn
             // 
@@ -73,10 +72,9 @@
             this.equalsBtn.Margin = new System.Windows.Forms.Padding(4);
             this.equalsBtn.Name = "equalsBtn";
             this.equalsBtn.Size = new System.Drawing.Size(73, 32);
-            this.equalsBtn.TabIndex = 38;
+            this.equalsBtn.TabIndex = 56;
             this.equalsBtn.Text = "=";
             this.equalsBtn.UseVisualStyleBackColor = false;
-            this.equalsBtn.Click += new System.EventHandler(this.equalsBtn_Click);
             // 
             // number0Btn
             // 
@@ -88,10 +86,9 @@
             this.number0Btn.Margin = new System.Windows.Forms.Padding(4);
             this.number0Btn.Name = "number0Btn";
             this.number0Btn.Size = new System.Drawing.Size(73, 32);
-            this.number0Btn.TabIndex = 37;
+            this.number0Btn.TabIndex = 55;
             this.number0Btn.Text = "0";
             this.number0Btn.UseVisualStyleBackColor = false;
-            this.number0Btn.Click += new System.EventHandler(this.clickNumber);
             // 
             // clearBtn
             // 
@@ -103,10 +100,9 @@
             this.clearBtn.Margin = new System.Windows.Forms.Padding(4);
             this.clearBtn.Name = "clearBtn";
             this.clearBtn.Size = new System.Drawing.Size(73, 32);
-            this.clearBtn.TabIndex = 36;
+            this.clearBtn.TabIndex = 54;
             this.clearBtn.Text = "C";
             this.clearBtn.UseVisualStyleBackColor = false;
-            this.clearBtn.Click += new System.EventHandler(this.clickClearBtn);
             // 
             // addBtn
             // 
@@ -118,10 +114,10 @@
             this.addBtn.Margin = new System.Windows.Forms.Padding(4);
             this.addBtn.Name = "addBtn";
             this.addBtn.Size = new System.Drawing.Size(73, 32);
-            this.addBtn.TabIndex = 35;
+            this.addBtn.TabIndex = 53;
             this.addBtn.Text = "+";
             this.addBtn.UseVisualStyleBackColor = false;
-            this.addBtn.Click += new System.EventHandler(this.clickOperatorBtn);
+            this.addBtn.Click += new System.EventHandler(this.c);
             // 
             // number3Btn
             // 
@@ -133,10 +129,9 @@
             this.number3Btn.Margin = new System.Windows.Forms.Padding(4);
             this.number3Btn.Name = "number3Btn";
             this.number3Btn.Size = new System.Drawing.Size(73, 32);
-            this.number3Btn.TabIndex = 34;
+            this.number3Btn.TabIndex = 52;
             this.number3Btn.Text = "3";
             this.number3Btn.UseVisualStyleBackColor = false;
-            this.number3Btn.Click += new System.EventHandler(this.clickNumber);
             // 
             // number2Btn
             // 
@@ -148,10 +143,9 @@
             this.number2Btn.Margin = new System.Windows.Forms.Padding(4);
             this.number2Btn.Name = "number2Btn";
             this.number2Btn.Size = new System.Drawing.Size(73, 32);
-            this.number2Btn.TabIndex = 33;
+            this.number2Btn.TabIndex = 51;
             this.number2Btn.Text = "2";
             this.number2Btn.UseVisualStyleBackColor = false;
-            this.number2Btn.Click += new System.EventHandler(this.clickNumber);
             // 
             // number1Btn
             // 
@@ -163,10 +157,9 @@
             this.number1Btn.Margin = new System.Windows.Forms.Padding(4);
             this.number1Btn.Name = "number1Btn";
             this.number1Btn.Size = new System.Drawing.Size(73, 32);
-            this.number1Btn.TabIndex = 32;
+            this.number1Btn.TabIndex = 50;
             this.number1Btn.Text = "1";
             this.number1Btn.UseVisualStyleBackColor = false;
-            this.number1Btn.Click += new System.EventHandler(this.clickNumber);
             // 
             // subtractBtn
             // 
@@ -178,10 +171,9 @@
             this.subtractBtn.Margin = new System.Windows.Forms.Padding(4);
             this.subtractBtn.Name = "subtractBtn";
             this.subtractBtn.Size = new System.Drawing.Size(73, 32);
-            this.subtractBtn.TabIndex = 31;
+            this.subtractBtn.TabIndex = 49;
             this.subtractBtn.Text = "-";
             this.subtractBtn.UseVisualStyleBackColor = false;
-            this.subtractBtn.Click += new System.EventHandler(this.clickOperatorBtn);
             // 
             // number6Btn
             // 
@@ -193,10 +185,9 @@
             this.number6Btn.Margin = new System.Windows.Forms.Padding(4);
             this.number6Btn.Name = "number6Btn";
             this.number6Btn.Size = new System.Drawing.Size(73, 32);
-            this.number6Btn.TabIndex = 30;
+            this.number6Btn.TabIndex = 48;
             this.number6Btn.Text = "6";
             this.number6Btn.UseVisualStyleBackColor = false;
-            this.number6Btn.Click += new System.EventHandler(this.clickNumber);
             // 
             // number5Btn
             // 
@@ -208,10 +199,9 @@
             this.number5Btn.Margin = new System.Windows.Forms.Padding(4);
             this.number5Btn.Name = "number5Btn";
             this.number5Btn.Size = new System.Drawing.Size(73, 32);
-            this.number5Btn.TabIndex = 29;
+            this.number5Btn.TabIndex = 47;
             this.number5Btn.Text = "5";
             this.number5Btn.UseVisualStyleBackColor = false;
-            this.number5Btn.Click += new System.EventHandler(this.clickNumber);
             // 
             // number4Btn
             // 
@@ -223,10 +213,9 @@
             this.number4Btn.Margin = new System.Windows.Forms.Padding(4);
             this.number4Btn.Name = "number4Btn";
             this.number4Btn.Size = new System.Drawing.Size(73, 32);
-            this.number4Btn.TabIndex = 28;
+            this.number4Btn.TabIndex = 46;
             this.number4Btn.Text = "4";
             this.number4Btn.UseVisualStyleBackColor = false;
-            this.number4Btn.Click += new System.EventHandler(this.clickNumber);
             // 
             // number7Btn
             // 
@@ -238,10 +227,9 @@
             this.number7Btn.Margin = new System.Windows.Forms.Padding(4, 8, 4, 4);
             this.number7Btn.Name = "number7Btn";
             this.number7Btn.Size = new System.Drawing.Size(73, 32);
-            this.number7Btn.TabIndex = 27;
+            this.number7Btn.TabIndex = 45;
             this.number7Btn.Text = "7";
             this.number7Btn.UseVisualStyleBackColor = false;
-            this.number7Btn.Click += new System.EventHandler(this.clickNumber);
             // 
             // number8Btn
             // 
@@ -253,10 +241,9 @@
             this.number8Btn.Margin = new System.Windows.Forms.Padding(4, 8, 4, 4);
             this.number8Btn.Name = "number8Btn";
             this.number8Btn.Size = new System.Drawing.Size(73, 32);
-            this.number8Btn.TabIndex = 26;
+            this.number8Btn.TabIndex = 44;
             this.number8Btn.Text = "8";
             this.number8Btn.UseVisualStyleBackColor = false;
-            this.number8Btn.Click += new System.EventHandler(this.clickNumber);
             // 
             // number9Btn
             // 
@@ -268,10 +255,9 @@
             this.number9Btn.Margin = new System.Windows.Forms.Padding(4, 8, 4, 4);
             this.number9Btn.Name = "number9Btn";
             this.number9Btn.Size = new System.Drawing.Size(73, 32);
-            this.number9Btn.TabIndex = 25;
+            this.number9Btn.TabIndex = 43;
             this.number9Btn.Text = "9";
             this.number9Btn.UseVisualStyleBackColor = false;
-            this.number9Btn.Click += new System.EventHandler(this.clickNumber);
             // 
             // resultBox
             // 
@@ -283,7 +269,7 @@
             this.resultBox.Name = "resultBox";
             this.resultBox.ReadOnly = true;
             this.resultBox.Size = new System.Drawing.Size(316, 32);
-            this.resultBox.TabIndex = 24;
+            this.resultBox.TabIndex = 42;
             this.resultBox.Text = "0";
             this.resultBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -297,10 +283,9 @@
             this.multiplyBtn.Margin = new System.Windows.Forms.Padding(4, 8, 4, 4);
             this.multiplyBtn.Name = "multiplyBtn";
             this.multiplyBtn.Size = new System.Drawing.Size(73, 32);
-            this.multiplyBtn.TabIndex = 23;
+            this.multiplyBtn.TabIndex = 41;
             this.multiplyBtn.Text = "*";
             this.multiplyBtn.UseVisualStyleBackColor = false;
-            this.multiplyBtn.Click += new System.EventHandler(this.clickOperatorBtn);
             // 
             // expressionBox
             // 
@@ -312,15 +297,15 @@
             this.expressionBox.Name = "expressionBox";
             this.expressionBox.ReadOnly = true;
             this.expressionBox.Size = new System.Drawing.Size(316, 32);
-            this.expressionBox.TabIndex = 22;
+            this.expressionBox.TabIndex = 40;
             this.expressionBox.Text = "0";
             this.expressionBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // frmCalculator
+            // Form1
             // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.ClientSize = new System.Drawing.Size(345, 266);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(348, 269);
             this.Controls.Add(this.divideBtn);
             this.Controls.Add(this.equalsBtn);
             this.Controls.Add(this.number0Btn);
@@ -339,11 +324,8 @@
             this.Controls.Add(this.resultBox);
             this.Controls.Add(this.multiplyBtn);
             this.Controls.Add(this.expressionBox);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
-            this.Name = "frmCalculator";
-            this.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "+";
+            this.Name = "Form1";
+            this.Text = "Form1";
             this.ResumeLayout(false);
             this.PerformLayout();
 
