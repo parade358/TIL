@@ -29,7 +29,7 @@ namespace LoginForm.Models
             SqlParameter resultParameter = new SqlParameter("@Result", SqlDbType.Int);
             resultParameter.Direction = ParameterDirection.Output;
             command.Parameters.Add(resultParameter);
-
+            //외부와 연동하는건 무조건 트라이캐치문이필요하다.
             command.ExecuteNonQuery();
 
             int result = (int)resultParameter.Value;
@@ -84,12 +84,16 @@ namespace LoginForm.Models
             command.Parameters.Add(resultParameter);
 
             command.ExecuteNonQuery();
+            // command.ExecuteNonQuery(); 가 0보다 클시에 데이터베이스에 영행을 준수가 1이상이라는 걸 의미
+            // 굳이 아웃풋을 안받아도 트랜잭션처리가능
+            // 트라이캐치문으로 예외처리
 
             int result = (int)resultParameter.Value;
 
             connection.Close();
 
             return result;
+
         }
 
         public String Load(String userId, String userPw, String databaseInfo)

@@ -22,8 +22,12 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 2,
@@ -32,9 +36,10 @@
               "RelativeDocumentMoniker": "__itrfDiffDateTime.cs",
               "ToolTip": "C:\\dev\\GitHub\\TIL\\C#\\LMS\\FIVE_PROBLEMS\\__itrfDiffDateTime.cs",
               "RelativeToolTip": "__itrfDiffDateTime.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAApAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAYAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-16T02:37:40.279Z"
+              "WhenOpened": "2024-03-16T02:37:40.279Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -44,9 +49,10 @@
               "RelativeDocumentMoniker": "DiffDateTime.cs",
               "ToolTip": "C:\\dev\\GitHub\\TIL\\C#\\LMS\\FIVE_PROBLEMS\\DiffDateTime.cs",
               "RelativeToolTip": "DiffDateTime.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAfAAAA",
+              "ViewState": "AQIAAA0AAAAAAAAAAAAxwBgAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-16T02:30:42.29Z"
+              "WhenOpened": "2024-03-16T02:30:42.29Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -56,7 +62,7 @@
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\dev\\GitHub\\TIL\\C#\\LMS\\FIVE_PROBLEMS\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AQIAAC0AAAAAAAAAAAAIwA0AAAAJAAAA",
+              "ViewState": "AQIAAK8AAAAAAAAAAADwv84AAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-03-15T07:33:44.784Z",
               "EditorCaption": ""

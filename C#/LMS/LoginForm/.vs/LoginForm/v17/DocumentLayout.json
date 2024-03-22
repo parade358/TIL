@@ -3,28 +3,32 @@
   "WorkspaceRootPath": "C:\\dev\\GitHub\\TIL\\C#\\LMS\\LoginForm\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{276AF19B-099D-4158-A2C8-4142997EE040}|LoginForm.csproj|c:\\dev\\github\\til\\c#\\lms\\loginform\\forms\\frmupdatepw.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{276AF19B-099D-4158-A2C8-4142997EE040}|LoginForm.csproj|solutionrelative:forms\\frmupdatepw.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{276AF19B-099D-4158-A2C8-4142997EE040}|LoginForm.csproj|C:\\dev\\GitHub\\TIL\\C#\\LMS\\LoginForm\\forms\\frmuseradd.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{276AF19B-099D-4158-A2C8-4142997EE040}|LoginForm.csproj|solutionrelative:forms\\frmuseradd.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{276AF19B-099D-4158-A2C8-4142997EE040}|LoginForm.csproj|C:\\dev\\GitHub\\TIL\\C#\\LMS\\LoginForm\\models\\userimpl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{276AF19B-099D-4158-A2C8-4142997EE040}|LoginForm.csproj|solutionrelative:models\\userimpl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{276AF19B-099D-4158-A2C8-4142997EE040}|LoginForm.csproj|C:\\dev\\GitHub\\TIL\\C#\\LMS\\LoginForm\\forms\\frmupdatepw.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{276AF19B-099D-4158-A2C8-4142997EE040}|LoginForm.csproj|solutionrelative:forms\\frmupdatepw.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{276AF19B-099D-4158-A2C8-4142997EE040}|LoginForm.csproj|c:\\dev\\github\\til\\c#\\lms\\loginform\\forms\\frmlogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{276AF19B-099D-4158-A2C8-4142997EE040}|LoginForm.csproj|solutionrelative:forms\\frmlogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{276AF19B-099D-4158-A2C8-4142997EE040}|LoginForm.csproj|C:\\dev\\GitHub\\TIL\\C#\\LMS\\LoginForm\\forms\\frmlogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{276AF19B-099D-4158-A2C8-4142997EE040}|LoginForm.csproj|solutionrelative:forms\\frmlogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{276AF19B-099D-4158-A2C8-4142997EE040}|LoginForm.csproj|C:\\dev\\GitHub\\TIL\\C#\\LMS\\LoginForm\\models\\password.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{276AF19B-099D-4158-A2C8-4142997EE040}|LoginForm.csproj|solutionrelative:models\\password.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{276AF19B-099D-4158-A2C8-4142997EE040}|LoginForm.csproj|C:\\dev\\GitHub\\TIL\\C#\\LMS\\LoginForm\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{276AF19B-099D-4158-A2C8-4142997EE040}|LoginForm.csproj|solutionrelative:models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{276AF19B-099D-4158-A2C8-4142997EE040}|LoginForm.csproj|C:\\dev\\GitHub\\TIL\\C#\\LMS\\LoginForm\\forms\\frmupdatepw.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{276AF19B-099D-4158-A2C8-4142997EE040}|LoginForm.csproj|solutionrelative:forms\\frmupdatepw.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{276AF19B-099D-4158-A2C8-4142997EE040}|LoginForm.csproj|C:\\dev\\GitHub\\TIL\\C#\\LMS\\LoginForm\\models\\password.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{276AF19B-099D-4158-A2C8-4142997EE040}|LoginForm.csproj|solutionrelative:models\\password.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{276AF19B-099D-4158-A2C8-4142997EE040}|LoginForm.csproj|C:\\dev\\GitHub\\TIL\\C#\\LMS\\LoginForm\\models\\userimpl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{276AF19B-099D-4158-A2C8-4142997EE040}|LoginForm.csproj|solutionrelative:models\\userimpl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,78 +38,95 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "frmUpdatePw.cs [\uB514\uC790\uC778]",
-              "DocumentMoniker": "C:\\dev\\GitHub\\TIL\\C#\\LMS\\LoginForm\\Forms\\frmUpdatePw.cs",
-              "RelativeDocumentMoniker": "Forms\\frmUpdatePw.cs",
-              "ToolTip": "C:\\dev\\GitHub\\TIL\\C#\\LMS\\LoginForm\\Forms\\frmUpdatePw.cs [\uB514\uC790\uC778]",
-              "RelativeToolTip": "Forms\\frmUpdatePw.cs [\uB514\uC790\uC778]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-19T23:51:53.992Z",
-              "EditorCaption": " [\uB514\uC790\uC778]"
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
+              "Title": "frmLogin.cs",
+              "DocumentMoniker": "C:\\dev\\GitHub\\TIL\\C#\\LMS\\LoginForm\\Forms\\frmLogin.cs",
+              "RelativeDocumentMoniker": "Forms\\frmLogin.cs",
+              "ToolTip": "C:\\dev\\GitHub\\TIL\\C#\\LMS\\LoginForm\\Forms\\frmLogin.cs",
+              "RelativeToolTip": "Forms\\frmLogin.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAZAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-22T07:23:06.365Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "frmLogin.cs [\uB514\uC790\uC778]",
+              "DocumentMoniker": "C:\\dev\\GitHub\\TIL\\C#\\LMS\\LoginForm\\Forms\\frmLogin.cs",
+              "RelativeDocumentMoniker": "Forms\\frmLogin.cs",
+              "ToolTip": "C:\\dev\\GitHub\\TIL\\C#\\LMS\\LoginForm\\Forms\\frmLogin.cs [\uB514\uC790\uC778]",
+              "RelativeToolTip": "Forms\\frmLogin.cs [\uB514\uC790\uC778]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-22T07:23:01.447Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "frmUserAdd.cs",
               "DocumentMoniker": "C:\\dev\\GitHub\\TIL\\C#\\LMS\\LoginForm\\Forms\\frmUserAdd.cs",
               "RelativeDocumentMoniker": "Forms\\frmUserAdd.cs",
               "ToolTip": "C:\\dev\\GitHub\\TIL\\C#\\LMS\\LoginForm\\Forms\\frmUserAdd.cs",
               "RelativeToolTip": "Forms\\frmUserAdd.cs",
-              "ViewState": "AQIAAA0AAAAAAAAAAAAAwAkAAAAUAAAA",
+              "ViewState": "AQIAABUAAAAAAAAAAAAIwEsAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-19T07:34:52.556Z"
+              "WhenOpened": "2024-03-19T07:34:52.556Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "frmUpdatePw.cs",
               "DocumentMoniker": "C:\\dev\\GitHub\\TIL\\C#\\LMS\\LoginForm\\Forms\\frmUpdatePw.cs",
               "RelativeDocumentMoniker": "Forms\\frmUpdatePw.cs",
               "ToolTip": "C:\\dev\\GitHub\\TIL\\C#\\LMS\\LoginForm\\Forms\\frmUpdatePw.cs",
               "RelativeToolTip": "Forms\\frmUpdatePw.cs",
-              "ViewState": "AQIAACcAAAAAAAAAAAAIwDMAAAAfAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAE0AAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-03-19T07:34:51.674Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "User.cs",
               "DocumentMoniker": "C:\\dev\\GitHub\\TIL\\C#\\LMS\\LoginForm\\Models\\User.cs",
               "RelativeDocumentMoniker": "Models\\User.cs",
               "ToolTip": "C:\\dev\\GitHub\\TIL\\C#\\LMS\\LoginForm\\Models\\User.cs",
               "RelativeToolTip": "Models\\User.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAA3AAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-03-19T07:35:32.087Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "UserImpl.cs",
               "DocumentMoniker": "C:\\dev\\GitHub\\TIL\\C#\\LMS\\LoginForm\\Models\\UserImpl.cs",
               "RelativeDocumentMoniker": "Models\\UserImpl.cs",
               "ToolTip": "C:\\dev\\GitHub\\TIL\\C#\\LMS\\LoginForm\\Models\\UserImpl.cs",
               "RelativeToolTip": "Models\\UserImpl.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAuwBIAAAAAAAAA",
+              "ViewState": "AQIAAEMAAAAAAAAAAAAAwHUAAAAmAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-03-19T07:45:58.723Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 4,
               "Title": "Password.cs",
               "DocumentMoniker": "C:\\dev\\GitHub\\TIL\\C#\\LMS\\LoginForm\\Models\\Password.cs",
               "RelativeDocumentMoniker": "Models\\Password.cs",
               "ToolTip": "C:\\dev\\GitHub\\TIL\\C#\\LMS\\LoginForm\\Models\\Password.cs",
               "RelativeToolTip": "Models\\Password.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAJAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-03-19T08:10:14.57Z"
             }

@@ -69,7 +69,7 @@ namespace LoginForm
 
             int result = userImpl.Delete(userId, databaseInfo);
 
-            if (result == 1)
+            if (result == 1) // 비트로 처리하는것 고려
             {
                 id.Text = "";
                 password.Text = "";

@@ -194,7 +194,7 @@ namespace FIVE_PROBLEMS
 
             try
             {
-                byte[] data3 = new byte[6] { 0x41, 0x42, 0x43, 0x45, 0x46, 0x03 }; // 0x04는 EOT (End of Transmission) 문자를 나타냄
+                byte[] data3 = new byte[6] { 0x41, 0x42, 0x43, 0x45, 0x46, 0x04 }; // 0x04는 EOT (End of Transmission) 문자를 나타냄
 
                 // ASCII 인코딩을 사용하여 바이트 배열을 문자열로 변환
                 string str3 = Encoding.ASCII.GetString(data3);
