@@ -1,6 +1,6 @@
 ﻿namespace CalculatorForm
 {
-    partial class Form1
+    partial class frmCalculator
     {
         /// <summary>
         /// 필수 디자이너 변수입니다.
@@ -117,7 +117,6 @@
             this.addBtn.TabIndex = 53;
             this.addBtn.Text = "+";
             this.addBtn.UseVisualStyleBackColor = false;
-            this.addBtn.Click += new System.EventHandler(this.c);
             // 
             // number3Btn
             // 
