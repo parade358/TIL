@@ -54,6 +54,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitTest.cs" />
     <EmbeddedResource Include="frmCalculator.resx">
       <DependentUpon>frmCalculator.cs</DependentUpon>
     </EmbeddedResource>

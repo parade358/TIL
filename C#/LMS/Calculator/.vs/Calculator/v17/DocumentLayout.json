@@ -3,11 +3,11 @@
   "WorkspaceRootPath": "C:\\dev\\GitHub\\TIL\\C#\\LMS\\Calculator\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{FC53C843-9132-4BBE-83EE-F1199F7544C5}|Calculator.csproj|C:\\dev\\GitHub\\TIL\\C#\\LMS\\Calculator\\frmcalculator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{FC53C843-9132-4BBE-83EE-F1199F7544C5}|Calculator.csproj|c:\\dev\\github\\til\\c#\\lms\\calculator\\frmcalculator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FC53C843-9132-4BBE-83EE-F1199F7544C5}|Calculator.csproj|solutionrelative:frmcalculator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FC53C843-9132-4BBE-83EE-F1199F7544C5}|Calculator.csproj|c:\\dev\\github\\til\\c#\\lms\\calculator\\frmcalculator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{FC53C843-9132-4BBE-83EE-F1199F7544C5}|Calculator.csproj|C:\\dev\\GitHub\\TIL\\C#\\LMS\\Calculator\\frmcalculator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{FC53C843-9132-4BBE-83EE-F1199F7544C5}|Calculator.csproj|solutionrelative:frmcalculator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
@@ -32,7 +32,7 @@
               "RelativeDocumentMoniker": "frmCalculator.cs",
               "ToolTip": "C:\\dev\\GitHub\\TIL\\C#\\LMS\\Calculator\\frmCalculator.cs",
               "RelativeToolTip": "frmCalculator.cs",
-              "ViewState": "AQIAAEgAAAAAAAAAAAAIwFgAAAAVAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAFgAAAAVAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-03-21T07:34:41.815Z",
               "EditorCaption": ""
@@ -46,8 +46,7 @@
               "ToolTip": "C:\\dev\\GitHub\\TIL\\C#\\LMS\\Calculator\\frmCalculator.cs [\uB514\uC790\uC778]",
               "RelativeToolTip": "frmCalculator.cs [\uB514\uC790\uC778]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-20T06:02:09.744Z",
-              "EditorCaption": " [\uB514\uC790\uC778]"
+              "WhenOpened": "2024-03-20T06:02:09.744Z"
             }
           ]
         }

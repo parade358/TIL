@@ -17,9 +17,5 @@ namespace CalculatorForm
             InitializeComponent();
         }
 
-        private void c(object sender, EventArgs e)
-        {
-
-        }
     }
 }

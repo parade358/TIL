@@ -117,7 +117,6 @@
             this.addBtn.TabIndex = 53;
             this.addBtn.Text = "+";
             this.addBtn.UseVisualStyleBackColor = false;
-            this.addBtn.Click += new System.EventHandler(this.c);
             // 
             // number3Btn
             // 
