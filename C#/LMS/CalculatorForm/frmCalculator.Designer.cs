@@ -61,6 +61,7 @@
             this.divideBtn.TabIndex = 57;
             this.divideBtn.Text = "/";
             this.divideBtn.UseVisualStyleBackColor = false;
+            this.divideBtn.Click += new System.EventHandler(this.operatorBtnClick);
             // 
             // equalsBtn
             // 
@@ -68,13 +69,14 @@
             this.equalsBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.equalsBtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(172)))), ((int)(((byte)(172)))));
             this.equalsBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.equalsBtn.Location = new System.Drawing.Point(176, 221);
+            this.equalsBtn.Location = new System.Drawing.Point(175, 221);
             this.equalsBtn.Margin = new System.Windows.Forms.Padding(4);
             this.equalsBtn.Name = "equalsBtn";
             this.equalsBtn.Size = new System.Drawing.Size(73, 32);
             this.equalsBtn.TabIndex = 56;
             this.equalsBtn.Text = "=";
             this.equalsBtn.UseVisualStyleBackColor = false;
+            this.equalsBtn.Click += new System.EventHandler(this.equalsBtnClick);
             // 
             // number0Btn
             // 
@@ -89,6 +91,7 @@
             this.number0Btn.TabIndex = 55;
             this.number0Btn.Text = "0";
             this.number0Btn.UseVisualStyleBackColor = false;
+            this.number0Btn.Click += new System.EventHandler(this.numberBtnClick);
             // 
             // clearBtn
             // 
@@ -117,6 +120,7 @@
             this.addBtn.TabIndex = 53;
             this.addBtn.Text = "+";
             this.addBtn.UseVisualStyleBackColor = false;
+            this.addBtn.Click += new System.EventHandler(this.operatorBtnClick);
             // 
             // number3Btn
             // 
@@ -131,6 +135,7 @@
             this.number3Btn.TabIndex = 52;
             this.number3Btn.Text = "3";
             this.number3Btn.UseVisualStyleBackColor = false;
+            this.number3Btn.Click += new System.EventHandler(this.numberBtnClick);
             // 
             // number2Btn
             // 
@@ -145,6 +150,7 @@
             this.number2Btn.TabIndex = 51;
             this.number2Btn.Text = "2";
             this.number2Btn.UseVisualStyleBackColor = false;
+            this.number2Btn.Click += new System.EventHandler(this.numberBtnClick);
             // 
             // number1Btn
             // 
@@ -159,6 +165,7 @@
             this.number1Btn.TabIndex = 50;
             this.number1Btn.Text = "1";
             this.number1Btn.UseVisualStyleBackColor = false;
+            this.number1Btn.Click += new System.EventHandler(this.numberBtnClick);
             // 
             // subtractBtn
             // 
@@ -173,6 +180,7 @@
             this.subtractBtn.TabIndex = 49;
             this.subtractBtn.Text = "-";
             this.subtractBtn.UseVisualStyleBackColor = false;
+            this.subtractBtn.Click += new System.EventHandler(this.operatorBtnClick);
             // 
             // number6Btn
             // 
@@ -187,6 +195,7 @@
             this.number6Btn.TabIndex = 48;
             this.number6Btn.Text = "6";
             this.number6Btn.UseVisualStyleBackColor = false;
+            this.number6Btn.Click += new System.EventHandler(this.numberBtnClick);
             // 
             // number5Btn
             // 
@@ -194,13 +203,14 @@
             this.number5Btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.number5Btn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(172)))), ((int)(((byte)(172)))));
             this.number5Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.number5Btn.Location = new System.Drawing.Point(95, 141);
+            this.number5Btn.Location = new System.Drawing.Point(94, 141);
             this.number5Btn.Margin = new System.Windows.Forms.Padding(4);
             this.number5Btn.Name = "number5Btn";
             this.number5Btn.Size = new System.Drawing.Size(73, 32);
             this.number5Btn.TabIndex = 47;
             this.number5Btn.Text = "5";
             this.number5Btn.UseVisualStyleBackColor = false;
+            this.number5Btn.Click += new System.EventHandler(this.numberBtnClick);
             // 
             // number4Btn
             // 
@@ -215,6 +225,7 @@
             this.number4Btn.TabIndex = 46;
             this.number4Btn.Text = "4";
             this.number4Btn.UseVisualStyleBackColor = false;
+            this.number4Btn.Click += new System.EventHandler(this.numberBtnClick);
             // 
             // number7Btn
             // 
@@ -229,6 +240,7 @@
             this.number7Btn.TabIndex = 45;
             this.number7Btn.Text = "7";
             this.number7Btn.UseVisualStyleBackColor = false;
+            this.number7Btn.Click += new System.EventHandler(this.numberBtnClick);
             // 
             // number8Btn
             // 
@@ -243,6 +255,7 @@
             this.number8Btn.TabIndex = 44;
             this.number8Btn.Text = "8";
             this.number8Btn.UseVisualStyleBackColor = false;
+            this.number8Btn.Click += new System.EventHandler(this.numberBtnClick);
             // 
             // number9Btn
             // 
@@ -257,6 +270,7 @@
             this.number9Btn.TabIndex = 43;
             this.number9Btn.Text = "9";
             this.number9Btn.UseVisualStyleBackColor = false;
+            this.number9Btn.Click += new System.EventHandler(this.numberBtnClick);
             // 
             // resultBox
             // 
@@ -285,6 +299,7 @@
             this.multiplyBtn.TabIndex = 41;
             this.multiplyBtn.Text = "*";
             this.multiplyBtn.UseVisualStyleBackColor = false;
+            this.multiplyBtn.Click += new System.EventHandler(this.operatorBtnClick);
             // 
             // expressionBox
             // 
@@ -300,7 +315,7 @@
             this.expressionBox.Text = "0";
             this.expressionBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // Form1
+            // frmCalculator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -323,7 +338,7 @@
             this.Controls.Add(this.resultBox);
             this.Controls.Add(this.multiplyBtn);
             this.Controls.Add(this.expressionBox);
-            this.Name = "Form1";
+            this.Name = "frmCalculator";
             this.Text = "Form1";
             this.ResumeLayout(false);
             this.PerformLayout();
