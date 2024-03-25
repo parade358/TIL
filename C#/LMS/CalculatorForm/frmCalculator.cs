@@ -84,19 +84,41 @@ namespace CalculatorForm
             operationSymbol = "";
         }
 
-        private void Subtract(String leftOperand, String rightOperand)
+        private void Subtract(String left, String right)
         {
+            result = (int.Parse(left) - int.Parse(right)).ToString();
+            resultBox.Text = result;
+            leftOperand = result;
+            rightOperand = "";
+            operationSymbol = "";
         }
 
-        private void Multiply(String leftOperand, String rightOperand)
+        private void Multiply(String left, String right)
         {
+            result = (int.Parse(left) * int.Parse(right)).ToString();
+            resultBox.Text = result;
+            leftOperand = result;
+            rightOperand = "";
+            operationSymbol = "";
         }
 
-        private void Divide(String leftOperand, String rightOperand)
+        private void Divide(String left, String right)
         {
             if (leftOperand == "0")
             {
-                throw new DivideByZeroException("0으로 나눌수 없습니다.");
+                result = "null";
+                resultBox.Text = result;
+                leftOperand = "";
+                rightOperand = "";
+                operationSymbol = "";
+            }
+            else
+            {
+                result = (int.Parse(left) / int.Parse(right)).ToString();
+                resultBox.Text = result;
+                leftOperand = result;
+                rightOperand = "";
+                operationSymbol = "";
             }
         }
     }
