@@ -1,0 +1,10 @@
+C:\dev\GitHub\TIL\C#\LMS\CalculatorForm\bin\Debug\CalculatorForm.exe.config
+C:\dev\GitHub\TIL\C#\LMS\CalculatorForm\bin\Debug\CalculatorForm.exe
+C:\dev\GitHub\TIL\C#\LMS\CalculatorForm\bin\Debug\CalculatorForm.pdb
+C:\dev\GitHub\TIL\C#\LMS\CalculatorForm\obj\Debug\CalculatorForm.csproj.AssemblyReference.cache
+C:\dev\GitHub\TIL\C#\LMS\CalculatorForm\obj\Debug\CalculatorForm.frmCalculator.resources
+C:\dev\GitHub\TIL\C#\LMS\CalculatorForm\obj\Debug\CalculatorForm.Properties.Resources.resources
+C:\dev\GitHub\TIL\C#\LMS\CalculatorForm\obj\Debug\CalculatorForm.csproj.GenerateResource.cache
+C:\dev\GitHub\TIL\C#\LMS\CalculatorForm\obj\Debug\CalculatorForm.csproj.CoreCompileInputs.cache
+C:\dev\GitHub\TIL\C#\LMS\CalculatorForm\obj\Debug\CalculatorForm.exe
+C:\dev\GitHub\TIL\C#\LMS\CalculatorForm\obj\Debug\CalculatorForm.pdb
