@@ -86,13 +86,13 @@ namespace CalculatorForm
             switch (operation)
             {
                 case "+":
-                    result = (int.Parse(left) + int.Parse(right)).ToString();
+                    result = (Math.Round((double.Parse(left) + double.Parse(right)), 5)).ToString();
                     break;
                 case "-":
-                    result = (int.Parse(left) - int.Parse(right)).ToString();
+                    result = (Math.Round((double.Parse(left) - double.Parse(right)), 5)).ToString();
                     break;
                 case "*":
-                    result = (int.Parse(left) * int.Parse(right)).ToString();
+                    result = (Math.Round((double.Parse(left) * double.Parse(right)),5)).ToString();
                     break;
                 case "/":
                     if (right == "0")
@@ -101,7 +101,7 @@ namespace CalculatorForm
                     }
                     else
                     {
-                        result = (int.Parse(left) / int.Parse(right)).ToString();
+                        result = (Math.Round((double.Parse(left) / double.Parse(right)), 5)).ToString();
                     }
                     break;
                 default:
