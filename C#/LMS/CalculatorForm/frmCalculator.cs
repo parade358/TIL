@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CalculatorForm`
+namespace CalculatorForm
 {
     public partial class frmCalculator : Form
     {
@@ -23,25 +23,30 @@ namespace CalculatorForm`
             InitializeComponent();
         }
 
-        private void insertExpressinBox()
-        {
-            expressionBox.Text = leftOperand + operationSymbol + rightOperand;
-        }
 
+        // 숫자 버튼 클릭
         private void numberBtnClick(object sender, EventArgs e)
         {
             Button clickNumber = (Button)sender;
             saveOperand(clickNumber.Text);
-            insertExpressinBox();
+            insertExpressionBox();
         }
 
+        // 연산자 버튼 클릭
         private void operatorBtnClick(object sender, EventArgs e)
         {
             Button clickOperator = (Button)sender;
             operationSymbol = clickOperator.Text;
-            insertExpressinBox();
+            insertExpressionBox();
         }
 
+        // 계산식 표현
+        private void insertExpressionBox()
+        {
+            expressionBox.Text = leftOperand + operationSymbol + rightOperand;
+        }
+
+        // 계산할 숫자 저장
         private void saveOperand(String operand)
         {
             if (operationSymbol == "")
@@ -54,72 +59,52 @@ namespace CalculatorForm`
             }
         }
 
+        // '=' 버튼 클릭
         private void equalsBtnClick(object sender, EventArgs e)
         {
-            switch (operationSymbol)
+            if(leftOperand != "" && rightOperand != "" && operationSymbol != "")
+            {
+                Operation(leftOperand, rightOperand, operationSymbol);
+                insertResultAndReset();
+            }
+        }
+
+        //계산
+        private void Operation(string left, string right, string operation)
+        {
+            switch (operation)
             {
                 case "+":
-                    Add(leftOperand, rightOperand);
+                    result = (int.Parse(left) + int.Parse(right)).ToString();
                     break;
                 case "-":
-                    Subtract(leftOperand, rightOperand);
+                    result = (int.Parse(left) - int.Parse(right)).ToString();
                     break;
                 case "*":
-                    Multiply(leftOperand, rightOperand);
+                    result = (int.Parse(left) * int.Parse(right)).ToString();
                     break;
                 case "/":
-                    Divide(leftOperand, rightOperand);
+                    if (right == "0")
+                    {
+                        result = "null";
+                    }
+                    else
+                    {
+                        result = (int.Parse(left) / int.Parse(right)).ToString();
+                    }
                     break;
                 default:
-                    throw new ArgumentException();
+                    throw new ArgumentException("Invalid operation symbol");
             }
         }
 
-        private void Add(String left, String right)
+        //결과박스 인서트 & 값 초기화
+        private void insertResultAndReset()
         {
-            result = (int.Parse(left) + int.Parse(right)).ToString();
             resultBox.Text = result;
             leftOperand = result;
             rightOperand = "";
             operationSymbol = "";
-        }
-
-        private void Subtract(String left, String right)
-        {
-            result = (int.Parse(left) - int.Parse(right)).ToString();
-            resultBox.Text = result;
-            leftOperand = result;
-            rightOperand = "";
-            operationSymbol = "";
-        }
-
-        private void Multiply(String left, String right)
-        {
-            result = (int.Parse(left) * int.Parse(right)).ToString();
-            resultBox.Text = result;
-            leftOperand = result;
-            rightOperand = "";
-            operationSymbol = "";
-        }
-
-        private void Divide(String left, String right)
-        {
-            if (leftOperand == "0")
-            {
-                result = "null";
-                resultBox.Text = result;
-                leftOperand = "";
-                rightOperand = "";
-                operationSymbol = "";
-            }
-            else
-            {
-                result = (int.Parse(left) / int.Parse(right)).ToString();
-                resultBox.Text = result;
-                leftOperand = result;
-                rightOperand = "";
-                operationSymbol = "";
-            }
         }
     }
 }
