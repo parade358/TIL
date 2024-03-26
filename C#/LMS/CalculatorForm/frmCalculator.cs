@@ -25,29 +25,40 @@ namespace CalculatorForm
 
 
         // 숫자 버튼 클릭
-        private void numberBtnClick(object sender, EventArgs e)
+        private void NumberBtnClick(object sender, EventArgs e)
         {
             Button clickNumber = (Button)sender;
-            saveOperand(clickNumber.Text);
-            insertExpressionBox();
+            SaveOperand(clickNumber.Text);
+            InsertExpressionBox();
         }
 
         // 연산자 버튼 클릭
-        private void operatorBtnClick(object sender, EventArgs e)
+        private void OperatorBtnClick(object sender, EventArgs e)
         {
             Button clickOperator = (Button)sender;
-            operationSymbol = clickOperator.Text;
-            insertExpressionBox();
+            
+            if(rightOperand != "")
+            {
+                Operation(leftOperand, rightOperand, operationSymbol);
+                InsertResultAndReset();
+                operationSymbol = clickOperator.Text;
+                InsertExpressionBox();
+            }
+            else
+            {
+                operationSymbol = clickOperator.Text;
+                InsertExpressionBox();
+            }
         }
 
         // 계산식 표현
-        private void insertExpressionBox()
+        private void InsertExpressionBox()
         {
             expressionBox.Text = leftOperand + operationSymbol + rightOperand;
         }
 
         // 계산할 숫자 저장
-        private void saveOperand(String operand)
+        private void SaveOperand(String operand)
         {
             if (operationSymbol == "")
             {
@@ -60,12 +71,12 @@ namespace CalculatorForm
         }
 
         // '=' 버튼 클릭
-        private void equalsBtnClick(object sender, EventArgs e)
+        private void EqualsBtnClick(object sender, EventArgs e)
         {
             if(leftOperand != "" && rightOperand != "" && operationSymbol != "")
             {
                 Operation(leftOperand, rightOperand, operationSymbol);
-                insertResultAndReset();
+                InsertResultAndReset();
             }
         }
 
@@ -99,7 +110,7 @@ namespace CalculatorForm
         }
 
         //결과박스 인서트 & 값 초기화
-        private void insertResultAndReset()
+        private void InsertResultAndReset()
         {
             resultBox.Text = result;
             leftOperand = result;
@@ -107,6 +118,15 @@ namespace CalculatorForm
             operationSymbol = "";
         }
 
-        //test 주석
+        // cleaBtn 클릭
+        private void ClearBtnClick(object sender, EventArgs e)
+        {
+            resultBox.Text = "0";
+            expressionBox.Text = "0";
+            leftOperand = "";
+            rightOperand = "";
+            operationSymbol = "";
+            result = "";
+        }
     }
 }
