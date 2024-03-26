@@ -12,7 +12,6 @@ namespace CalculatorForm
 {
     public partial class frmCalculator : Form
     {
-
         String leftOperand = "";
         String rightOperand = "";
         String operationSymbol = "";
@@ -22,7 +21,6 @@ namespace CalculatorForm
         {
             InitializeComponent();
         }
-
 
         // 숫자 버튼 클릭
         private void NumberBtnClick(object sender, EventArgs e)
@@ -36,16 +34,24 @@ namespace CalculatorForm
         private void OperatorBtnClick(object sender, EventArgs e)
         {
             Button clickOperator = (Button)sender;
-            
-            if(rightOperand != "")
+
+            if (rightOperand != "" && leftOperand != "")
             {
+                Console.WriteLine("1");
                 Operation(leftOperand, rightOperand, operationSymbol);
                 InsertResultAndReset();
                 operationSymbol = clickOperator.Text;
                 InsertExpressionBox();
             }
+            else if (rightOperand == "" && leftOperand == "")
+            {
+                Console.WriteLine("2");
+                leftOperand = clickOperator.Text;
+                InsertExpressionBox();
+            }
             else
             {
+                Console.WriteLine("3");
                 operationSymbol = clickOperator.Text;
                 InsertExpressionBox();
             }
@@ -54,7 +60,9 @@ namespace CalculatorForm
         // 계산식 표현
         private void InsertExpressionBox()
         {
-            expressionBox.Text = leftOperand + operationSymbol + rightOperand;
+            string leftOperandWithCommas = MakeCommas(leftOperand);
+            string rightOperandWithCommas = MakeCommas(rightOperand);
+            expressionBox.Text = leftOperandWithCommas + operationSymbol + rightOperandWithCommas;
         }
 
         // 계산할 숫자 저장
@@ -73,14 +81,18 @@ namespace CalculatorForm
         // '=' 버튼 클릭
         private void EqualsBtnClick(object sender, EventArgs e)
         {
-            if(leftOperand != "" && rightOperand != "" && operationSymbol != "")
+            if (leftOperand != "" && rightOperand != "" && operationSymbol != "")
             {
                 Operation(leftOperand, rightOperand, operationSymbol);
                 InsertResultAndReset();
             }
+            else if (leftOperand.Contains("-"))
+            {
+                resultBox.Text = MakeCommas(expressionBox.Text);
+            }
         }
 
-        //계산
+        // 계산
         private void Operation(string left, string right, string operation)
         {
             switch (operation)
@@ -92,7 +104,7 @@ namespace CalculatorForm
                     result = (Math.Round((double.Parse(left) - double.Parse(right)), 5)).ToString();
                     break;
                 case "*":
-                    result = (Math.Round((double.Parse(left) * double.Parse(right)),5)).ToString();
+                    result = (Math.Round((double.Parse(left) * double.Parse(right)), 5)).ToString();
                     break;
                 case "/":
                     if (right == "0")
@@ -109,16 +121,16 @@ namespace CalculatorForm
             }
         }
 
-        //결과박스 인서트 & 값 초기화
+        // 결과박스 인서트 & 값 초기화
         private void InsertResultAndReset()
         {
-            resultBox.Text = result;
+            resultBox.Text = MakeCommas(result);
             leftOperand = result;
             rightOperand = "";
             operationSymbol = "";
         }
 
-        // cleaBtn 클릭
+        // ClearBtn 클릭
         private void ClearBtnClick(object sender, EventArgs e)
         {
             resultBox.Text = "0";
@@ -127,6 +139,22 @@ namespace CalculatorForm
             rightOperand = "";
             operationSymbol = "";
             result = "";
+        }
+
+        // 천 단위마다 쉼표만들기
+        private string MakeCommas(string numberString)
+        {
+            if (double.TryParse(numberString, out double number))
+            {
+                if (number % 1 == 0)
+                    return string.Format("{0:#,0}", number);
+                else
+                    return string.Format("{0:#,0.#####}", number);
+            }
+            else
+            {
+                return numberString;
+            }
         }
     }
 }
