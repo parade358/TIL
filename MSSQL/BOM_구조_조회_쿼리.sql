@@ -17,7 +17,7 @@
 --SELECT TPB.PARENT_PART_ID AS '모품번'
 --	 , TP.PART_NAME AS '모품명'
 --	 , TPB.PART_ID AS '자품번'
---	 , (SELECT PART_NAME
+--	 , (SELECT PART_NAME 
 --		FROM TB_PART
 --		WHERE PART_ID = TPB.PART_ID) AS '자품명'
 --	 , TPB.PER_QTY AS '소요수량'
