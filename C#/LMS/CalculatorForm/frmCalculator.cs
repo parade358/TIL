@@ -106,5 +106,7 @@ namespace CalculatorForm
             rightOperand = "";
             operationSymbol = "";
         }
+
+        //test 주석
     }
 }
