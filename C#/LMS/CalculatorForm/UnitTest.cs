@@ -3,21 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static CalculatorForm.Calculator;
 
 namespace CalculatorForm
 {
     internal class UnitTest
     {
-        public class Assert
+        private void AddResult()
         {
-            public static bool IsTrue(int i, int j)
-            {
-                return i != j;
-            }
-        }
-        private void add_result()
-        {
-                Assert.IsTrue(1, 3);
+            var expected = 4d;
+            var calculator = new Calculator(0);
+            calculator.Input(2);
+            calculator.Operater(CalOperator.Add);
+            calculator.Input(2);
+            Assert.IsTrue(calculator.Result, expected);
         }
     }
 }

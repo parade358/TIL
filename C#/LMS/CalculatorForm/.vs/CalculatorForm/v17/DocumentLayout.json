@@ -3,12 +3,24 @@
   "WorkspaceRootPath": "C:\\dev\\GitHub\\TIL\\C#\\LMS\\CalculatorForm\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2DC65673-DF7A-4ED2-B1DE-0BBBEDEFC82C}|CalculatorForm.csproj|C:\\dev\\GitHub\\TIL\\C#\\LMS\\CalculatorForm\\frmcalculator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{2DC65673-DF7A-4ED2-B1DE-0BBBEDEFC82C}|CalculatorForm.csproj|c:\\dev\\github\\til\\c#\\lms\\calculatorform\\frmcalculator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2DC65673-DF7A-4ED2-B1DE-0BBBEDEFC82C}|CalculatorForm.csproj|solutionrelative:frmcalculator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2DC65673-DF7A-4ED2-B1DE-0BBBEDEFC82C}|CalculatorForm.csproj|c:\\dev\\github\\til\\c#\\lms\\calculatorform\\frmcalculator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{2DC65673-DF7A-4ED2-B1DE-0BBBEDEFC82C}|CalculatorForm.csproj|C:\\dev\\GitHub\\TIL\\C#\\LMS\\CalculatorForm\\frmcalculator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{2DC65673-DF7A-4ED2-B1DE-0BBBEDEFC82C}|CalculatorForm.csproj|solutionrelative:frmcalculator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2DC65673-DF7A-4ED2-B1DE-0BBBEDEFC82C}|CalculatorForm.csproj|c:\\dev\\github\\til\\c#\\lms\\calculatorform\\unittest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2DC65673-DF7A-4ED2-B1DE-0BBBEDEFC82C}|CalculatorForm.csproj|solutionrelative:unittest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2DC65673-DF7A-4ED2-B1DE-0BBBEDEFC82C}|CalculatorForm.csproj|c:\\dev\\github\\til\\c#\\lms\\calculatorform\\calculator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2DC65673-DF7A-4ED2-B1DE-0BBBEDEFC82C}|CalculatorForm.csproj|solutionrelative:calculator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2DC65673-DF7A-4ED2-B1DE-0BBBEDEFC82C}|CalculatorForm.csproj|c:\\dev\\github\\til\\c#\\lms\\calculatorform\\assert.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2DC65673-DF7A-4ED2-B1DE-0BBBEDEFC82C}|CalculatorForm.csproj|solutionrelative:assert.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -30,13 +42,39 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UnitTest.cs",
+              "DocumentMoniker": "C:\\dev\\GitHub\\TIL\\C#\\LMS\\CalculatorForm\\UnitTest.cs",
+              "RelativeDocumentMoniker": "UnitTest.cs",
+              "ToolTip": "C:\\dev\\GitHub\\TIL\\C#\\LMS\\CalculatorForm\\UnitTest.cs",
+              "RelativeToolTip": "UnitTest.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABYAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-27T01:45:30.012Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Calculator.cs",
+              "DocumentMoniker": "C:\\dev\\GitHub\\TIL\\C#\\LMS\\CalculatorForm\\Calculator.cs",
+              "RelativeDocumentMoniker": "Calculator.cs",
+              "ToolTip": "C:\\dev\\GitHub\\TIL\\C#\\LMS\\CalculatorForm\\Calculator.cs",
+              "RelativeToolTip": "Calculator.cs",
+              "ViewState": "AQIAABcAAAAAAAAAAAAzwB4AAAAQAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-27T01:46:54.633Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
               "Title": "frmCalculator.cs",
               "DocumentMoniker": "C:\\dev\\GitHub\\TIL\\C#\\LMS\\CalculatorForm\\frmCalculator.cs",
               "RelativeDocumentMoniker": "frmCalculator.cs",
               "ToolTip": "C:\\dev\\GitHub\\TIL\\C#\\LMS\\CalculatorForm\\frmCalculator.cs",
               "RelativeToolTip": "frmCalculator.cs",
-              "ViewState": "AQIAAKAAAAAAAAAAAAAAAKAAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABsAAAAwAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-03-26T04:18:03.604Z",
               "EditorCaption": ""
@@ -52,6 +90,19 @@
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-03-22T06:04:19.42Z",
               "EditorCaption": " [\uB514\uC790\uC778]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Assert.cs",
+              "DocumentMoniker": "C:\\dev\\GitHub\\TIL\\C#\\LMS\\CalculatorForm\\Assert.cs",
+              "RelativeDocumentMoniker": "Assert.cs",
+              "ToolTip": "C:\\dev\\GitHub\\TIL\\C#\\LMS\\CalculatorForm\\Assert.cs",
+              "RelativeToolTip": "Assert.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAYAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-27T01:51:53.458Z",
+              "EditorCaption": ""
             }
           ]
         }

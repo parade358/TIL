@@ -46,8 +46,11 @@ namespace CalculatorForm
             else if (rightOperand == "" && leftOperand == "")
             {
                 Console.WriteLine("2");
-                leftOperand = clickOperator.Text;
-                InsertExpressionBox();
+                if(clickOperator.Text == "-")
+                {
+                    leftOperand = clickOperator.Text;
+                    InsertExpressionBox();
+                }
             }
             else
             {
