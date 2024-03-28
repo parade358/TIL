@@ -320,7 +320,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(348, 269);
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ClientSize = new System.Drawing.Size(342, 266);
             this.Controls.Add(this.divideBtn);
             this.Controls.Add(this.equalsBtn);
             this.Controls.Add(this.number0Btn);
@@ -340,6 +341,7 @@
             this.Controls.Add(this.multiplyBtn);
             this.Controls.Add(this.expressionBox);
             this.Name = "frmCalculator";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.ResumeLayout(false);
             this.PerformLayout();

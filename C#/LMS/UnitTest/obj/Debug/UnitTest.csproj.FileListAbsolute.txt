@@ -1,0 +1,7 @@
+C:\dev\GitHub\TIL\C#\LMS\UnitTest\bin\Debug\UnitTest.exe.config
+C:\dev\GitHub\TIL\C#\LMS\UnitTest\bin\Debug\UnitTest.exe
+C:\dev\GitHub\TIL\C#\LMS\UnitTest\bin\Debug\UnitTest.pdb
+C:\dev\GitHub\TIL\C#\LMS\UnitTest\obj\Debug\UnitTest.csproj.AssemblyReference.cache
+C:\dev\GitHub\TIL\C#\LMS\UnitTest\obj\Debug\UnitTest.csproj.CoreCompileInputs.cache
+C:\dev\GitHub\TIL\C#\LMS\UnitTest\obj\Debug\UnitTest.exe
+C:\dev\GitHub\TIL\C#\LMS\UnitTest\obj\Debug\UnitTest.pdb
