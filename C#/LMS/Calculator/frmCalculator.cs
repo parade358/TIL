@@ -13,17 +13,14 @@ namespace Calculator
 {
     public partial class frmCalculator : Form
     {
-
         public frmCalculator()
         {
             InitializeComponent();
         }
 
-
         private String num1;
         private String num2;
         private String elemMath;
-
 
         private void clickNumber(object sender, EventArgs e)
         {
@@ -83,9 +80,9 @@ namespace Calculator
             }
             else
             {
-                if(lastChar != "+" && lastChar != "-" && lastChar != "*" && lastChar != "/")
+                if (lastChar != "+" && lastChar != "-" && lastChar != "*" && lastChar != "/")
                 {
-                    if(num2 != null)
+                    if (num2 != null)
                     {
                         if (elemMath == "+")
                         {
@@ -123,18 +120,19 @@ namespace Calculator
                     {
                         num2 += clickedButton.Text;
                         expressionBox.Text += clickedButton.Text;
-                        resultBox.Text = (Math.Round((double.Parse(num1) + double.Parse(num2)),5)).ToString();
-                    }else if (elemMath == "-")
+                        resultBox.Text = (Math.Round((double.Parse(num1) + double.Parse(num2)), 5)).ToString();
+                    }
+                    else if (elemMath == "-")
                     {
                         num2 += clickedButton.Text;
                         expressionBox.Text += clickedButton.Text;
                         resultBox.Text = (Math.Round((double.Parse(num1) - double.Parse(num2)), 5)).ToString();
                     }
-                    else if(elemMath == "*")
+                    else if (elemMath == "*")
                     {
                         num2 += clickedButton.Text;
                         expressionBox.Text += clickedButton.Text;
-                        resultBox.Text = (Math.Round((double.Parse(num1) * double.Parse(num2)),5)).ToString();
+                        resultBox.Text = (Math.Round((double.Parse(num1) * double.Parse(num2)), 5)).ToString();
                     }
                     else if (elemMath == "/")
                     {
@@ -151,40 +149,31 @@ namespace Calculator
             }
         }
 
-
-
-
-
-
-
-
         private void clickOperatorBtn(object sender, EventArgs e)
         {
             String expressionText = expressionBox.Text;
             Button clickedButton = sender as Button;
-            string lastChar = expressionText[expressionText.Length-1].ToString();
+            string lastChar = expressionText[expressionText.Length - 1].ToString();
 
-            
-                if (lastChar != "+" && lastChar != "-" && lastChar != "*" && lastChar != "/")
+            if (lastChar != "+" && lastChar != "-" && lastChar != "*" && lastChar != "/")
+            {
+                if (num2 == null)
                 {
-                    if(num2 == null)
-                    {
-                        num1 = expressionBox.Text;
-                        elemMath = clickedButton.Text;
-                        expressionBox.Text += clickedButton.Text;
-                    }
-                    else
-                    {
-                        num1 = resultBox.Text;
-                        num2 = "";
-                        elemMath = clickedButton.Text;
-                        expressionBox.Text = "";
-                        expressionBox.Text += resultBox.Text + clickedButton.Text;
-                    }
+                    num1 = expressionBox.Text;
+                    elemMath = clickedButton.Text;
+                    expressionBox.Text += clickedButton.Text;
                 }
-            
-        }
+                else
+                {
+                    num1 = resultBox.Text;
+                    num2 = "";
+                    elemMath = clickedButton.Text;
+                    expressionBox.Text = "";
+                    expressionBox.Text += resultBox.Text + clickedButton.Text;
+                }
+            }
 
+        }
 
         private void clickClearBtn(object sender, EventArgs e)
         {

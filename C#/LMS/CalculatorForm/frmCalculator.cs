@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CalculatorForm
@@ -46,7 +39,7 @@ namespace CalculatorForm
             else if (rightOperand == "" && leftOperand == "")
             {
                 Console.WriteLine("2");
-                if(clickOperator.Text == "-")
+                if (clickOperator.Text == "-")
                 {
                     leftOperand = clickOperator.Text;
                     InsertExpressionBox();
@@ -144,15 +137,12 @@ namespace CalculatorForm
             result = "";
         }
 
-        // 천 단위마다 쉼표만들기
+        // 천 단위마다 쉼표만들기 & 소수점 밑 다섯자리 처리
         private string MakeCommas(string numberString)
         {
             if (double.TryParse(numberString, out double number))
             {
-                if (number % 1 == 0)
-                    return string.Format("{0:#,0}", number);
-                else
-                    return string.Format("{0:#,0.#####}", number);
+                return string.Format("{0:#,0.#####}", number);
             }
             else
             {
