@@ -1,16 +1,13 @@
 import React from "react";
+import Record from "./record/Record";
 
 export default function Main (){
 
     return (
     <>
         <div>
-            영역 1
+            <Record></Record>
         </div>
-        <div>
-            영역 2
-        </div>
-
     </>
     );
-}
+};
