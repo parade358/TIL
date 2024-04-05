@@ -12,11 +12,11 @@ export default function Record() {
             MatchDate: new Date(), // 매치 날짜
             PlayerNames: 'Player 1, Player 2', // 플레이어 이름 목록
             Goals: [
-                { PlayerName: 'Player 1', GoalQuarter: 1 }, // 골 정보
-                { PlayerName: 'Player 2', GoalQuarter: 2 }
+                { PlayerName: '최유성', GoalQuarter: 1 }, // 골 정보
+                { PlayerName: '최유성', GoalQuarter: 2 }
             ],
             Assists: [
-                { PlayerName: 'Player 1', GoalQuarter: 1, AssistPlayerName: 'Player 2', AssistQuarter: 1 } // 어시스트 정보
+                { PlayerName: '최유성', GoalQuarter: 1, AssistPlayerName: '류제승', AssistQuarter: 1 } // 어시스트 정보
             ]
         };
 
