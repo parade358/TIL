@@ -11,6 +11,10 @@ function App() {
       <div className="black-nav">
         <h4 style= {{color : 'red'}} id={post}>블로그</h4>
       </div>
+      <div className='list'>
+        <h4>글제목</h4>
+        <p>4월 12일 발행</p>
+      </div>
       <h4>{ post }</h4>
     </div>
   );
