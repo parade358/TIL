@@ -4,6 +4,10 @@
 ### JAVA
 [library function](https://github.com/parade358/TIL/blob/main/JAVA/library%20function.md)
 
+### C#
+
+[What_is_C#](https://github.com/parade358/TIL/blob/main/C%23/What_is_C%23.md)
+
 ### Python
 [library function](https://github.com/parade358/TIL/blob/main/Python/library%20function.md)
 
