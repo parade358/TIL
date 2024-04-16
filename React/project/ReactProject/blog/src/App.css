@@ -6,6 +6,21 @@ div {
   box-sizing: border-box;
 }
 
+.banner {
+  height: 100px;
+  background-color: bisque;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.modal {
+  margin-top: 20px;
+  padding: 20px;
+  background: #eee;
+  text-align: left;
+}
+
 .list {
   padding-left: 20px;
   text-align: left;
