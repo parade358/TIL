@@ -75,11 +75,15 @@ function App() {
         title.map(function(a, i){
           return (
             <div className='list' key={i}>
-              <h4 onClick={()=> {setModalTitle=title[i]; if(modal == true){setModal(false);} else{setModal(true);}}}>
-                { title[i] } <span onClick={()=>{ let copy = [...like];
-                                                  copy[i] = copy[i] + 1
-                                                  setLike(copy);}}>👍</span>{like[i]} 
+              <h4 onClick={()=> {setModalTitle(title[i]); if(modal == true){setModal(false);} else{setModal(true);}}}>
+                { title[i] } 
               </h4>
+              <span onClick={()=>{ let copy = [...like];
+                                  copy[i] = copy[i] + 1;
+                                  setLike(copy);}}>
+              👍
+              </span>
+              {like[i]} 
               <p>4월 12일 발행</p>
             </div>
           )
@@ -91,7 +95,7 @@ function App() {
       } */}
 
       {
-        modal == true ? <Modal modalTitle={modalTitle}/> : null
+        modal == true ? <Modal modalTitle={modalTitle}/> : null 
       }
 
     </div>
@@ -100,7 +104,7 @@ function App() {
 
 function Modal(props){
   return(
-    <div className='modal'>
+    <div className='modal' style={{background : props.color}}>
         <h4>{props.modalTitle}</h4>
         <p>날짜</p>
         <p>상세내용</p>
