@@ -32,6 +32,17 @@ function App() {
     let copy = [...title];
     copy.sort();
     setTitle(copy);
+      
+     let isDone = false;
+
+      if (3+5 == 8){
+        isDone = true;
+      }
+
+      if(isDone === true){
+        
+      }
+
   }
 
   // [1,2,3].map(function(a){
