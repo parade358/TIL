@@ -7,7 +7,18 @@
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
-    <div class="alert-box" id="alert">알림창임<button onclick="document.getElementById('alert').style.display = 'none'">닫기</button></div>
-    <button onclick = "document.getElementById('alert').style.display = 'block'">버튼</button>
+
+    <div class="alert-box" id="alert">알림창임<button onclick= "closeAlert()">닫기</button></div>
+    <button onclick = "openAlert()">버튼</button>
+
+    <script>
+        function openAlert(){
+            document.getElementById('alert').style.display = 'block'
+        };
+        function closeAlert(){
+            document.getElementById('alert').style.display = 'none'
+        };
+    </script>
+
 </body>
 </html>
