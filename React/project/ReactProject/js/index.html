@@ -8,15 +8,16 @@
 </head>
 <body>
 
-    <div class="alert-box" id="alert">알림창임<button onclick= "closeAlert()">닫기</button></div>
-    <button onclick = "openAlert()">버튼</button>
+    <div class="alert-box" id="alert">알림창임<button onclick= "closeAlert('none')">닫기</button></div>
+    <button onclick = "openAlert('block');">버튼</button>
 
     <script>
-        function openAlert(){
-            document.getElementById('alert').style.display = 'block'
+        function openAlert(hole){
+            document.getElementById('alert').style.display = hole;
         };
-        function closeAlert(){
-            document.getElementById('alert').style.display = 'none'
+
+        function closeAlert(hole){
+            document.getElementById('alert').style.display = hole;
         };
     </script>
 
