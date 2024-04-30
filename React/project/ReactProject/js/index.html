@@ -8,17 +8,17 @@
 </head>
 <body>
 
-    <div class="alert-box" id="alert">알림창임<button onclick= "closeAlert('none')">닫기</button></div>
-    <button onclick = "openAlert('block');">버튼</button>
+    <div class="alert-box" id="alert">알림창임<button onclick= "alert('none')">닫기</button></div>
+    <button onclick = "alert('block');">버튼</button>
 
     <script>
-        function openAlert(hole){
+        function alert(hole){
             document.getElementById('alert').style.display = hole;
         };
 
-        function closeAlert(hole){
-            document.getElementById('alert').style.display = hole;
-        };
+        function plus(a, b){
+            return a + b;
+        }
     </script>
 
 </body>
