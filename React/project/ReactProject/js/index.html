@@ -10,12 +10,18 @@
 
     <div class="alert-box" id="alert">
         <p class="txt">알림창임</p>
-        <button onclick= "alert('none')">닫기</button>
+        <button id="close">닫기</button>
     </div>
     <button onclick = "alert('block','아이디입력하세요');">버튼1</button>
     <button onclick = "alert('block', '비번입력하세요');">버튼2</button>
 
     <script>
+
+        document.getElementById('close').addEventListener('click',function(){
+            document.getElementById('alert').style.display = 'none';
+        })
+
+
         function alert(hole, txt){ 
             document.getElementById('alert').style.display = hole;
             document.getElementsByClassName('txt')[0].innerHTML = txt;
