@@ -5,8 +5,6 @@
 ■ 비    고 :
 ■ 주요변경내역
 VER         DATE          AUTHOR			DESCRIPTION
-0.01        2024-02-26   ys_choi			1.신규생성
-0.02		2024-02-27	 sj_hong			1.주석추가
 *******************************************************************************************/
 
 import { useRef, useState, useEffect, useCallback, useContext } from 'react'; // 리액트 훅
