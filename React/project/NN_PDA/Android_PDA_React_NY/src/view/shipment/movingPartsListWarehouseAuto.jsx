@@ -1,37 +1,37 @@
 import { makeStyles, Tabs, Tab, IconButton, Backdrop, CircularProgress, Button } from '@material-ui/core';
 import { useRef, useState, useEffect, useCallback } from 'react';
-import { Clear } from '@material-ui/icons';
-import colors from '../../commons/colors';
-import COMMON_MESSAGE from '../../commons/message';
-import AcsTabPanel from '../../components/acsTabPanel';
-import AcsTextField from './../../components/acsTextField';
-import AcsDataGrid from './../../components/acsDataGrid';
-import AcsSelect from './../../components/acsSelect';
-import AcsBadgeButton from './../../components/acsBadgeButton';
-import AcsRadioButton from '../../components/acsRadioButton';
-import AcsCheckBox from './../../components/acsCheckBox';
-import AcsDialog from '../../components/acsDialog';
-import AcsDialogCustom from '../../components/acsDialogCustom';
+import { Clear }        from '@material-ui/icons';
+import colors           from '../../commons/colors';
+import COMMON_MESSAGE   from '../../commons/message';
+import AcsTabPanel      from '../../components/acsTabPanel';
+import AcsTextField     from './../../components/acsTextField';
+import AcsDataGrid      from './../../components/acsDataGrid';
+import AcsSelect        from './../../components/acsSelect';
+import AcsBadgeButton   from './../../components/acsBadgeButton';
+import AcsRadioButton   from '../../components/acsRadioButton';
+import AcsCheckBox      from './../../components/acsCheckBox';
+import AcsDialog        from '../../components/acsDialog';
+import AcsDialogCustom  from '../../components/acsDialogCustom';
 
 const PDA_API_GETDATE_URL = process.env.REACT_APP_PDA_API_GETDATE_URL;
 const PDA_API_GENERAL_URL = process.env.REACT_APP_PDA_API_GENERAL_URL;
 
-const PROC_PK_PDA_DV06_1_L = 'U_PK_PDA_DV06_1_L'; // 이동창고 조회
+const PROC_PK_PDA_DV06_1_L       = 'U_PK_PDA_DV06_1_L';     // 이동창고 조회
 // const PROC_PK_PDA_DV06_2_L   = 'U_PK_PDA_DV06_2_L';      // (안쓰임)현재위치조회
 // const PROC_PK_PDA_DV06_3_L   = 'U_PK_PDA_DV06_3_L';      // (안쓰임)이동창고 목록조회
-const PROC_PK_PDA_DV06_4_L = 'U_PK_PDA_DV06_4_L'; // 입고표 정보조회 (바코드 스캔) + 현재위치
-const PROC_PK_PDA_DV06_6_L = 'U_PK_PDA_DV06_6_L'; // 부품표 정보조회 (PART_ID)
-const PROC_PK_PDA_DV06_7_L = 'U_PK_PDA_DV06_7_L'; // 부품표 위치조회
+const PROC_PK_PDA_DV06_4_L      = 'U_PK_PDA_DV06_4_L';      // 입고표 정보조회 (바코드 스캔) + 현재위치
+const PROC_PK_PDA_DV06_6_L      = 'U_PK_PDA_DV06_6_L';      // 부품표 정보조회 (PART_ID)
+const PROC_PK_PDA_DV06_7_L      = 'U_PK_PDA_DV06_7_L';      // 부품표 위치조회
 // const PROC_PK_PDA_DV06_9_L   = 'U_PK_PDA_DV06_9_L';      // (안쓰임)위치 바코드 스캔시 검증절차
 // const PROC_PK_PDA_DV06_10_L  = 'U_PK_PDA_DV06_10_L';     // (안쓰임)chktoloc
-const PROC_PK_PDA_DV06_1_S2 = 'U_PK_PDA_DV06_1_S2'; // 목록 저장 + 이동위치 사용처리 (리스트 데이터 추가)
-const PROC_PK_PDA_RealIV02_1_D = 'U_PK_PDA_RealIV02_1_D'; // 선택 삭제
-const PROC_PK_PDA_DV06_3_S = 'U_PK_PDA_DV06_3_S'; // 이동확정
-const PROC_PK_PDA_DV06_5_L = 'U_PK_PDA_DV06_5_L'; // 처리이력 조회
-const PROC_PK_PDA_DV07_4_L = 'U_PK_PDA_DV07_4_L'; // 출문증재발행 조회
-const PROC_PK_PDA_DV07_5_L = 'U_PK_PDA_DV07_5_L'; // 출문증 세부조회
-const PROC_PK_PDA_DV01_Reprt = 'U_PK_PDA_DV01_Reprt'; // 출문증재발행 업데이트
-const PROC_PK_PDA_RealIV02_2_D = 'U_PK_PDA_RealIV02_2_D'; // initData
+const PROC_PK_PDA_DV06_1_S2     = 'U_PK_PDA_DV06_1_S2';     // 목록 저장 + 이동위치 사용처리 (리스트 데이터 추가)
+const PROC_PK_PDA_RealIV02_1_D  = 'U_PK_PDA_RealIV02_1_D';  // 선택 삭제
+const PROC_PK_PDA_DV06_3_S      = 'U_PK_PDA_DV06_3_S';      // 이동확정
+const PROC_PK_PDA_DV06_5_L      = 'U_PK_PDA_DV06_5_L';      // 처리이력 조회
+const PROC_PK_PDA_DV07_4_L      = 'U_PK_PDA_DV07_4_L';      // 출문증재발행 조회
+const PROC_PK_PDA_DV07_5_L      = 'U_PK_PDA_DV07_5_L';      // 출문증 세부조회
+const PROC_PK_PDA_DV01_Reprt    = 'U_PK_PDA_DV01_Reprt';    // 출문증재발행 업데이트
+const PROC_PK_PDA_RealIV02_2_D  = 'U_PK_PDA_RealIV02_2_D';  // initData
 
 let msg = '';
 
