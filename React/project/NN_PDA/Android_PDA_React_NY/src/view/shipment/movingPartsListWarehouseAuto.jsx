@@ -1,3 +1,12 @@
+/*******************************************************************************************
+■ 문서제목 : movingPartsListWarehouseAuto.jsx
+■ 작성목적 : 
+■ 실행예제 : 
+■ 비    고 :
+■ 주요변경내역
+VER         DATE          AUTHOR			DESCRIPTION
+*******************************************************************************************/
+
 import { makeStyles, Tabs, Tab, IconButton, Backdrop, CircularProgress, Button } from '@material-ui/core';
 import { useRef, useState, useEffect, useCallback } from 'react';
 import { Clear }        from '@material-ui/icons';
