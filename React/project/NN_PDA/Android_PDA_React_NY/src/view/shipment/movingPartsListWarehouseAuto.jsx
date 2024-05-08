@@ -199,16 +199,16 @@ function transDateSplitArray(date) {
 
 export default function InventoryMovingPartsListWarehouse() {
     // =============== 공통 state ===============
-    const classes = useStyle(); // CSS 스타일
+    const classes       = useStyle(); // CSS 스타일
     const nowDateRef = useRef(''); // 이동일자 Text
-    const [tabsValue, setTabsValue] = useState(0); // Tabs 구분
+    const [tabsValue,               setTabsValue] = useState(0); // Tabs 구분
     const tabsValueRef = useRef(0); // 현재 탭 밸류
-    const [resestTabsValue, setResestTabsValue] = useState(1); // 이동 진행 중인 품번 초기화 후 이동 Tabs
-    const [dialogOpen, setDialogOpen] = useState(false); // 다이얼로그 (메시지창)
-    const [dialogCustomOpen, setDialogCustomOpen] = useState(false); // 다이얼로그 커스텀 (메시지창)
-    const [dialogCustomrRestOpen, setDialogCustomrRestOpen] = useState(false); // 이동 진행 중인 품번 초기화 여부 Dialog
-    const [dialogOkay, setDialogOkay] = useState(''); // 확인, 삭제 구분
-    const [backdropOpen, setBackdropOpen] = useState(false); // 대기
+    const [resestTabsValue,         setResestTabsValue] = useState(1); // 이동 진행 중인 품번 초기화 후 이동 Tabs
+    const [dialogOpen,              setDialogOpen] = useState(false); // 다이얼로그 (메시지창)
+    const [dialogCustomOpen,        setDialogCustomOpen] = useState(false); // 다이얼로그 커스텀 (메시지창)
+    const [dialogCustomrRestOpen,   setDialogCustomrRestOpen] = useState(false); // 이동 진행 중인 품번 초기화 여부 Dialog
+    const [dialogOkay,              setDialogOkay] = useState(''); // 확인, 삭제 구분
+    const [backdropOpen,            setBackdropOpen] = useState(false); // 대기
     const pda_id = localStorage.getItem('PDA_ID'); // 사용자 ID
     const pda_plant_id = localStorage.getItem('PDA_PLANT_ID'); // 공장 ID
     const pda_mac_address = localStorage.getItem('PDA_MAC_ADDRESS'); // PDA Mac Address
