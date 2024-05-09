@@ -239,30 +239,30 @@ export default function InventoryMovingPartsListWarehouse() {
     const productCheckRef                                                               = useRef('N');                      // 제품 식별표 프린트 여부
 
     // =============== 이동 state ===============
-    const textCurrentLocationRef                        = useRef(''); // 현재위치 Text Ref
-    const textMoveLocationRef                           = useRef(''); // 이동위치 Text Ref
-    const barcodeRef                                    = useRef(''); // 바코드 Text
-    const textPartIdRef                                 = useRef(''); // 품번 Text Ref
-    const textTotalQtyRef                               = useRef(0); // 총수량 Text Ref
-    const textUnitQtyRef                                = useRef(0); // 이동수량 Text Ref
-    const moveQtyRef                                    = useRef(''); // 이동개수 Text
-    const [moveQtyAllCheck,     setMoveQtyAllCheck]     = useState(false); // 체크박스 체크여부
-    const moveQtyAllCheckRef                            = useRef(false); // 체크박스 체크여부 Ref
-    const [addListBtnDisabled,  setAddListBtnDisabled]  = useState(true); // 추가 버튼 Disabled
-    const [sumList1,            setSumList1]            = useState([]); // 리스트 목록
-    const sumList1Ref                                   = useRef([]); // 리스트 목록 Ref
-    const lotListRef                                    = useRef([]); // 중복 바코드 확인 Ref
+    const textCurrentLocationRef                        = useRef('');       // 현재위치 Text Ref
+    const textMoveLocationRef                           = useRef('');       // 이동위치 Text Ref
+    const barcodeRef                                    = useRef('');       // 바코드 Text
+    const textPartIdRef                                 = useRef('');       // 품번 Text Ref
+    const textTotalQtyRef                               = useRef(0);        // 총수량 Text Ref
+    const textUnitQtyRef                                = useRef(0);        // 이동수량 Text Ref
+    const moveQtyRef                                    = useRef('');       // 이동개수 Text
+    const [moveQtyAllCheck,     setMoveQtyAllCheck]     = useState(false);  // 체크박스 체크여부
+    const moveQtyAllCheckRef                            = useRef(false);    // 체크박스 체크여부 Ref
+    const [addListBtnDisabled,  setAddListBtnDisabled]  = useState(true);   // 추가 버튼 Disabled
+    const [sumList1,            setSumList1]            = useState([]);     // 리스트 목록
+    const sumList1Ref                                   = useRef([]);       // 리스트 목록 Ref
+    const lotListRef                                    = useRef([]);       // 중복 바코드 확인 Ref
 
     // =============== 처리 state ===============
-    const moveDateRef = useRef(''); // 이동일자 Text Ref
-    const [sumList2, setSumList2] = useState([]); // 리스트 목록
+    const moveDateRef               = useRef('');   // 이동일자 Text Ref
+    const [sumList2, setSumList2]   = useState([]); // 리스트 목록
 
     // =============== 출문증재발행 state ===============
-    const shipmentDateRef = useRef(''); // 출하일자
-    const [sumList6, setSumList6] = useState([]); // 출문증재발행 리스트
-    const selectedReissueShipmentNumberRef = useRef(''); // 선택한 출하번호
-    const [sumList7, setSumList7] = useState([]); // 출문증재발행 세부 리스트
-    const [reissueBtnDisabled, setReissueBtnDisabled] = useState(true); // 재발행 버튼 Disabled
+    const shipmentDateRef                               = useRef('');       // 출하일자
+    const [sumList6,            setSumList6]            = useState([]);     // 출문증재발행 리스트
+    const selectedReissueShipmentNumberRef              = useRef('');       // 선택한 출하번호
+    const [sumList7,            setSumList7]            = useState([]);     // 출문증재발행 세부 리스트
+    const [reissueBtnDisabled,  setReissueBtnDisabled]  = useState(true);   // 재발행 버튼 Disabled
 
     // 화면 처음 로드시
     // WebView에서 스캔 데이터 받는 이벤트
