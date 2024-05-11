@@ -1,5 +1,5 @@
 /*******************************************************************************************
-■ 문서제목 : movingPartsListWarehouseAuto.jsx
+■ 문서제목 : shipmentCustomerLabelReplacement.jsx
 ■ 작성목적 : 
 ■ 실행예제 : 
 ■ 비    고 :
@@ -273,38 +273,32 @@ const partBarcodeLocationArray = (obj) => {
 
 // 고객사라벨교체출하
 function ShipmentCustomerLabelReplacement() {
+
     // =============== 공통 state ===============
-    const classes = useStyle(); // CSS 스타일
-    const todayDateRef = useRef(''); // 오늘 날짜
-    const { setMenuOpen } = useContext(menuOpenContext); // 메뉴
-    const pda_id = localStorage.getItem('PDA_ID'); // 사용자 ID
-    const pda_plant_id = localStorage.getItem('PDA_PLANT_ID'); // 공장 ID
-    const pda_mac_address = localStorage.getItem('PDA_MAC_ADDRESS'); // PDA Mac Address
-
-    const [tabsValue, setTabsValue] = useState(0); // Tab 구분 스테이트
-    const tabsValueRef = useRef(0); // tabs의 값 담아두고 값에 따라 동작 필터링
-    const [resestTabsValue, setResestTabsValue] = useState(1); // 출하 탭에서 출하 진행 중인 출하지시가 있을 경우 초기화한 후 이동할 Tabs
-
-    const [dialogOpen, setDialogOpen] = useState(false); // 다이얼로그 (메시지창)
-    const [dialogCancelGubun, setDialogCancelGubun] = useState(''); // 다이얼로그 (메시지창) - 출하저장, 출하완료 후 닫기 버튼 클릭시 구분
-    const [dialogCustomOpen, setDialogCustomOpen] = useState(false); // 다이얼로그 커스텀 (메시지창)
-    const [dialogCustomrRestOpen, setDialogCustomrRestOpen] = useState(false); // 다이얼로그 커스텀 (메시지창) - 출하 탭에서 출하 진행 중인 출하지시가 있을 경우 초기화 여부 묻는 Dialog
-    const [dialogCustomrSaveCompleteOpen, setDialogCustomrSaveCompleteOpen] = useState(false); // 다이얼로그 커스텀 (메시지창) - 출하 탭에서 출하 진행 중인 출하지시가 있을 경우 출하 저장 여부 묻는 Dialog
-    const [dialogOkay, setDialogOkay] = useState(''); // 확인, 삭제 구분
-
-    const [backdropOpen, setBackdropOpen] = useState(false); // 대기
-
-    const scanLocationRef = useRef('customer'); // 바코드 스캔 위치
-
-    const onMessage = useCallback((event) => {
-        ReadData(event);
-    }, []); // WebView에서 받아온 데이터
-    const onMessageGubunRef = useRef(''); // WebView로 데이터 요청 후 작업에 대한 구분
+    const classes                                                               = useStyle(); // CSS 스타일
+    const todayDateRef                                                          = useRef(''); // 오늘 날짜
+    const { setMenuOpen }                                                       = useContext(menuOpenContext); // 메뉴
+    const pda_id                                                                = localStorage.getItem('PDA_ID'); // 사용자 ID
+    const pda_plant_id                                                          = localStorage.getItem('PDA_PLANT_ID'); // 공장 ID
+    const pda_mac_address                                                       = localStorage.getItem('PDA_MAC_ADDRESS'); // PDA Mac Address
+    const [tabsValue,                       setTabsValue]                       = useState(0); // Tab 구분 스테이트
+    const tabsValueRef                                                          = useRef(0); // tabs의 값 담아두고 값에 따라 동작 필터링
+    const [resestTabsValue,                 setResestTabsValue]                 = useState(1); // 출하 탭에서 출하 진행 중인 출하지시가 있을 경우 초기화한 후 이동할 Tabs
+    const [dialogOpen,                      setDialogOpen]                      = useState(false); // 다이얼로그 (메시지창)
+    const [dialogCancelGubun,               setDialogCancelGubun]               = useState(''); // 다이얼로그 (메시지창) - 출하저장, 출하완료 후 닫기 버튼 클릭시 구분
+    const [dialogCustomOpen,                setDialogCustomOpen]                = useState(false); // 다이얼로그 커스텀 (메시지창)
+    const [dialogCustomrRestOpen,           setDialogCustomrRestOpen]           = useState(false); // 다이얼로그 커스텀 (메시지창) - 출하 탭에서 출하 진행 중인 출하지시가 있을 경우 초기화 여부 묻는 Dialog
+    const [dialogCustomrSaveCompleteOpen,   setDialogCustomrSaveCompleteOpen]   = useState(false); // 다이얼로그 커스텀 (메시지창) - 출하 탭에서 출하 진행 중인 출하지시가 있을 경우 출하 저장 여부 묻는 Dialog
+    const [dialogOkay,                      setDialogOkay]                      = useState(''); // 확인, 삭제 구분
+    const [backdropOpen,                    setBackdropOpen]                    = useState(false); // 대기
+    const scanLocationRef                                                       = useRef('customer'); // 바코드 스캔 위치
+    const onMessage                                                             = useCallback((event) => {ReadData(event);}, []); // WebView에서 받아온 데이터
+    const onMessageGubunRef                                                     = useRef(''); // WebView로 데이터 요청 후 작업에 대한 구분
+    const [,                                updateState]                        = useState(); // forceUpdate
+    const forceUpdate                                                           = useCallback(() => updateState({}), []); // forceUpdate
 
     // =============== 출하지시 state ===============
     const shipmentRequestDateRef = useRef(''); // 출하의뢰일자
-    const [, updateState] = useState(); // forceUpdate
-    const forceUpdate = useCallback(() => updateState({}), []); // forceUpdate
     const [sumList1, setSumList1] = useState([]); // 출하지시 리스트
     const selectedShippingNumberRef = useRef(''); // 출하지시 리스트에서 선택한 출하지시번호
     const selectedStateRef = useRef(''); // 출하지시 리스트에서 선택한 상태
