@@ -816,6 +816,8 @@ function ShipmentProductAuto() {
             setSelectedComboBoxPartLocation({ value: '', label: '' });
             comboBoxPartLocationDisabledRef.current = true;
             textTotalQtyRef.current = 0;
+            setTextTotalQty(0);
+            setTextUnitQty(0);
             textUnitQtyRef.current = 0;
             shipmentQtyRef.current.value = '';
             setShipmentQtyAllCheck(false);
@@ -2333,6 +2335,7 @@ function ShipmentProductAuto() {
                 onMessageGubunRef.current = '출하의뢰일자변경';
                 // webView 데이터 요청
                 webViewPostMessage();
+                loadDevoutData();
             }
         },
 
@@ -2344,6 +2347,7 @@ function ShipmentProductAuto() {
             onMessageGubunRef.current = '출하지시리스트클릭';
             // webView 데이터 요청
             webViewPostMessage();
+            loadDevoutDetailData();
         },
 
         // 리스트2 에서 한 행을 체크시 이벤트
@@ -2359,6 +2363,7 @@ function ShipmentProductAuto() {
             onMessageGubunRef.current = '출하지시선택';
             // webView 데이터 요청
             webViewPostMessage();
+            selectDevout();
         },
 
         // 현재 재고현황 팝업창 로드 - [현재 재고현황 팝업창]
