@@ -27,13 +27,21 @@
     </ul>
 
     <p class="hello">안녕</p>
+    <p class="hello">안녕</p>
+    <p class="hello">안녕</p>
+    <button id="testBtn">버튼</button>
     
     <script>
 
+      $(".hello").css('color', 'red');
 
-      document.querySelector('.hello').innerHTML = '바보' ;
+      $('.hello').html('바보');
 
-      $(".hello").html('메롱');
+      $('#testBtn').on('click', function(){
+
+        
+      })
+
 
 
 
