@@ -9,6 +9,15 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 </head>
   <body>
+
+    
+    <div class="black-bg">
+      <div class="white-bg">
+        <h4>로그인하세요</h4>
+        <button class="btn btn-danger" id="close">닫기</button>
+      </div>
+    </div> 
+
     <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
           <span class="navbar-brand">Navbar</span>
@@ -26,30 +35,22 @@
         <li class="list-group-item">And a fifth one</li>
     </ul>
 
-    <p class="hello">안녕</p>
-    <p class="hello">안녕</p>
-    <p class="hello">안녕</p>
-    <button id="testBtn">버튼</button>
+    <button class="btn btn-primary" id="open">들어가기</button>
     
     <script>
 
-      $(".hello").css('color', 'red');
+      $('#open').on('click', function(){
+        $('.black-bg').css('display','block');
+      });
 
-      $('.hello').html('바보');
+      $('#close').on('click', function(){
+        $('.black-bg').css('display','none');
+      });
 
-      $('#testBtn').on('click', function(){
-
-        
+      $('.navbar-toggler').on('click',function(){
+        $('.list-group').toggleClass('show');
       })
 
-
-
-
-
-
-        document.querySelector('.navbar-toggler').addEventListener('click',function(){
-          document.querySelectorAll('.list-group')[0].classList.toggle('show');
-        })
     </script>
     
     <!-- classList.toggle('클래스명') 클래스를 넣다뺏다 해줘 -->
