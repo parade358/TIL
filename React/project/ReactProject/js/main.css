@@ -29,3 +29,10 @@
     padding: 30px;
   } 
 
+.show-modal{
+    display: block;
+}
+
+.close-modal{
+    display: none;
+}
