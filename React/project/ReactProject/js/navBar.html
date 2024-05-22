@@ -48,11 +48,11 @@
     <script>
 
       $('#open').on('click', function(){
-        $('.black-bg').css('display','block');
+        $('.black-bg').addClass('show-modal');
       });
 
       $('#close').on('click', function(){
-        $('.black-bg').css('display','none');
+        $('.black-bg').removeClass('show-modal');
       });
 
       $('.navbar-toggler').on('click',function(){
