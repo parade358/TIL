@@ -7,11 +7,15 @@
 }
 
 .list-group {
-    display: none;
+    visibility: hidden;
+    height: 0px;
+    overflow: hidden;
+    transition: all 1s;
 }
 
 .show {
-    display: block;
+    visibility: visible;
+    height: 210px;
 }
 
 .black-bg {
