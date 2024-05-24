@@ -11,12 +11,25 @@
   <body>
 
     <!-- 모달창은 html 맨 위에 넣어야 잘보임 -->
+    
     <div class="black-bg">
       <div class="white-bg">
         <h4>로그인하세요</h4>
-        <button class="btn btn-danger" id="close">닫기</button>
-      </div>
-    </div> 
+        
+        <form action="success.html">
+            <div class="my-3">
+              <input type="text" class="form-control">
+             </div>
+             <div class="my-3">
+               <input type="password" class="form-control">
+             </div>
+             <button type="submit" class="btn btn-primary">전송</button>
+             <button type="button" class="btn btn-danger" id="close">닫기</button>
+        </form> 
+
+            </div>
+          </div> 
+
 
     <!-- 
       one-way UI 애니메이션 만드는 법
