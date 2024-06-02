@@ -209,24 +209,24 @@ function transDateSplitArray(date) {
 }
 
 function InventoryMovingPartsListWarehouse() {
-    const classes = useStyle(); // CSS 스타일
-    const nowDateRef = useRef(''); // 이동일자 Text
-    const [tabsValue, setTabsValue] = useState(0); // Tabs 구분
-    const tabsValueRef = useRef(0);
-    const [resestTabsValue, setResestTabsValue] = useState(1); // 이동 탭에서 이동 진행 중인 품번이 있을 경우 초기화한 후 이동할 Tabs
-    const [dialogOpen, setDialogOpen] = useState(false); // 다이얼로그 (메시지창)
-    const [dialogCustomOpen, setDialogCustomOpen] = useState(false); // 다이얼로그 커스텀 (메시지창)
-    const [dialogCustomrRestOpen, setDialogCustomrRestOpen] = useState(false); // 다이얼로그 커스텀 (메시지창) - 이동 탭에서 이동 진행 중인 품번이 있을 경우 초기화 여부 묻는 Dialog
-    const [dialogOkay, setDialogOkay] = useState(''); // 확인, 삭제 구분
-    const [backdropOpen, setBackdropOpen] = useState(false); // 대기
-    const pda_id = localStorage.getItem('PDA_ID'); // 사용자 ID
-    const pda_plant_id = localStorage.getItem('PDA_PLANT_ID'); // 공장 ID
-    const pda_mac_address = localStorage.getItem('PDA_MAC_ADDRESS'); // PDA Mac Address
-    const onMessage = useCallback((event) => {
-        ReadData(event);
-    }, []); // WebView에서 받아온 데이터
-    const onMessageGubunRef = useRef(''); // WebView로 데이터 요청 후 작업에 대한 구분
-    const scanLocationRef = useRef(''); // 바코드 스캔 위치
+
+    const classes                                               = useStyle(); // CSS 스타일
+    const nowDateRef                                            = useRef(''); // 이동일자 Text
+    const [tabsValue,               setTabsValue]               = useState(0); // Tabs 구분
+    const tabsValueRef                                          = useRef(0);
+    const [resestTabsValue,         setResestTabsValue]         = useState(1); // 이동 탭에서 이동 진행 중인 품번이 있을 경우 초기화한 후 이동할 Tabs
+    const [dialogOpen,              setDialogOpen]              = useState(false); // 다이얼로그 (메시지창)
+    const [dialogCustomOpen,        setDialogCustomOpen]        = useState(false); // 다이얼로그 커스텀 (메시지창)
+    const [dialogCustomrRestOpen,   setDialogCustomrRestOpen]   = useState(false); // 다이얼로그 커스텀 (메시지창) - 이동 탭에서 이동 진행 중인 품번이 있을 경우 초기화 여부 묻는 Dialog
+    const [dialogOkay,              setDialogOkay]              = useState(''); // 확인, 삭제 구분
+    const [backdropOpen,            setBackdropOpen]            = useState(false); // 대기
+    const pda_id                                                = localStorage.getItem('PDA_ID'); // 사용자 ID
+    const pda_plant_id                                          = localStorage.getItem('PDA_PLANT_ID'); // 공장 ID
+    const pda_mac_address                                       = localStorage.getItem('PDA_MAC_ADDRESS'); // PDA Mac Address
+    const onMessage                                             = useCallback((event) => {ReadData(event);}, []); // WebView에서 받아온 데이터
+    const onMessageGubunRef                                     = useRef(''); // WebView로 데이터 요청 후 작업에 대한 구분
+    const scanLocationRef                                       = useRef(''); // 바코드 스캔 위치
+
     // ===========================================================================================================================
     // 출고 Tabs state
     const comboBoxCurrentStorageRef = useRef([]); // 현재창고 ComboBox Ref
