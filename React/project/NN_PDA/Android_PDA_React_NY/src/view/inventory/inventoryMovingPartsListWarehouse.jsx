@@ -213,7 +213,7 @@ function InventoryMovingPartsListWarehouse() {
     const classes                                               = useStyle();                                       // CSS 스타일
     const nowDateRef                                            = useRef('');                                       // 이동일자 Text
     const [tabsValue,               setTabsValue]               = useState(0);                                      // Tabs 구분
-    const tabsValueRef                                          = useRef(0);                                
+    const tabsValueRef                                          = useRef(0);                                        // Tabs 구분 Ref
     const [resestTabsValue,         setResestTabsValue]         = useState(1);                                      // 이동 탭에서 이동 진행 중인 품번이 있을 경우 초기화한 후 이동할 Tabs
     const [dialogOpen,              setDialogOpen]              = useState(false);                                  // 다이얼로그 (메시지창)
     const [dialogCustomOpen,        setDialogCustomOpen]        = useState(false);                                  // 다이얼로그 커스텀 (메시지창)
@@ -333,6 +333,7 @@ function InventoryMovingPartsListWarehouse() {
             onMessageGubunRef.current = '창고탭로드';
             // webView 데이터 요청
             webViewPostMessage();
+            loadCurrentStorage();
         }
         // 이동 Tabs
         else if (tabsValue === 1) {
@@ -355,6 +356,7 @@ function InventoryMovingPartsListWarehouse() {
             onMessageGubunRef.current = '현재창고변경';
             // webView 데이터 요청
             webViewPostMessage();
+            loadFromLocation();
         }
     }, [selectedComboBoxCurrentStorage]);
 
@@ -376,6 +378,7 @@ function InventoryMovingPartsListWarehouse() {
             onMessageGubunRef.current = '이동창고변경';
             // webView 데이터 요청
             webViewPostMessage();
+            loadToLocation();
         }
     }, [selectedComboBoxMoveStorage]);
 
