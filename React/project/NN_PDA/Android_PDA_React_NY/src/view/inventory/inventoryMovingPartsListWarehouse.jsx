@@ -333,7 +333,6 @@ function InventoryMovingPartsListWarehouse() {
             onMessageGubunRef.current = '창고탭로드';
             // webView 데이터 요청
             webViewPostMessage();
-            loadCurrentStorage();
         }
         // 이동 Tabs
         else if (tabsValue === 1) {
@@ -356,7 +355,6 @@ function InventoryMovingPartsListWarehouse() {
             onMessageGubunRef.current = '현재창고변경';
             // webView 데이터 요청
             webViewPostMessage();
-            loadFromLocation();
         }
     }, [selectedComboBoxCurrentStorage]);
 
@@ -378,7 +376,6 @@ function InventoryMovingPartsListWarehouse() {
             onMessageGubunRef.current = '이동창고변경';
             // webView 데이터 요청
             webViewPostMessage();
-            loadToLocation();
         }
     }, [selectedComboBoxMoveStorage]);
 
