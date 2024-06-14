@@ -12,7 +12,7 @@
 2024/06/21	최유성				Created   
 ******************************************************************/      
   
-CREATE PROCEDURE [dbo].[USP_ATM_TEST_L]  
+ALTER PROCEDURE [dbo].[USP_ATM_TEST_L]  
     @P_DATE_TYPE	VARCHAR(50)  
   , @P_START_DATE	VARCHAR(50)  
   , @P_END_DATE		VARCHAR(50)  
@@ -35,15 +35,15 @@ BEGIN
 	  , res.SAVE_BY		'@@SAVE_BY'
       
 	--UserView
-     , res.WORK_DATE					'<ALIGN=CENTER> 일자'  
-     , res.START_DTTM					'<ALIGN=CENTER> 시작시각'  
-     , res.END_DTTM						'<ALIGN=CENTER> 종료시각'  
-     , res.END_DTTM - res.START_DTTM	'<ALIGN=CENTER> 소요시간(분)'   
-	 , eq.EQ_NAME						'<ALIGN=CENTER> 설비명'  
-     , res.EQ_MA_DESC					'<ALIGN=CENTER> 조치내용'  
-     , emp.EMP_ID						'<ALIGN=CENTER> 작업자'  
-     , res.SAVE_DTTM					'<ALIGN=CENTER> 저장일시'  
-     , res.SAVE_BY						'<ALIGN=CENTER> 입력자'
+     , CONVERT(CHAR(10), res.WORK_DATE, 23)				'<ALIGN=CENTER> 일자'
+     , FORMAT(res.START_DTTM, 'HH:mm')					'<ALIGN=CENTER> 시작시각'  
+     , FORMAT(res.END_DTTM, 'HH:mm')					'<ALIGN=CENTER> 종료시각'  
+     , DATEDIFF(MINUTE, res.START_DTTM, res.END_DTTM)	'<ALIGN=CENTER> 소요시간(분)'   
+	 , eq.EQ_NAME										'<ALIGN=CENTER> 설비명'  
+     , res.EQ_MA_DESC									'<ALIGN=CENTER> 조치내용'  
+     , emp.EMP_ID										'<ALIGN=CENTER> 작업자'  
+     , res.SAVE_DTTM									'<ALIGN=CENTER> 저장일시'  
+     , res.SAVE_BY										'<ALIGN=CENTER> 입력자'
   FROM TB_EQ_MA_RES res WITH(NOLOCK)
   LEFT OUTER JOIN TB_EQ eq on res.EQ_ID = eq.EQ_ID
   LEFT OUTER JOIN TB_EQ_TYPE ty ON eq.EQ_TYPE_ID = ty.EQ_TYPE_ID  
