@@ -1,37 +1,46 @@
+/*******************************************************************************************
+■ 문서제목 : movingPartsListWarehouseAuto.jsx
+■ 작성목적 : 
+■ 실행예제 : 
+■ 비    고 :
+■ 주요변경내역
+VER         DATE          AUTHOR			DESCRIPTION
+*******************************************************************************************/
+
 import { makeStyles, Tabs, Tab, IconButton, Backdrop, CircularProgress, Button } from '@material-ui/core';
 import { useRef, useState, useEffect, useCallback } from 'react';
-import { Clear } from '@material-ui/icons';
-import colors from '../../commons/colors';
-import COMMON_MESSAGE from '../../commons/message';
-import AcsTabPanel from '../../components/acsTabPanel';
-import AcsTextField from './../../components/acsTextField';
-import AcsDataGrid from './../../components/acsDataGrid';
-import AcsSelect from './../../components/acsSelect';
-import AcsBadgeButton from './../../components/acsBadgeButton';
-import AcsRadioButton from '../../components/acsRadioButton';
-import AcsCheckBox from './../../components/acsCheckBox';
-import AcsDialog from '../../components/acsDialog';
-import AcsDialogCustom from '../../components/acsDialogCustom';
+import { Clear }        from '@material-ui/icons';
+import colors           from '../../commons/colors';
+import COMMON_MESSAGE   from '../../commons/message';
+import AcsTabPanel      from '../../components/acsTabPanel';
+import AcsTextField     from './../../components/acsTextField';
+import AcsDataGrid      from './../../components/acsDataGrid';
+import AcsSelect        from './../../components/acsSelect';
+import AcsBadgeButton   from './../../components/acsBadgeButton';
+import AcsRadioButton   from '../../components/acsRadioButton';
+import AcsCheckBox      from './../../components/acsCheckBox';
+import AcsDialog        from '../../components/acsDialog';
+import AcsDialogCustom  from '../../components/acsDialogCustom';
 
 const PDA_API_GETDATE_URL = process.env.REACT_APP_PDA_API_GETDATE_URL;
 const PDA_API_GENERAL_URL = process.env.REACT_APP_PDA_API_GENERAL_URL;
 
-const PROC_PK_PDA_DV06_1_L = 'U_PK_PDA_DV06_1_L'; // 이동창고 조회
+const PROC_PK_PDA_DV06_1_L      = 'U_PK_PDA_DV06_1_L';      // 이동창고 조회
 // const PROC_PK_PDA_DV06_2_L   = 'U_PK_PDA_DV06_2_L';      // (안쓰임)현재위치조회
 // const PROC_PK_PDA_DV06_3_L   = 'U_PK_PDA_DV06_3_L';      // (안쓰임)이동창고 목록조회
-const PROC_PK_PDA_DV06_4_L = 'U_PK_PDA_DV06_4_L'; // 입고표 정보조회 (바코드 스캔) + 현재위치
-const PROC_PK_PDA_DV06_6_L = 'U_PK_PDA_DV06_6_L'; // 부품표 정보조회 (PART_ID)
-const PROC_PK_PDA_DV06_7_L = 'U_PK_PDA_DV06_7_L'; // 부품표 위치조회
+const PROC_PK_PDA_DV06_4_L      = 'U_PK_PDA_DV06_4_L';      // 입고표 정보조회 (바코드 스캔) + 현재위치
+const PROC_PK_PDA_DV06_6_L      = 'U_PK_PDA_DV06_6_L';      // 부품표 정보조회 (PART_ID)
+const PROC_PK_PDA_DV06_7_L      = 'U_PK_PDA_DV06_7_L';      // 부품표 위치조회
 // const PROC_PK_PDA_DV06_9_L   = 'U_PK_PDA_DV06_9_L';      // (안쓰임)위치 바코드 스캔시 검증절차
 // const PROC_PK_PDA_DV06_10_L  = 'U_PK_PDA_DV06_10_L';     // (안쓰임)chktoloc
-const PROC_PK_PDA_DV06_1_S2 = 'U_PK_PDA_DV06_1_S2'; // 목록 저장 + 이동위치 사용처리 (리스트 데이터 추가)
-const PROC_PK_PDA_RealIV02_1_D = 'U_PK_PDA_RealIV02_1_D'; // 선택 삭제
-const PROC_PK_PDA_DV06_3_S = 'U_PK_PDA_DV06_3_S'; // 이동확정
-const PROC_PK_PDA_DV06_5_L = 'U_PK_PDA_DV06_5_L'; // 처리이력 조회
-const PROC_PK_PDA_DV07_4_L = 'U_PK_PDA_DV07_4_L'; // 출문증재발행 조회
-const PROC_PK_PDA_DV07_5_L = 'U_PK_PDA_DV07_5_L'; // 출문증 세부조회
-const PROC_PK_PDA_DV01_Reprt = 'U_PK_PDA_DV01_Reprt'; // 출문증재발행 업데이트
-const PROC_PK_PDA_RealIV02_2_D = 'U_PK_PDA_RealIV02_2_D'; // initData
+const PROC_PK_PDA_DV06_1_S2     = 'U_PK_PDA_DV06_1_S2';     // 목록 저장 + 이동위치 사용처리 (리스트 데이터 추가)
+const PROC_PK_PDA_RealIV02_1_D  = 'U_PK_PDA_RealIV02_1_D';  // 선택 삭제
+const PROC_PK_PDA_DV06_3_S      = 'U_PK_PDA_DV06_3_S';      // 이동확정
+const PROC_PK_PDA_DV06_5_L      = 'U_PK_PDA_DV06_5_L';      // 처리이력 조회
+const PROC_PK_PDA_DV07_4_L      = 'U_PK_PDA_DV07_4_L';      // 출문증재발행 조회
+const PROC_PK_PDA_DV07_5_L      = 'U_PK_PDA_DV07_5_L';      // 출문증 세부조회
+const PROC_PK_PDA_DV01_Reprt    = 'U_PK_PDA_DV01_Reprt';    // 출문증재발행 업데이트
+const PROC_PK_PDA_RealIV02_2_D  = 'U_PK_PDA_RealIV02_2_D';  // initData
 
 let msg = '';
 
@@ -198,66 +207,62 @@ function transDateSplitArray(date) {
 }
 
 export default function InventoryMovingPartsListWarehouse() {
+
     // =============== 공통 state ===============
-    const classes = useStyle(); // CSS 스타일
-    const nowDateRef = useRef(''); // 이동일자 Text
-    const [tabsValue, setTabsValue] = useState(0); // Tabs 구분
-    const tabsValueRef = useRef(0); // 현재 탭 밸류
-    const [resestTabsValue, setResestTabsValue] = useState(1); // 이동 진행 중인 품번 초기화 후 이동 Tabs
-    const [dialogOpen, setDialogOpen] = useState(false); // 다이얼로그 (메시지창)
-    const [dialogCustomOpen, setDialogCustomOpen] = useState(false); // 다이얼로그 커스텀 (메시지창)
-    const [dialogCustomrRestOpen, setDialogCustomrRestOpen] = useState(false); // 이동 진행 중인 품번 초기화 여부 Dialog
-    const [dialogOkay, setDialogOkay] = useState(''); // 확인, 삭제 구분
-    const [backdropOpen, setBackdropOpen] = useState(false); // 대기
-    const pda_id = localStorage.getItem('PDA_ID'); // 사용자 ID
-    const pda_plant_id = localStorage.getItem('PDA_PLANT_ID'); // 공장 ID
-    const pda_mac_address = localStorage.getItem('PDA_MAC_ADDRESS'); // PDA Mac Address
-    const onMessage = useCallback((event) => {
-        ReadData(event);
-    }, []); // WebView에서 받아온 데이터
-    const onMessageGubunRef = useRef(''); // WebView로 데이터 요청 후 작업에 대한 구분
-    const scanLocationRef = useRef(''); // 바코드 스캔 위치
-    const [, updateState] = useState(); // forceUpdate
-    const forceUpdate = useCallback(() => updateState({}), []); // forceUpdate
+    const classes                                               = useStyle();                                       // CSS 스타일
+    const nowDateRef                                            = useRef('');                                       // 이동일자 Text
+    const [tabsValue,               setTabsValue]               = useState(0);                                      // Tabs 구분
+    const tabsValueRef                                          = useRef(0);                                        // 현재 탭 밸류
+    const [resestTabsValue,         setResestTabsValue]         = useState(1);                                      // 이동 진행 중인 품번 초기화 후 이동 Tabs
+    const [dialogOpen,              setDialogOpen]              = useState(false);                                  // 다이얼로그 (메시지창)
+    const [dialogCustomOpen,        setDialogCustomOpen]        = useState(false);                                  // 다이얼로그 커스텀 (메시지창)
+    const [dialogCustomrRestOpen,   setDialogCustomrRestOpen]   = useState(false);                                  // 이동 진행 중인 품번 초기화 여부 Dialog
+    const [dialogOkay,              setDialogOkay]              = useState('');                                     // 확인, 삭제 구분
+    const [backdropOpen,            setBackdropOpen]            = useState(false);                                  // 대기
+    const pda_id                                                = localStorage.getItem('PDA_ID');                   // 사용자 ID
+    const pda_plant_id                                          = localStorage.getItem('PDA_PLANT_ID');             // 공장 ID
+    const pda_mac_address                                       = localStorage.getItem('PDA_MAC_ADDRESS');          // PDA Mac Address
+    const onMessage                                             = useCallback((event) => {ReadData(event);}, []);   // WebView에서 받아온 데이터
+    const onMessageGubunRef                                     = useRef('');                                       // WebView로 데이터 요청 후 작업에 대한 구분
+    const scanLocationRef                                       = useRef('');                                       // 바코드 스캔 위치
+    const [,                        updateState]                = useState();                                       // forceUpdate
+    const forceUpdate                                           = useCallback(() => updateState({}), []);           // forceUpdate
 
     // =============== 창고 state ===============
-    const [radioState, setradioState] = useState('select'); // 라디오 버튼 (이동위치)
-    const radioStateRef = useRef('select'); // 라디오 버튼 (이동위치) Ref
-    const comboBoxMoveLocationStorageRef = useRef([]); // 창고 comboBox (이동위치) Ref
-    const [selectedComboBoxMoveLocationStorage, setSelectedComboBoxMoveLocationStorage] = useState({
-        value: '',
-        label: '',
-    }); // 선택된 창고 comboBox (이동위치)
-    const selectedComboBoxMoveLocationStorageValueRef = useRef(''); // 선택된 창고 comboBox (이동위치) value Ref
-    const moveLocationStorageRef = useRef(''); // 창고 Text (이동위치) Ref
-    const [productCheck, setProductCheck] = useState(false); // 체크박스 체크여부
-    const productCheckRef = useRef('N'); // 제품 식별표 프린트 여부
+    const [radioState,                          setradioState]                          = useState('select');               // 라디오 버튼 (이동위치)
+    const radioStateRef                                                                 = useRef('select');                 // 라디오 버튼 (이동위치) Ref
+    const comboBoxMoveLocationStorageRef                                                = useRef([]);                       // 창고 comboBox (이동위치) Ref
+    const [selectedComboBoxMoveLocationStorage, setSelectedComboBoxMoveLocationStorage] = useState({value: '', label: ''}); // 선택된 창고 comboBox (이동위치)
+    const selectedComboBoxMoveLocationStorageValueRef                                   = useRef('');                       // 선택된 창고 comboBox (이동위치) value Ref
+    const moveLocationStorageRef                                                        = useRef('');                       // 창고 Text (이동위치) Ref
+    const [productCheck,                        setProductCheck]                        = useState(false);                  // 체크박스 체크여부
+    const productCheckRef                                                               = useRef('N');                      // 제품 식별표 프린트 여부
 
     // =============== 이동 state ===============
-    const textCurrentLocationRef = useRef(''); // 현재위치 Text Ref
-    const textMoveLocationRef = useRef(''); // 이동위치 Text Ref
-    const barcodeRef = useRef(''); // 바코드 Text
-    const textPartIdRef = useRef(''); // 품번 Text Ref
-    const textTotalQtyRef = useRef(0); // 총수량 Text Ref
-    const textUnitQtyRef = useRef(0); // 이동수량 Text Ref
-    const moveQtyRef = useRef(''); // 이동개수 Text
-    const [moveQtyAllCheck, setMoveQtyAllCheck] = useState(false); // 체크박스 체크여부
-    const moveQtyAllCheckRef = useRef(false); // 체크박스 체크여부 Ref
-    const [addListBtnDisabled, setAddListBtnDisabled] = useState(true); // 추가 버튼 Disabled
-    const [sumList1, setSumList1] = useState([]); // 리스트 목록
-    const sumList1Ref = useRef([]); // 리스트 목록 Ref
-    const lotListRef = useRef([]); // 중복 바코드 확인 Ref
+    const textCurrentLocationRef                        = useRef('');       // 현재위치 Text Ref
+    const textMoveLocationRef                           = useRef('');       // 이동위치 Text Ref
+    const barcodeRef                                    = useRef('');       // 바코드 Text
+    const textPartIdRef                                 = useRef('');       // 품번 Text Ref
+    const textTotalQtyRef                               = useRef(0);        // 총수량 Text Ref
+    const textUnitQtyRef                                = useRef(0);        // 이동수량 Text Ref
+    const moveQtyRef                                    = useRef('');       // 이동개수 Text
+    const [moveQtyAllCheck,     setMoveQtyAllCheck]     = useState(false);  // 체크박스 체크여부
+    const moveQtyAllCheckRef                            = useRef(false);    // 체크박스 체크여부 Ref
+    const [addListBtnDisabled,  setAddListBtnDisabled]  = useState(true);   // 추가 버튼 Disabled
+    const [sumList1,            setSumList1]            = useState([]);     // 리스트 목록
+    const sumList1Ref                                   = useRef([]);       // 리스트 목록 Ref
+    const lotListRef                                    = useRef([]);       // 중복 바코드 확인 Ref
 
     // =============== 처리 state ===============
-    const moveDateRef = useRef(''); // 이동일자 Text Ref
-    const [sumList2, setSumList2] = useState([]); // 리스트 목록
+    const moveDateRef               = useRef('');   // 이동일자 Text Ref
+    const [sumList2, setSumList2]   = useState([]); // 리스트 목록
 
     // =============== 출문증재발행 state ===============
-    const shipmentDateRef = useRef(''); // 출하일자
-    const [sumList6, setSumList6] = useState([]); // 출문증재발행 리스트
-    const selectedReissueShipmentNumberRef = useRef(''); // 선택한 출하번호
-    const [sumList7, setSumList7] = useState([]); // 출문증재발행 세부 리스트
-    const [reissueBtnDisabled, setReissueBtnDisabled] = useState(true); // 재발행 버튼 Disabled
+    const shipmentDateRef                               = useRef('');       // 출하일자
+    const [sumList6,            setSumList6]            = useState([]);     // 출문증재발행 리스트
+    const selectedReissueShipmentNumberRef              = useRef('');       // 선택한 출하번호
+    const [sumList7,            setSumList7]            = useState([]);     // 출문증재발행 세부 리스트
+    const [reissueBtnDisabled,  setReissueBtnDisabled]  = useState(true);   // 재발행 버튼 Disabled
 
     // 화면 처음 로드시
     // WebView에서 스캔 데이터 받는 이벤트
