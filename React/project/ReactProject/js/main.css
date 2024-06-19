@@ -7,9 +7,39 @@
 }
 
 .list-group {
-    display: none;
+    visibility: hidden;
+    height: 0px;
+    overflow: hidden;
+    transition: all 1s;
 }
 
 .show {
-    display: block;
+    visibility: visible;
+    height: 210px;
+}
+
+.black-bg {
+    width : 100%;
+    height : 100%;
+    position : fixed;
+    background : rgba(0,0,0,0.5);
+    z-index : 5;
+    padding: 30px;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 1s;
+  }
+  .white-bg {
+    background: white;
+    border-radius: 5px;
+    padding: 30px;
+  } 
+
+.show-modal{
+    visibility: visible;
+    opacity: 1;
+}
+
+.close-modal{
+    display: none;
 }
