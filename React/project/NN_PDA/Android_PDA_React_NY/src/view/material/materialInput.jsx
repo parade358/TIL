@@ -486,18 +486,26 @@ function MaterialInput() {
                         partBarcodeRef.current.value = '';
                         return;
                     }
-                } else if (checkLocDisabled.current === false && moveLocationStorageRef.current.value === '') {
-                    if (checkDisabled.current === false) {
-                        if (scannedData.data.length === 25) {
-                            msg = '위치정보를 스캔하세요.';
+                } else if (scanLocationRef.current === 'locationScan') {
+                    if (checkLocDisabled === true) {
+                        if (checkDisabled === false) {
+                            if (scannedData.data.length === 25) {
+                                msg = '위치정보를 스캔하세요.';
+                                setDialogOpen(true);
+                                vibration();
+                                return;
+                            } else {
+                                barcodeInfo(scannedData.data, 'locationScan');
+                            }
+                        } else {
+                            msg = '입고창고를 [수동]으로 선택하고 보관처를 스캔하세요.';
                             setDialogOpen(true);
                             vibration();
                             return;
-                        } else {
-                            barcodeInfo(scannedData.data, 'locationScan');
                         }
                     } else {
-                        msg = '입고창고를 [수동]으로 선택하고 보관처를 스캔하세요.';
+                        moveLocationStorageRef.current.value = '';
+                        msg = '위치정보 바코드가 아닙니다.';
                         setDialogOpen(true);
                         vibration();
                         return;
@@ -1050,9 +1058,9 @@ function MaterialInput() {
         onLocRadioChanged: (e, check) => {
             setLocRadioState(e.target.value);
             if (check === 'locauto') {
-                checkLocDisabled.current = true;
-            } else if (check === 'locscan') {
                 checkLocDisabled.current = false;
+            } else if (check === 'locscan') {
+                checkLocDisabled.current = true;
             }
         },
         // 체크박스 전체 클릭 이벤트

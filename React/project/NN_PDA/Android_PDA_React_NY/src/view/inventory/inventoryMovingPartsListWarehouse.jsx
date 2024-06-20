@@ -209,71 +209,71 @@ function transDateSplitArray(date) {
 }
 
 function InventoryMovingPartsListWarehouse() {
-    const classes = useStyle(); // CSS 스타일
-    const nowDateRef = useRef(''); // 이동일자 Text
-    const [tabsValue, setTabsValue] = useState(0); // Tabs 구분
-    const tabsValueRef = useRef(0);
-    const [resestTabsValue, setResestTabsValue] = useState(1); // 이동 탭에서 이동 진행 중인 품번이 있을 경우 초기화한 후 이동할 Tabs
-    const [dialogOpen, setDialogOpen] = useState(false); // 다이얼로그 (메시지창)
-    const [dialogCustomOpen, setDialogCustomOpen] = useState(false); // 다이얼로그 커스텀 (메시지창)
-    const [dialogCustomrRestOpen, setDialogCustomrRestOpen] = useState(false); // 다이얼로그 커스텀 (메시지창) - 이동 탭에서 이동 진행 중인 품번이 있을 경우 초기화 여부 묻는 Dialog
-    const [dialogOkay, setDialogOkay] = useState(''); // 확인, 삭제 구분
-    const [backdropOpen, setBackdropOpen] = useState(false); // 대기
-    const pda_id = localStorage.getItem('PDA_ID'); // 사용자 ID
-    const pda_plant_id = localStorage.getItem('PDA_PLANT_ID'); // 공장 ID
-    const pda_mac_address = localStorage.getItem('PDA_MAC_ADDRESS'); // PDA Mac Address
-    const onMessage = useCallback((event) => {
-        ReadData(event);
-    }, []); // WebView에서 받아온 데이터
-    const onMessageGubunRef = useRef(''); // WebView로 데이터 요청 후 작업에 대한 구분
-    const scanLocationRef = useRef(''); // 바코드 스캔 위치
+
+    const classes                                               = useStyle();                                       // CSS 스타일
+    const nowDateRef                                            = useRef('');                                       // 이동일자 Text
+    const [tabsValue,               setTabsValue]               = useState(0);                                      // Tabs 구분
+    const tabsValueRef                                          = useRef(0);                                
+    const [resestTabsValue,         setResestTabsValue]         = useState(1);                                      // 이동 탭에서 이동 진행 중인 품번이 있을 경우 초기화한 후 이동할 Tabs
+    const [dialogOpen,              setDialogOpen]              = useState(false);                                  // 다이얼로그 (메시지창)
+    const [dialogCustomOpen,        setDialogCustomOpen]        = useState(false);                                  // 다이얼로그 커스텀 (메시지창)
+    const [dialogCustomrRestOpen,   setDialogCustomrRestOpen]   = useState(false);                                  // 다이얼로그 커스텀 (메시지창) - 이동 탭에서 이동 진행 중인 품번이 있을 경우 초기화 여부 묻는 Dialog
+    const [dialogOkay,              setDialogOkay]              = useState('');                                     // 확인, 삭제 구분
+    const [backdropOpen,            setBackdropOpen]            = useState(false);                                  // 대기
+    const pda_id                                                = localStorage.getItem('PDA_ID');                   // 사용자 ID
+    const pda_plant_id                                          = localStorage.getItem('PDA_PLANT_ID');             // 공장 ID
+    const pda_mac_address                                       = localStorage.getItem('PDA_MAC_ADDRESS');          // PDA Mac Address
+    const onMessage                                             = useCallback((event) => {ReadData(event);}, []);   // WebView에서 받아온 데이터
+    const onMessageGubunRef                                     = useRef('');                                       // WebView로 데이터 요청 후 작업에 대한 구분
+    const scanLocationRef                                       = useRef('');                                       // 바코드 스캔 위치
+    const [,                        updateState]                = useState();                                       // forceUpdate
+    const forceUpdate                                           = useCallback(() => updateState({}), []);           // forceUpdate
+
     // ===========================================================================================================================
-    // 출고 Tabs state
-    const comboBoxCurrentStorageRef = useRef([]); // 현재창고 ComboBox Ref
-    const [selectedComboBoxCurrentStorage, setSelectedComboBoxCurrentStorage] = useState({ value: '', label: '' }); // 선택된 현재창고 comboBox
-    const selectedComboBoxCurrentStorageValueRef = useRef(''); // 선택된 현재창고 value Ref
-    const [radioState1, setRadioState1] = useState('select'); // 라디오 버튼 (현재위치)
-    const radioState1Ref = useRef('select'); // 라디오 버튼 (현재위치) Ref
-    const comboBoxCurrentLocationStorageRef = useRef([]); // 창고 comboBox (현재위치) Ref
-    const [selectedComboBoxCurrentLocationStorage, setSelectedComboBoxCurrentLocationStorage] = useState({
-        value: '',
-        label: '',
-    }); // 선택된 창고 comboBox (현재위치)
-    const selectedComboBoxCurrentLocationStorageValueRef = useRef(''); // 선택된 창고 comboBox (현재위치) value Ref
-    const currentLocationStorageRef = useRef(''); // 창고 Text (현재위치) Ref
-    const comboBoxMoveStorageRef = useRef([]); // 이동창고 ComboBox Ref
-    const [selectedComboBoxMoveStorage, setSelectedComboBoxMoveStorage] = useState({ value: '', label: '' }); // 선택된 이동창고 comboBox
-    const selectedComboBoxMoveStorageValueRef = useRef(''); // 선택된 이동창고 value Ref
-    const [radioState2, setRadioState2] = useState('select'); // 라디오 버튼 (이동위치)
-    const radioState2Ref = useRef('select'); // 라디오 버튼 (이동위치) Ref
-    const comboBoxMoveLocationStorageRef = useRef([]); // 창고 comboBox (이동위치) Ref
-    const [selectedComboBoxMoveLocationStorage, setSelectedComboBoxMoveLocationStorage] = useState({
-        value: '',
-        label: '',
-    }); // 선택된 창고 comboBox (이동위치)
-    const selectedComboBoxMoveLocationStorageValueRef = useRef(''); // 선택된 창고 comboBox (이동위치) value Ref
-    const moveLocationStorageRef = useRef(''); // 창고 Text (이동위치) Ref
+
+    // 창고 Tabs state
+    const comboBoxCurrentStorageRef                                                                     = useRef([]);                           // 현재창고 ComboBox Ref
+    const [selectedComboBoxCurrentStorage,                  setSelectedComboBoxCurrentStorage]          = useState({ value: '', label: '' });   // 선택된 현재창고 comboBox
+    const selectedComboBoxCurrentStorageValueRef                                                        = useRef('');                           // 선택된 현재창고 value Ref
+    const [radioState1,                                     setRadioState1]                             = useState('select');                   // 라디오 버튼 (현재위치)
+    const radioState1Ref                                                                                = useRef('select');                     // 라디오 버튼 (현재위치) Ref
+    const comboBoxCurrentLocationStorageRef                                                             = useRef([]);                           // 창고 comboBox (현재위치) Ref
+    const [selectedComboBoxCurrentLocationStorage,          setSelectedComboBoxCurrentLocationStorage]  = useState({value: '', label: ''});     // 선택된 창고 comboBox (현재위치)
+    const selectedComboBoxCurrentLocationStorageValueRef                                                = useRef('');                           // 선택된 창고 comboBox (현재위치) value Ref
+    const currentLocationStorageRef                                                                     = useRef('');                           // 창고 Text (현재위치) Ref
+    const comboBoxMoveStorageRef                                                                        = useRef([]);                           // 이동창고 ComboBox Ref
+    const [selectedComboBoxMoveStorage,                     setSelectedComboBoxMoveStorage]             = useState({ value: '', label: '' });   // 선택된 이동창고 comboBox
+    const selectedComboBoxMoveStorageValueRef                                                           = useRef('');                           // 선택된 이동창고 value Ref
+    const [radioState2,                                     setRadioState2]                             = useState('select');                   // 라디오 버튼 (이동위치)
+    const radioState2Ref                                                                                = useRef('select');                     // 라디오 버튼 (이동위치) Ref
+    const comboBoxMoveLocationStorageRef                                                                = useRef([]);                           // 창고 comboBox (이동위치) Ref
+    const [selectedComboBoxMoveLocationStorage,             setSelectedComboBoxMoveLocationStorage]     = useState({value: '', label: ''});     // 선택된 창고 comboBox (이동위치)
+    const selectedComboBoxMoveLocationStorageValueRef                                                   = useRef('');                           // 선택된 창고 comboBox (이동위치) value Ref
+    const moveLocationStorageRef                                                                        = useRef('');                           // 창고 Text (이동위치) Ref
+    
     // ===========================================================================================================================
+    
     // 이동 Tabs state
-    const textCurrentLocationRef = useRef(''); // 현재위치 Text Ref
-    const textMoveLocationRef = useRef(''); // 이동위치 Text Ref
-    const barcodeRef = useRef(''); // 바코드 Text
-    const textPartIdRef = useRef(''); // 품번 Text Ref
-    const textTotalQtyRef = useRef(0); // 총수량 Text Ref
-    const textUnitQtyRef = useRef(0); // 이동수량 Text Ref
-    const moveQtyRef = useRef(''); // 이동개수 Text
-    const [moveQtyAllCheck, setMoveQtyAllCheck] = useState(false); // 체크박스 체크여부
-    const moveQtyAllCheckRef = useRef(false); // 체크박스 체크여부 Ref
-    const [addListBtnDisabled, setAddListBtnDisabled] = useState(true); // 추가 버튼 Disabled
-    const [sumList1, setSumList1] = useState([]); // 리스트 목록
-    const sumList1Ref = useRef([]); // 리스트 목록 Ref
-    const lotListRef = useRef([]);
+    const textCurrentLocationRef                        = useRef('');       // 현재위치 Text Ref
+    const textMoveLocationRef                           = useRef('');       // 이동위치 Text Ref
+    const barcodeRef                                    = useRef('');       // 바코드 Text
+    const textPartIdRef                                 = useRef('');       // 품번 Text Ref
+    const textTotalQtyRef                               = useRef(0);        // 총수량 Text Ref
+    const textUnitQtyRef                                = useRef(0);        // 이동수량 Text Ref
+    const moveQtyRef                                    = useRef('');       // 이동개수 Text
+    const [moveQtyAllCheck,     setMoveQtyAllCheck]     = useState(false);  // 체크박스 체크여부
+    const moveQtyAllCheckRef                            = useRef(false);    // 체크박스 체크여부 Ref
+    const [addListBtnDisabled,  setAddListBtnDisabled]  = useState(true);   // 추가 버튼 Disabled
+    const [sumList1,            setSumList1]            = useState([]);     // 리스트 목록
+    const sumList1Ref                                   = useRef([]);       // 리스트 목록 Ref
+    const lotListRef                                    = useRef([]);
+    
     // ===========================================================================================================================
+    
     // 처리 Tabs state
-    const moveDateRef = useRef(''); // 이동일자 Text Ref
-    const [, updateState] = useState(); // forceUpdate
-    const forceUpdate = useCallback(() => updateState({}), []); // forceUpdate
-    const [sumList2, setSumList2] = useState([]); // 리스트 목록
+    const moveDateRef              = useRef('');    // 이동일자 Text Ref
+    const [sumList2,  setSumList2] = useState([]);  // 리스트 목록
+    
     // ===========================================================================================================================
 
     // 화면 처음 로드시
