@@ -35,14 +35,13 @@ BEGIN
   
   SELECT  
   --ApplyDB
-        res.WORK_DATE	'@@WORK_DATE'		
+		res.EQ_ID		'@@EQ_ID'
+	  , emp.EMP_ID		'@@EMP_ID'				
 	  , res.START_DTTM	'@@START_DTTM'				
 	  , res.END_DTTM	'@@END_DTTM'					
-	  , eq.EQ_NAME		'@@EQ_NAME'					
-	  , res.EQ_MA_DESC	'@@EQ_MA_DESC'		
-	  , emp.EMP_ID		'@@EMP_ID'				
-	  , res.SAVE_DTTM	'@@SAVE_DTTM'		
-	  , res.SAVE_BY		'@@SAVE_BY'
+      , res.WORK_DATE	'@@WORK_DATE'		
+	  , res.EQ_MA_DESC	'@@EQ_MA_DESC'
+	  , res.EQ_MA_RES_ID '@@KEY'
       
 	--UserView
      , STUFF(STUFF(res.WORK_DATE, 5, 0, '-'), 8, 0, '-') '<ALIGN=CENTER> ¿œ¿⁄'
