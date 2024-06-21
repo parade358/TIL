@@ -41,7 +41,7 @@ BEGIN
      , DATEDIFF(MINUTE, res.START_DTTM, res.END_DTTM)	 '<ALIGN=CENTER> 소요시간(분)'   
 	 , eq.EQ_NAME										 '<ALIGN=CENTER> 설비명'  
      , res.EQ_MA_DESC									 '<ALIGN=CENTER> 조치내용'  
-     , emp.EMP_ID										 '<ALIGN=CENTER> 작업자'  
+	 , '<tag><a class="link_btn" href="javascript:showPopupWindow(500,500,''../common/dataview.aspx?SQL=USP_ATM_POPUP_EMP_INFO_L&KEYS=' + emp.EMP_ID + ''' ,''작업자정보'',true)">'+ emp.EMP_ID +'</a>'  '<ALIGN=CENTER> 작업자'
      , res.SAVE_DTTM									 '<ALIGN=CENTER> 저장일시'  
      , res.SAVE_BY										 '<ALIGN=CENTER> 입력자'
   FROM TB_EQ_MA_RES res WITH(NOLOCK)
