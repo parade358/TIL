@@ -22,7 +22,7 @@ GO
 2024/06/19	√÷¿Øº∫				Created 
 ******************************************************************/    
   
-CREATE PROCEDURE [dbo].[USP_TEST_DELETE_TEST_D]
+ALTER PROCEDURE [dbo].[USP_TEST_DELETE_TEST_D]
 
 	@p_rowstamp  NVARCHAR(20)  
   , @p_delimiter NVARCHAR(20)  
