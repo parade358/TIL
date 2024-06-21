@@ -213,7 +213,7 @@ function InventoryMovingPartsListWarehouse() {
     const classes                                               = useStyle();                                       // CSS 스타일
     const nowDateRef                                            = useRef('');                                       // 이동일자 Text
     const [tabsValue,               setTabsValue]               = useState(0);                                      // Tabs 구분
-    const tabsValueRef                                          = useRef(0);                                
+    const tabsValueRef                                          = useRef(0);                                        // Tabs 구분 Ref
     const [resestTabsValue,         setResestTabsValue]         = useState(1);                                      // 이동 탭에서 이동 진행 중인 품번이 있을 경우 초기화한 후 이동할 Tabs
     const [dialogOpen,              setDialogOpen]              = useState(false);                                  // 다이얼로그 (메시지창)
     const [dialogCustomOpen,        setDialogCustomOpen]        = useState(false);                                  // 다이얼로그 커스텀 (메시지창)
