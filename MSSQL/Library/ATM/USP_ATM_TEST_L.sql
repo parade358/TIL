@@ -22,6 +22,16 @@ AS
 BEGIN  
 
  SET NOCOUNT ON;  
+
+ DECLARE @START NVARCHAR(20)    
+ DECLARE @END  NVARCHAR(20)    
+      
+    SET @START= CASE @P_DATE_TYPE WHEN 0 THEN @P_START_DATE    
+                             WHEN 1 THEN CONVERT(NVARCHAR,GETDATE(),112)    
+                             WHEN 7 THEN CONVERT(NVARCHAR,GETDATE()-6,112) END    
+      
+    SET @END=CASE @P_DATE_TYPE WHEN 0 THEN @P_END_DATE    
+                          ELSE CONVERT(NVARCHAR,GETDATE(),112) END   
   
   SELECT  
   --ApplyDB
@@ -48,6 +58,13 @@ BEGIN
   LEFT OUTER JOIN TB_EQ eq on res.EQ_ID = eq.EQ_ID
   LEFT OUTER JOIN TB_EQ_TYPE ty ON eq.EQ_TYPE_ID = ty.EQ_TYPE_ID  
   LEFT OUTER JOIN TB_EMP emp ON emp.EMP_ID = res.EMP_ID
+  WHERE res.MA_TYPE_ID ='PM'  
+      AND res.WORK_DATE BETWEEN @START AND @END    
+      AND CASE WHEN @P_EQ_TYPE<>'*' THEN CASE WHEN eq.EQ_TYPE_ID=@P_EQ_TYPE THEN 1 ELSE 0 END    
+                                          ELSE 1 END =1      
+      AND CASE WHEN @P_EQ_NAME<>'*' THEN CASE WHEN res.EQ_ID=@P_EQ_NAME THEN 1 ELSE 0 END    
+                                            ELSE 1 END =1      
+    ORDER BY res.WORK_DATE, res.START_DTTM;  
   
  SET NOCOUNT OFF;
 END
