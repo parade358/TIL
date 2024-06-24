@@ -1,0 +1,20 @@
+INSERT INTO TB_EQ_MAKE_SUPPLIER
+           (EQ_SUPPLIER_ID
+           ,EQ_SUPPLIER_NAME
+           ,EQ_SUPPLIER_LOC
+           ,REMARK
+           ,VALID
+           ,CREATE_DTTM
+           ,SAVE_DTTM
+           ,CREATE_BY
+           ,SAVE_BY)
+     VALUES
+           ('SUP0000000001'
+           ,'유성산업'
+           ,'국내'
+           ,'비고'
+           ,1
+           ,GETDATE()
+           ,GETDATE()
+           ,'mes'
+           ,'mes')
