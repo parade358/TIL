@@ -23,7 +23,7 @@ GO
 2024/06/21  최유성				조회조건 부여
 ******************************************************************/    
 
-CREATE PROCEDURE [dbo].[USP_EQ_SUP_INFO_L]
+ALTER PROCEDURE [dbo].[USP_EQ_SUP_INFO_L]
 
 AS
 
@@ -55,6 +55,7 @@ BEGIN
    , eq.REMARK			'@@remark'
    , eq.VALID			'@@valid'
    , eq.ROW_STAMP		'@@key'
+   , eq.MAKE_SUPPLIER	'@@PARAM'
     
   --UserView
      , eq.EQ_ID						'<ALIGN=CENTER> 설비코드'
@@ -70,7 +71,7 @@ BEGIN
      , eq.TYPE_INFO					'<ALIGN=CENTER> 형식'
      , eq.USE_INFO					'<ALIGN=CENTER> 설비용도'
      , eq.SET_INFO					'<ALIGN=CENTER> 설치용도'
-     , eq.MAKE_SUPPLIER				'<ALIGN=CENTER> 제조사'
+     , ms.EQ_SUPPLIER_NAME			'<ALIGN=CENTER> 제조사'
 
      , '￦' + REPLACE(CONVERT(VARCHAR,CONVERT(MONEY,eq.BASIC_PRICE),1), '.00', '') '<ALIGN=CENTER> 취득가격'
 
@@ -93,6 +94,11 @@ BEGIN
   FROM TB_EQ eq WITH(NOLOCK)
   LEFT OUTER JOIN TB_EQ_TYPE ty ON eq.EQ_TYPE_ID = ty.EQ_TYPE_ID
   LEFT OUTER JOIN UTB_PROC pr ON eq.PROC_ID = pr.PROC_ID
+  LEFT OUTER JOIN TB_EQ_MAKE_SUPPLIER ms ON eq.MAKE_SUPPLIER = ms.EQ_SUPPLIER_ID
 
  SET NOCOUNT OFF;
 END 
+
+SELECT MAKE_SUPPLIER, COUNT(*) AS COUNT
+FROM TB_EQ
+GROUP BY MAKE_SUPPLIER;
