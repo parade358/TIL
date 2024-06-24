@@ -26,6 +26,7 @@ BEGIN
       , REMARK				'@@REMARK'		
 	  , VALID				'@@VALID'
 	  , ROW_STAMP			'@@KEY'
+	  , EQ_SUPPLIER_ID      '@@PARAM'
       
 	--UserView
      , EQ_SUPPLIER_ID	'<ALIGN=CENTER> 제조사코드'
