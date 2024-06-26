@@ -320,7 +320,7 @@
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.ClientSize = new System.Drawing.Size(345, 266);
+            this.ClientSize = new System.Drawing.Size(339, 268);
             this.Controls.Add(this.divideBtn);
             this.Controls.Add(this.equalsBtn);
             this.Controls.Add(this.number0Btn);
