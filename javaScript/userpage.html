@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<!--
+    연구소 샘플 예시
+    작성자 : 김동희 주임
+    부모메뉴 영역 + 가로 선 + 현재 메뉴 영역 까지는 동일하게 사용하시고
+
+    조회조건과 내용 영역의 내용은 개발자가 직접 코드를 커스텀 마이징 하시면 됩니다.
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>load0200 유저페이지 예시입니다.</title>
+    <style>
+        *{
+           /*초기화 CSS*/
+           margin  : 0px;
+           padding : 0px;              
+        }
+
+        /*조회조건 td*/
+        #tblCondition{
+            color : rgb(62, 62, 62);
+            font-size:0.8rem;
+            font-weight:bold;
+        }
+
+        #tblCondition td{
+            padding-right:10px;
+            border-bottom:1px solid rgb(207,207,207);       
+            height:30px;
+        }
+
+        #tblCondition td span{
+            text-align:right;
+        }
+
+        #tblCondition tr{
+            
+        }
+
+        #tblCondition input[type=text]{
+            width:140px;
+            height:18px;            
+        }
+
+        #tblCondition select{
+            width:140px;
+            height:20px;            
+        }
+
+    </style>
+
+    <script>
+        function showSearchField() {
+            
+            //조회조건 영역 선택
+            let searcharea = document.getElementById('search_container');
+            
+            if (searcharea) {
+                if (searcharea.style.display != "none") {
+                    searcharea.style.display = "block";
+                } else {
+                    searcharea.style.display = "none";
+                }
+
+            } 
+        }
+
+         
+        
+    </script>
+</head>
+<body>    
+    <form id="form1" runat="server">
+
+        <!--부모 메뉴-->
+        <div style="display:inline-block; width:100%;">
+            <table style="width:100%;">
+                <tr>
+                    <td>
+                        <img src="../img/subr_img_home.gif"/>                     
+                        <asp:Label ID="lblGroupMenu" runat="server" style="font-size:0.7rem;"></asp:Label>
+                    </td>
+                    <td style="text-align:right">
+                        <asp:Label ID="lblUrl" runat="server" style="font-size:0.7rem;color:gray;"></asp:Label>                        
+                        <asp:Label ID="lblMenuID" runat="server" Text="" style="font-size:0.7rem; color:gray;"></asp:Label>                        
+                    </td>                    
+                </tr>
+            </table>        
+        </div>      
+
+
+        <!--가로 선-->
+        <hr style="margin:0px;margin-bottom:1px;" />
+
+
+        <!--현재 메뉴 영역 + 조회버튼-->
+        <div style="display:inline-block; width:100%; border-bottom: 2px solid rgb(0,92,171);">
+            <table style="width:100%;">
+                <tr>
+                    <td style="vertical-align:top;">
+                        <div style="display:inline-block;">
+                            <img src="../img/titlecheck.gif"/>
+                            <asp:Label ID="lblMenuTitle" runat="server" style="font-size:0.9rem;vertical-align:top;color:#0C4A81;font-weight:bold;"></asp:Label>
+                        </div>                        
+                    </td>
+                    <td style="text-align:right;">
+                        <asp:Button ID="btnSearch" runat="server" Text="검색" style="background-image: url(../gif/button.gif); border-radius:3px; width:63px;height:27px;outline:none;color: rgb(21,42,99); border:none; font-weight:bold; cursor:pointer;" />
+                        <asp:Button ID="btnInitilization" runat="server" Text="초기화" style="background-image: url(../gif/button.gif); border-radius:3px; width:63px;height:27px;outline:none;color: rgb(21,42,99);border:none; font-weight:bold; cursor:pointer;" />
+                        <img src="../gif/arrow_up.gif" onclick="showSearchField()" style="cursor:pointer;"/>
+                    </td>
+                </tr>
+            </table>            
+        </div>
+
+        
+
+        <!-- 조회조건 영역-->
+        <div id="search_container">
+         <div id="condition_field" style="display:inline-block;width:100%; background-color:rgb(242, 242, 242); background-color: white">
+              <!--여기는 개발자가 직접 사용자 정의 코드를 넣어주세요. -->
+             <table runat="server" id="tblCondition">
+                 <tr>
+                     <td>
+                         <span>조회 조건1</span>
+                         <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+                     </td>
+                     <td>
+                         <span>조회 조건2</span>
+                         <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
+                     </td>
+                     <td>
+                         <span>조회 조건3</span>
+                         <asp:DropDownList ID="ddlData" runat="server"></asp:DropDownList>
+                     </td>
+                     <td>
+                         <span>조회 조건4</span>
+                         <asp:DropDownList ID="DropDownList1" runat="server"></asp:DropDownList>
+                     </td>
+                     <td>
+                         <span>조회 조건5</span>
+                         <asp:DropDownList ID="DropDownList2" runat="server"></asp:DropDownList>
+                     </td>
+                     
+                     
+                 </tr>
+                 <tr style="border:10px solid #000;">
+                     <td>
+                         <span>조회 조건1</span>
+                         <asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
+                     </td>
+                     <td>
+                         <span>조회 조건2</span>
+                         <asp:TextBox ID="TextBox4" runat="server"></asp:TextBox>
+                     </td>
+                     <td>
+                         <span>조회 조건3</span>
+                         <asp:DropDownList ID="DropDownList3" runat="server"></asp:DropDownList>
+                     </td>
+                     <td>
+                         <span>조회 조건4</span>
+                         <asp:DropDownList ID="DropDownList4" runat="server"></asp:DropDownList>
+                     </td>
+                     <td>
+                         <span>조회 조건5</span>
+                         <asp:DropDownList ID="DropDownList5" runat="server"></asp:DropDownList>
+                     </td>
+                     
+                 </tr>
+             </table>
+         </div>
+        </div>
+
+
+        <!-- 내용 영역 -->
+        <div id="contents">
+            <!--여기는 개발자가 직접 코드를 넣어주세요. -->
+            여기는 개발자가 직접 코드를 넣어주세요.
+        </div>
+
+        
+
+        <asp:HiddenField runat="server" ID="hiddenMenuTitle"  />
+        <asp:HiddenField runat="server" ID="hiddenUrl"  />
+        <asp:HiddenField runat="server" ID="hiddenMenuID"  />
+    </form>
+</body>
+</html>

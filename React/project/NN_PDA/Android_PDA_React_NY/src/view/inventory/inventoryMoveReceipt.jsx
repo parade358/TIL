@@ -976,7 +976,7 @@ function InventoryMoveReceipt() {
                 setBackdropOpen(false);
             })
             .catch((data) => {
-                msg = COMMON_MESSAGE.FETCH_ERROR + data.value;
+                msg = COMMON_MESSAGE.FETCH_ERROR + data.message;
                 setDialogOpen(true);
                 vibration();
                 setBackdropOpen(false);

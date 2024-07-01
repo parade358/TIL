@@ -1,41 +1,31 @@
   
 /******************************************************************  
 * DATABASE        : ATM52  
-* PROCEDURE NAME  : USP_ATM_EQ_SUP_L
-* DATE            : 2024/06/21  
+* PROCEDURE NAME  : USP_EMP_INFO_L
+* DATE            : 2024/06/26  
 * AUTHOR          : 최유성  
-* PROCEDURE DESC  : 설비제조사 조회 프로시저  
+* PROCEDURE DESC  : 사원 정보 프로시저  
 *******************************************************************       
       
 * DATE:		Developer			Change  
 ----------  ----------------  ---------------------------------------       
-2024/06/24	최유성				Created   
+2024/06/26	최유성				Created   
 ******************************************************************/      
   
-ALTER PROCEDURE [dbo].[USP_ATM_EQ_SUP_L]
+ALTER PROCEDURE [dbo].[USP_EMP_INFO_L]
+	@P_EMP_ID  VARCHAR(50)
+  , @P_DEPT_ID VARCHAR(50)
+  , @P_RANK_ID VARCHAR(50)
 AS  
 BEGIN  
 
  SET NOCOUNT ON;  
 
   SELECT  
-  --ApplyDB
-		EQ_SUPPLIER_ID		'@@EQ_SUPPLIER_ID'
-	  , EQ_SUPPLIER_NAME	'@@EQ_SUPPLIER_NAME'			
-	  , EQ_SUPPLIER_LOC		'@@EQ_SUPPLIER_LOC'				
-      , REMARK				'@@REMARK'		
-	  , VALID				'@@VALID'
-	  , ROW_STAMP			'@@KEY'
-	  , EQ_SUPPLIER_ID      '@@PARAM'
-      
-	--UserView
-     , EQ_SUPPLIER_ID	'<ALIGN=CENTER> 제조사코드'
-	 , EQ_SUPPLIER_NAME	'<ALIGN=CENTER> 제조사명'  
-     , EQ_SUPPLIER_LOC	'<ALIGN=CENTER> 제조사위치'  
-	 , REMARK			'<ALIGN=CENTER> 비고'
-     , VALID			'<ALIGN=CENTER> 사용여부'  
-     , SAVE_BY			'<ALIGN=CENTER> 입력자'
-  FROM TB_EQ_MAKE_SUPPLIER WITH(NOLOCK)
+	   emp.EMP_NAME			'사원명'
+	 , dept.DEPT_NAME		'부서'
+  FROM TB_EMP emp WITH(NOLOCK)
+  JOIN TB_DEPT dept ON emp.DEPT_ID = dept.DEPT_ID;
   
  SET NOCOUNT OFF;
 END
