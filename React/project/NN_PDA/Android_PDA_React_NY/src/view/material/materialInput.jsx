@@ -28,11 +28,11 @@ const PDA_API_GETDATE_URL = process.env.REACT_APP_PDA_API_GETDATE_URL;
 const PDA_API_GENERAL_URL = process.env.REACT_APP_PDA_API_GENERAL_URL;
 
 const PROC_PK_PDA_IV01_1_Init_D = 'U_PK_PDA_IV01_1_Init_D'; // 초기화
-const PROC_PK_PDA_IV01_8_L = 'U_PK_PDA_IV01_8_L'; // 입고창고 조회
-const PROC_PK_PDA_IV01_1_L = 'U_PK_PDA_IV01_1_L'; //거래명세서(출문증) 존재여부
-const PROC_PK_PDA_IV01_2_L = 'U_PK_PDA_IV01_2_L'; // 부품표 스캔
-const PROC_PK_PDA_IV01_6_L = 'U_PK_PDA_IV01_6_L'; //위치검증
-const PROC_PK_PDA_IV01_3_L = 'U_PK_PDA_IV01_3_L'; //품목, LOT 정보 표시
+const PROC_PK_PDA_IV01_8_L      = 'U_PK_PDA_IV01_8_L'; // 입고창고 조회
+const PROC_PK_PDA_IV01_1_L      = 'U_PK_PDA_IV01_1_L'; //거래명세서(출문증) 존재여부
+const PROC_PK_PDA_IV01_2_L      = 'U_PK_PDA_IV01_2_L'; // 부품표 스캔
+const PROC_PK_PDA_IV01_6_L      = 'U_PK_PDA_IV01_6_L'; //위치검증
+const PROC_PK_PDA_IV01_3_L      = 'U_PK_PDA_IV01_3_L'; //품목, LOT 정보 표시
 const PROC_PK_PDA_IV01_4_L = 'U_PK_PDA_IV01_4_L'; //입고수량 표시
 const PROC_PK_PDA_IV01_9_L = 'U_PK_PDA_IV01_9_L'; //수동위치정보 표시
 const PROC_PK_PDA_IV01_10_L = 'U_PK_PDA_IV01_10_L'; //품목타입별 위치정보 표시
@@ -95,6 +95,7 @@ const useStyle = makeStyles((theme) => ({
     },
     flexDiv: {
         display: 'flex',
+        marginTop: '10px',
     },
     checkBoxMargin: {
         '& .MuiTypography-body1': {
@@ -226,6 +227,7 @@ function getRequestParam() {
 
 function MaterialInput() {
     const classes = useStyle(); // CSS 스타일
+    const [resestTabsValue, setResestTabsValue] = useState(0); // 이동 탭에서 이동 진행 중인 정보가 있을 경우 초기화한 후 이동할 Tabs
     const [tabsValue, setTabsValue] = useState(0); // Tabs 구분
     const tabsValueRef = useRef(0); // Tabs 구분 Ref
     const [, updateState] = useState(); // forceUpdate
@@ -240,6 +242,7 @@ function MaterialInput() {
         },
     ]); // 입고창고 value
     const selectedData = useRef(); // 입고창고 Data
+    const useSelectedData = useRef(); // 입고창고 선택 Data
     const [selectedLocValue, setSelectedLocValue] = useState([
         {
             label: '',
@@ -249,19 +252,21 @@ function MaterialInput() {
     const selectedLocData = useRef(); // 위치 Data
     const lotListRef = useRef([]);
     const [moveQtyAllCheck, setMoveQtyAllCheck] = useState(false); // 체크박스 체크여부
-    const checkDisabled = useRef(true); // 입고 창고 Select Disabled 체크
-    const checkLocDisabled = useRef(true); // 위치 Select Disabled 체크
+    const [checkDisabled, setCheckDisabled] = useState(true); // 입고 창고 Select Disabled 체크
+    const checkInputStorage = useRef(true); // 입고 창고Ref 체크
+    const [radioLocDisabled, setRadioLocDisabled] = useState(true); // 위치 radio Disabled 체크
+    const radioLocation = useRef(true); // 위치 스캔Ref 체크
     const [sumList1, setSumList1] = useState([]); // 리스트 목록
     const [dialogOpen, setDialogOpen] = useState(false); // 다이얼로그 (메시지창)
     const [dialogCustomOpen, setDialogCustomOpen] = useState(false); // 다이얼로그 (메시지창)
     const [dialogOkay, setDialogOkay] = useState(''); // 확인, 삭제 구분
-    const [resestTabsValue, setResestTabsValue] = useState(0); // 자재 탭에서 입고 진행 중인 입고지시가 있을 경우 초기화한 후 이동할 Tabs
+    const [dialogCancel, setDialogCancel] = useState(''); // 위치검증 아니요 버튼 구분
     const [dialogCustomrRestOpen, setDialogCustomrRestOpen] = useState(false); // 다이얼로그 커스텀 (메시지창) - 출하 탭에서 출하 진행 중인 출하지시가 있을 경우 초기화 여부 묻는 Dialog
+    const [dialogCustomrLocOpen, setDialogCustomrLocOpen] = useState(false); // 다이얼로그 커스텀 (메시지창) - 위치 검증 묻는 Dialog
     const [backdropOpen, setBackdropOpen] = useState(false); // 대기
     const pda_id = localStorage.getItem('PDA_ID'); // 사용자 ID
     const pda_plant_id = localStorage.getItem('PDA_PLANT_ID'); // 공장 ID
     const pda_mac_address = localStorage.getItem('PDA_MAC_ADDRESS'); // PDA Mac Address
-
     const scanLocationRef = useRef('tradingStatement'); // 바코드 스캔 위치
     const tradingStatementRef = useRef(''); // 거래명세서 Text
     const [tradingStatementDisabled, setTradingStatementDisabled] = useState(false); // 거래명세서 Disabled
@@ -269,6 +274,7 @@ function MaterialInput() {
     const partBarcodeRef = useRef(''); // 부품표 Text
     const [textPartId, setTextPartId] = useState(''); // 품번 Text
     const [textLotNo, setTextLotNo] = useState(''); // Lot No Text
+    const textLotNoRef = useRef(''); // LotNo Ref Data
     const [textTotalQty, setTextTotalQty] = useState(0); // 총수량 Text
     const [textUnitQty, setTextUnitQty] = useState(0); // 입고수량 Text
     const [partBarcodeDisabled, setPartBarcodeDisabled] = useState(false); // 부품표 Text Disabled
@@ -278,24 +284,10 @@ function MaterialInput() {
     const [openInputCompelteFlagColumnNot0Form, setOpenInputCompelteFlagColumnNot0Form] = useState(false); // 경고메시지 다이얼로그 - [확정 버튼 클릭시 FLAG 값이 "0"이 아닐때 경고메시지 팝업창]
     const [sumList2, setSumList2] = useState([]); // 리스트 목록 (확정 버튼 클릭시 FLAG 값이 "0"이 아닐때)
 
-    const useSelectedData = useRef();
-
     const onMessage = useCallback((event) => {
         ReadData(event);
     }, []); // WebView에서 받아온 데이터
-    // 화면 처음 로드시
-    // WebView에서 스캔 데이터 받는 이벤트
-    useEffect(() => {
-        document.addEventListener('message', onMessage);
 
-        // webView 데이터 요청
-        webViewPostMessage();
-
-        return () => {
-            console.log('handle 지움');
-            document.removeEventListener('message', onMessage);
-        };
-    }, []);
     // webView 데이터 요청
     const webViewPostMessage = () => {
         // React Native WebView로 Wifi 신호 강도 데이터 요청
@@ -335,6 +327,9 @@ function MaterialInput() {
 
         document.addEventListener('message', onMessage);
 
+        // webView 데이터 요청
+        webViewPostMessage();
+
         return () => {
             // 쓰레기 데이터 존재하면 삭제
             initData();
@@ -343,6 +338,7 @@ function MaterialInput() {
             document.removeEventListener('message', onMessage);
         };
     }, []);
+
     // 쓰레기 데이터 존재하면 삭제
     const initData = () => {
         const requestOption = getRequestOptions(PROC_PK_PDA_IV01_1_Init_D, getRequestParam(pda_mac_address, pda_id));
@@ -369,6 +365,10 @@ function MaterialInput() {
                 }
                 // 결과 처리
                 else {
+                    if (dialogOkay === '이동중인정보초기화') {
+                        setTabsValue(resestTabsValue);
+                        console.log('2');
+                    }
                     setBackdropOpen(false);
                     return;
                 }
@@ -385,12 +385,12 @@ function MaterialInput() {
             setRadioState('manual');
 
             eventhandler.loadLoc();
-            checkDisabled.current = false;
+            setCheckDisabled(false);
+            checkInputStorage.current = false;
         }
     };
 
     // React Native WebView 에서 데이터 가져오기
-    //   이벤트
     const ReadData = (e) => {
         const type = JSON.parse(e.data).type;
         console.log('ReadData : ', type);
@@ -445,13 +445,6 @@ function MaterialInput() {
                                     if (substringValue.toString() !== '0') {
                                         inv_id = inv_id.substring(i);
                                         barcodeInfo(scannedData.data.substring(17), scannedData.data, 'partList');
-                                        eventhandler.onShowName(scannedData.data.substring(17));
-                                        eventhandler.onShowQty(scannedData.data.substring(17), scannedData.data);
-                                        if (checkDisabled.current === true) {
-                                            eventhandler.onShowAutoLoc();
-                                        } else if (checkDisabled.current === false) {
-                                            eventhandler.onShowLoc();
-                                        }
                                         return;
                                     }
                                 }
@@ -466,46 +459,31 @@ function MaterialInput() {
                                 if (substringValue.toString() !== '0') {
                                     inv_id = inv_id.substring(i);
                                     barcodeInfo(scannedData.data.substring(17), scannedData.data, 'partList');
-
-                                    eventhandler.onShowName(scannedData.data.substring(17));
-
-                                    eventhandler.onShowQty(scannedData.data.substring(17), scannedData.data);
-                                    if (checkDisabled.current === true) {
-                                        eventhandler.onShowAutoLoc();
-                                    } else if (checkDisabled.current === false) {
-                                        eventhandler.onShowLoc();
-                                    }
                                     return;
                                 }
                             }
                         }
                     } else {
+                        partBarcodeRef.current.value = '';
                         msg = '부품표/입고표 바코드가 아닙니다.';
                         setDialogOpen(true);
                         vibration();
-                        partBarcodeRef.current.value = '';
                         return;
                     }
                 } else if (scanLocationRef.current === 'locationScan') {
-                    if (checkLocDisabled === true) {
-                        if (checkDisabled === false) {
+                    if (checkInputStorage.current === false) {
+                        if (radioLocation.current === false) {
                             if (scannedData.data.length === 25) {
                                 msg = '위치정보를 스캔하세요.';
                                 setDialogOpen(true);
                                 vibration();
                                 return;
                             } else {
-                                barcodeInfo(scannedData.data, 'locationScan');
+                                barcodeInfo(scannedData.data, '', 'locationScan');
                             }
-                        } else {
-                            msg = '입고창고를 [수동]으로 선택하고 보관처를 스캔하세요.';
-                            setDialogOpen(true);
-                            vibration();
-                            return;
                         }
                     } else {
-                        moveLocationStorageRef.current.value = '';
-                        msg = '위치정보 바코드가 아닙니다.';
+                        msg = '입고창고를 [수동]으로 선택하고 보관처를 스캔하세요.';
                         setDialogOpen(true);
                         vibration();
                         return;
@@ -532,26 +510,28 @@ function MaterialInput() {
                 .then((data) => {
                     // 사용자 메시지 처리
                     if (data.returnUserMessage !== null) {
+                        tradingStatementRef.current.value = '';
                         msg = data.returnUserMessage;
                         setDialogOpen(true);
                         vibration();
                         setBackdropOpen(false);
-                        tradingStatementRef.current.value = '';
                         return;
                     }
                     // 에러 메시지 처리
                     else if (data.returnErrorMsg !== null) {
+                        tradingStatementRef.current.value = '';
                         msg = data.returnErrorMsg;
                         setDialogOpen(true);
                         vibration();
                         setBackdropOpen(false);
-                        tradingStatementRef.current.value = '';
+
                         return;
                     }
                     // 결과 처리
                     else {
                         tradingStatementRef.current.value = scanData;
                         setTradingStatementDisabled(true);
+
                         scanLocationRef.current = 'partList';
                     }
                     setBackdropOpen(false);
@@ -577,20 +557,22 @@ function MaterialInput() {
                 .then((data) => {
                     // 사용자 메시지 처리
                     if (data.returnUserMessage !== null) {
+                        partBarcodeRef.current.value = '';
                         msg = data.returnUserMessage;
                         setDialogOpen(true);
                         vibration();
                         setBackdropOpen(false);
-                        partBarcodeRef.current.value = '';
+                        reset('qty');
                         return;
                     }
                     // 에러 메시지 처리
                     else if (data.returnErrorMsg !== null) {
+                        partBarcodeRef.current.value = '';
                         msg = data.returnErrorMsg;
                         setDialogOpen(true);
                         vibration();
                         setBackdropOpen(false);
-                        partBarcodeRef.current.value = '';
+                        reset('qty');
                         return;
                     }
                     // 결과 처리
@@ -598,6 +580,7 @@ function MaterialInput() {
                         partBarcodeRef.current.value = partBarcode;
                         setPartBarcodeDisabled(true);
                         scanLocationRef.current = 'locationScan';
+                        eventhandler.onShowInfo(scanData, partBarcode);
                     }
                     setBackdropOpen(false);
                 })
@@ -611,7 +594,7 @@ function MaterialInput() {
         } else if (gubun === 'locationScan') {
             const requestOption = getRequestOptions(
                 PROC_PK_PDA_IV01_6_L,
-                getRequestParam(selectedValue.value, scanData, pda_plant_id)
+                getRequestParam(useSelectedData.current.value, scanData, pda_plant_id)
             );
             setBackdropOpen(true);
             fetch(PDA_API_GENERAL_URL, requestOption)
@@ -619,37 +602,43 @@ function MaterialInput() {
                 .then((data) => {
                     // 사용자 메시지 처리
                     if (data.returnUserMessage !== null) {
+                        moveLocationStorageRef.current.value = '';
                         msg = data.returnUserMessage;
                         setDialogOpen(true);
                         vibration();
                         setBackdropOpen(false);
-                        reset('scanData');
 
                         return;
                     }
                     // 에러 메시지 처리
                     else if (data.returnErrorMsg !== null) {
+                        moveLocationStorageRef.current.value = '';
                         msg = data.returnErrorMsg;
                         setDialogOpen(true);
                         vibration();
                         setBackdropOpen(false);
-                        reset('scanData');
+
                         return;
                     }
                     // 결과 처리
                     else {
-                        if (data.returnValue === '1') {
+                        const tmpArray = JSON.parse(data.returnValue[0]);
+
+                        const dataReturn = tmpArray[0]['Column1'];
+                        if (dataReturn === '1') {
+                            moveLocationStorageRef.current.value = scanData;
                             msg = '스캔한 위치의 창고유형이 자재창고가 아닙니다. 입고를 계속 진행합니까?';
-                            setDialogCustomOpen(true);
-                            vibration();
+                            setDialogCustomrLocOpen(true);
+                            setDialogOkay('location');
+                            setDialogCancel('location');
                             setBackdropOpen(false);
-                            return;
-                        } else if (data.returnValue === '2') {
+                        } else if (dataReturn === '2') {
+                            moveLocationStorageRef.current.value = scanData;
                             msg = '스캔한 위치가 [사용 중]입니다. 이 위치에 입고합니까?';
-                            setDialogCustomOpen(true);
-                            vibration();
+                            setDialogCustomrLocOpen(true);
+                            setDialogOkay('location');
+                            setDialogCancel('location');
                             setBackdropOpen(false);
-                            return;
                         } else {
                             setAddListBtnDisabled(false);
                             moveLocationStorageRef.current.value = scanData;
@@ -700,18 +689,23 @@ function MaterialInput() {
     };
     // Tabs 변경시 이벤트
     const handleChange = (event, newValue) => {
-        console.log(selectedValue);
         if (newValue === 0) {
             if (tabsValue === 1) {
-                msg = '현재 입고 진행 중인 입고지시가 있습니다. 초기화하시겠습니까?';
-                setDialogCustomrRestOpen(true);
-                setDialogOkay('입고중인입고지시초기화');
-                setResestTabsValue(newValue);
-                return;
+                if (sumList1.length > 0) {
+                    msg = '현재 진행 중인 입고 정보가 있습니다. 초기화하시겠습니까?';
+                    setDialogCustomrRestOpen(true);
+                    setDialogOkay('이동중인정보초기화');
+                    setResestTabsValue(newValue);
+                } else {
+                    setTabsValue(newValue);
+                    reset('tabValue');
+                    tabsValueRef.current = newValue;
+                }
             }
+        } else {
+            setTabsValue(newValue);
+            tabsValueRef.current = newValue;
         }
-        setTabsValue(newValue);
-        tabsValueRef.current = newValue;
     };
     // 입고창고 Radio 버튼
     const dataList1 = [
@@ -727,19 +721,15 @@ function MaterialInput() {
     // 초기화
     const reset = (gubun) => {
         if (gubun === 'scanData') {
-            moveLocationStorageRef.current.value = '';
+            partBarcodeRef.current.value = '';
+            setPartBarcodeDisabled(false);
             setTextPartId('');
             setTextLotNo('');
             setTextTotalQty(0);
             setTextUnitQty(0);
             inQtyRef.current.value = '';
+            setMoveQtyAllCheck(false);
             setAddListBtnDisabled(true);
-            scanLocationRef.current = 'locationScan';
-        } else if (gubun === 'qty') {
-            setTextLotNo('');
-            setTextTotalQty(0);
-            setTextUnitQty(0);
-            inQtyRef.current.value = '';
         } else if (gubun === 'listAdd') {
             partBarcodeRef.current.value = '';
             inQtyRef.current.value = '';
@@ -749,7 +739,8 @@ function MaterialInput() {
             setTextLotNo('');
             setTextTotalQty(0);
             setTextUnitQty(0);
-
+            setSelectedLocValue([]);
+            selectedLocData.current = [];
             setMoveQtyAllCheck(false);
             setAddListBtnDisabled(true);
 
@@ -767,6 +758,7 @@ function MaterialInput() {
                 setTextLotNo('');
                 setTextTotalQty(0);
                 setTextUnitQty(0);
+
                 setMoveQtyAllCheck(false);
                 setAddListBtnDisabled(true);
             } else {
@@ -786,6 +778,24 @@ function MaterialInput() {
                 setMoveQtyAllCheck(false);
                 setAddListBtnDisabled(true);
             }
+        } else if (gubun === 'tabValue') {
+            tradingStatementRef.current = '';
+            partBarcodeRef.current = '';
+            setTextLotNo('');
+            setTextPartId('');
+            setTextUnitQty(0);
+            setTextTotalQty(0);
+            moveLocationStorageRef.current = '';
+            inQtyRef.current = '';
+            setMoveQtyAllCheck(false);
+            scanLocationRef.current = 'tradingStatement';
+            setSumList1([]);
+            setSelectedLocValue([]);
+            selectedLocData.current = [];
+            setAddListBtnDisabled(true);
+            setTradingStatementDisabled(false);
+            setPartBarcodeDisabled(false);
+            lotListRef.current = [];
         }
         // 입고 확정후 초기화
         else {
@@ -810,9 +820,14 @@ function MaterialInput() {
             scanLocationRef.current = 'tradingStatement';
         }
     };
+
     const eventhandler = {
+        // ShowInfo
+        onShowInfo: (scannedData, partBarcode) => {
+            eventhandler.onShowName(scannedData, partBarcode);
+        },
         // 품번, Lot No 표시 이벤트
-        onShowName: (scannedData) => {
+        onShowName: (scannedData, partBarcode) => {
             const requestOption = getRequestOptions(PROC_PK_PDA_IV01_3_L, getRequestParam(inv_id, pda_plant_id));
 
             setBackdropOpen(true);
@@ -841,7 +856,9 @@ function MaterialInput() {
                     else {
                         const tmpArray = JSON.parse(data.returnValue[0]);
                         setTextLotNo(scannedData);
+                        textLotNoRef.current = scannedData;
                         setTextPartId(tmpArray[0]['PART_ID']);
+                        eventhandler.onShowQty(scannedData, partBarcode);
                     }
                     setBackdropOpen(false);
                 })
@@ -900,6 +917,11 @@ function MaterialInput() {
 
                         setTextUnitQty(unit_Qty);
                         setTextTotalQty(tmpArray[0]['IN_QTY']);
+                        if (checkInputStorage.current === true) {
+                            eventhandler.onShowAutoLoc(scannedData); // 입고창고 자동
+                        } else if (checkInputStorage.current === false) {
+                            eventhandler.onShowLoc(scannedData); // 입고 수동
+                        }
                     }
                     setBackdropOpen(false);
                 })
@@ -912,8 +934,8 @@ function MaterialInput() {
                 });
         },
         //창고 수동지정시 위치표시기능
-        onShowLoc: () => {
-            if (checkLocDisabled.current === true) {
+        onShowLoc: (scannedData) => {
+            if (radioLocation.current === true) {
                 setBackdropOpen(false);
                 const requestOption = getRequestOptions(
                     PROC_PK_PDA_IV01_9_L,
@@ -922,7 +944,7 @@ function MaterialInput() {
                         pda_plant_id,
                         useSelectedData.current.value,
                         tradingStatementRef.current.value,
-                        textLotNo
+                        scannedData
                     )
                 );
                 setBackdropOpen(true);
@@ -970,17 +992,17 @@ function MaterialInput() {
                         setBackdropOpen(false);
                         return;
                     });
-            } else if (checkLocDisabled.current === false) {
+            } else if (radioLocation.current === false) {
                 inQtyRef.current.value = '1';
                 moveLocationStorageRef.current.value = '';
             }
         },
         //품목타입별 창고 자동지정시 위치표시기능
-        onShowAutoLoc: () => {
-            if (locradioState === 'locauto') {
+        onShowAutoLoc: (scannedData) => {
+            if (radioLocation.current === true) {
                 const requestOption = getRequestOptions(
                     PROC_PK_PDA_IV01_10_L,
-                    getRequestParam(inv_id, pda_plant_id, tradingStatementRef.current.value, textLotNo)
+                    getRequestParam(inv_id, pda_plant_id, tradingStatementRef.current.value, scannedData)
                 );
 
                 setBackdropOpen(true);
@@ -993,7 +1015,7 @@ function MaterialInput() {
                             setDialogOpen(true);
                             vibration();
                             setBackdropOpen(false);
-                            inQtyRef.current.value = '';
+                            reset('scanData');
                             return;
                         }
                         // 에러 메시지 처리
@@ -1002,7 +1024,7 @@ function MaterialInput() {
                             setDialogOpen(true);
                             vibration();
                             setBackdropOpen(false);
-                            inQtyRef.current.value = '';
+                            reset('scanData');
                             return;
                         }
                         // 결과 처리
@@ -1027,7 +1049,7 @@ function MaterialInput() {
 
                         return;
                     });
-            } else if (locradioState === 'locscan') {
+            } else if (radioLocation.current === false) {
                 inQtyRef.current.value = '1';
                 moveLocationStorageRef.current.value = '';
             }
@@ -1046,11 +1068,15 @@ function MaterialInput() {
         // 입고창고 라디오 버튼 이벤트
         onRadioChanged: (e, check) => {
             setRadioState(e.target.value);
-
+            console.log(check);
             if (check === 'auto') {
-                checkDisabled.current = true;
+                //자동
+                setCheckDisabled(true);
+                checkInputStorage.current = true;
             } else if (check === 'manual') {
-                checkDisabled.current = false;
+                //수동
+                setCheckDisabled(false);
+                checkInputStorage.current = false;
                 eventhandler.loadLoc();
             }
         },
@@ -1058,9 +1084,13 @@ function MaterialInput() {
         onLocRadioChanged: (e, check) => {
             setLocRadioState(e.target.value);
             if (check === 'locauto') {
-                checkLocDisabled.current = false;
+                //선택
+                setRadioLocDisabled(true);
+                radioLocation.current = true;
             } else if (check === 'locscan') {
-                checkLocDisabled.current = true;
+                //스캔
+                setRadioLocDisabled(false);
+                radioLocation.current = false;
             }
         },
         // 체크박스 전체 클릭 이벤트
@@ -1098,8 +1128,12 @@ function MaterialInput() {
             if (partBarcodeDisabled) {
                 return;
             } else {
-                partBarcodeRef.current.value = '';
-                scanLocationRef.current = 'partList';
+                if (partBarcodeRef.current !== null) {
+                    partBarcodeRef.current.value = '';
+                    scanLocationRef.current = 'partList';
+                } else {
+                    return;
+                }
             }
         },
 
@@ -1222,14 +1256,6 @@ function MaterialInput() {
                                     if (substringValue.toString() !== '0') {
                                         inv_id = inv_id.substring(i);
                                         barcodeInfo(scanData.substring(17), scanData, 'partList');
-                                        eventhandler.onShowName(scanData.substring(17));
-                                        eventhandler.onShowQty(scanData.substring(17), scanData);
-
-                                        if (checkDisabled.current === true) {
-                                            eventhandler.onShowAutoLoc();
-                                        } else if (checkDisabled.current === false) {
-                                            eventhandler.onShowLoc();
-                                        }
                                         //완성 후 수정 예정
 
                                         return;
@@ -1272,7 +1298,7 @@ function MaterialInput() {
                     return;
                 }
                 //위치 스캔 or 리스트 선택 여부
-                if (checkLocDisabled.current === false) {
+                if (radioLocDisabled === false) {
                     if (moveLocationStorageRef.current.value != '') {
                         loc_id = moveLocationStorageRef.current.value;
                     } else {
@@ -1282,7 +1308,7 @@ function MaterialInput() {
                         setBackdropOpen(false);
                         return;
                     }
-                } else if (checkLocDisabled.current === true) {
+                } else if (radioLocDisabled === true) {
                     if (selectedLocValue.value != '') {
                         loc_id = selectedLocValue.value;
                     } else {
@@ -1365,6 +1391,7 @@ function MaterialInput() {
                                 ];
                             }
                             setBackdropOpen(false);
+                            reset('listAdd');
                         })
                         .catch((data) => {
                             msg = COMMON_MESSAGE.FETCH_ERROR + data.value;
@@ -1387,21 +1414,19 @@ function MaterialInput() {
         },
         // 입고개수 X 버튼 이벤트
         onBtnClearBarcode: (e) => {
-            inQtyRef.current.value = '';
-            scanLocationRef.current = 'inQty';
+            if (inQtyRef.current !== null) {
+                inQtyRef.current.value = '';
+                scanLocationRef.current = 'inQty';
+            } else {
+                return;
+            }
         },
         // 다이얼로그 커스텀 확인 이벤트
         dialogOnOkay: (e) => {
             setDialogCustomOpen(false);
             setDialogCustomrRestOpen(false);
-            if (dialogOkay === '입고중인입고지시초기화') {
-                setTabsValue(resestTabsValue);
-                tabsValueRef.current = resestTabsValue;
-                eventhandler.loadLoc();
-                reset('all');
-            }
-            // 삭제
-            else if (dialogOkay === 'delete') {
+            setDialogCustomrLocOpen(false);
+            if (dialogOkay === 'delete') {
                 selectionModel.forEach((selected) => {
                     let selectedIndex = sumList1.findIndex((data) => selected === data.id);
 
@@ -1452,6 +1477,14 @@ function MaterialInput() {
                             return;
                         });
                 });
+            } else if (dialogOkay === 'location') {
+                setAddListBtnDisabled(false);
+                setBackdropOpen(false);
+                //로케이션
+            } else if (dialogOkay === '이동중인정보초기화') {
+                reset('tabValue');
+                console.log('1');
+                initData();
             } else if (dialogOkay === 'complete') {
                 const transInDateArray = inDate.split('-');
                 transInDate = transInDateArray[0] + transInDateArray[1] + transInDateArray[2];
@@ -1613,8 +1646,15 @@ function MaterialInput() {
 
         // 다이얼로그 커스텀 닫기 이벤트
         dialogOnCancel: (e) => {
+            if (dialogCancel === 'location') {
+                moveLocationStorageRef.current.value = '';
+                moveLocationStorageRef.focus();
+                setDialogCancel('');
+            }
+
             setDialogCustomOpen(false);
             setDialogCustomrRestOpen(false);
+            setDialogCustomrLocOpen(false);
         },
         // 리스트에서 하나 또는 여러 행을 체크시 이벤트
         onSelectionModelChange: (e) => {
@@ -1704,18 +1744,17 @@ function MaterialInput() {
     };
     //dataGrid
     const columns1 = [
-        { field: 'PART_ID', headerName: '품번', width: 120, headerAlign: 'left', align: 'left' },
-        { field: 'LOT_NO', headerName: 'Lot No', width: 100, headerAlign: 'left', align: 'left' },
-        { field: 'QTY', headerName: '수량', width: 70, headerAlign: 'right', align: 'right' },
-        { field: 'LOCATION', headerName: '위치', width: 110, headerAlign: 'left', align: 'left' },
-        { field: 'DATE', headerName: '일자', width: 90, headerAlign: 'left', align: 'left' },
+        { field: 'PART_ID', headerName: '품번', width: 160, headerAlign: 'left', align: 'left' },
+        { field: 'LOT_NO', headerName: 'Lot No', width: 160, headerAlign: 'left', align: 'left' },
+        { field: 'QTY', headerName: '수량', width: 120, headerAlign: 'right', align: 'right' },
+        { field: 'LOCATION', headerName: '위치', width: 160, headerAlign: 'left', align: 'left' },
+        { field: 'DATE', headerName: '일자', width: 160, headerAlign: 'left', align: 'left' },
     ];
     const columns2 = [
-        { field: 'PART_ID', headerName: '품번', width: 120, headerAlign: 'left', align: 'left' },
-        { field: 'LOT_NO', headerName: 'Lot No', width: 100, headerAlign: 'left', align: 'left' },
-        { field: 'QTY', headerName: '수량', width: 70, headerAlign: 'right', align: 'right' },
-        { field: 'LOCATION', headerName: '위치', width: 110, headerAlign: 'left', align: 'left' },
-        { field: 'DATE', headerName: '일자', width: 90, headerAlign: 'left', align: 'left' },
+        { field: 'PART_ID', headerName: '품번', width: 160, headerAlign: 'left', align: 'left' },
+        { field: 'LOT_NO', headerName: 'Lot No', width: 140, headerAlign: 'left', align: 'left' },
+        { field: 'QTY', headerName: '수량', width: 80, headerAlign: 'right', align: 'right' },
+        { field: 'INPUT_QTY', headerName: '입고', width: 80, headerAlign: 'left', align: 'left' },
     ];
     return (
         <>
@@ -1739,12 +1778,12 @@ function MaterialInput() {
                     <AcsRadioButton dataList={dataList1} value={radioState} onChange={eventhandler.onRadioChanged} />
                     <AcsSelect
                         className={`${classes.form__select}${classes.marginBottom}`}
-                        disabled={checkDisabled.current}
+                        disabled={checkDisabled}
                         data={selectedData.current}
                         value={selectedValue.value}
                         labelText={'입고창고'}
                         id="txtLocation"
-                        backgroundColor={checkDisabled.current ? colors.PLight : colors.white}
+                        backgroundColor={checkDisabled ? colors.PLight : colors.white}
                         style={{ width: '100%' }}
                         MenuProps={{
                             style: {
@@ -1881,7 +1920,7 @@ function MaterialInput() {
                             className={`${classes.selectStorage} ${classes.marginBottom}`}
                             labelText={'창고'}
                             id="cmb_moveLocationStorage"
-                            disabled={!checkLocDisabled.current}
+                            disabled={!radioLocDisabled}
                             data={selectedLocData.current}
                             value={selectedLocValue.value}
                             MenuProps={{
@@ -1895,7 +1934,7 @@ function MaterialInput() {
                             className={`${classes.marginBottom} ${classes.text}`}
                             label={'창고'}
                             id="txtMoveLocationStorage"
-                            disabled={checkLocDisabled.current}
+                            disabled={radioLocDisabled}
                             InputProps={{
                                 endAdornment: (
                                     <IconButton
@@ -1913,41 +1952,34 @@ function MaterialInput() {
                             }}
                         />
                     </div>
+                    <div className={`${classes.flexDiv}`}>
+                        <Button
+                            fullWidth
+                            variant="contained"
+                            name="insertBtn"
+                            className={`${classes.flexButton} ${classes.marginRight}`}
+                            style={{
+                                backgroundColor: addListBtnDisabled ? 'lightgray' : '#f7b13d',
+                            }}
+                            disabled={addListBtnDisabled}
+                            onClick={eventhandler.onAddListBtnClick}
+                        >
+                            추가
+                        </Button>
 
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        name="insertBtn"
-                        style={{
-                            fontSize: '1rem',
-                            fontWeight: 'bold',
-                            width: '49.5%',
-                            marginTop: '10px',
-                            backgroundColor: addListBtnDisabled ? 'lightgray' : '#f7b13d',
-                        }}
-                        disabled={addListBtnDisabled}
-                        onClick={eventhandler.onAddListBtnClick}
-                    >
-                        추가
-                    </Button>
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        name="updateBtn"
-                        style={{
-                            backgroundColor: 'gray',
-                            color: 'white',
-                            fontSize: '1rem',
-                            fontWeight: 'bold',
-                            width: '49.5%',
-                            marginTop: '10px',
-                        }}
-                        onClick={eventhandler.onResetBtnClick}
-                    >
-                        정정
-                    </Button>
+                        <Button
+                            fullWidth
+                            variant="contained"
+                            name="updateBtn"
+                            className={`${classes.flexButton}`}
+                            style={{
+                                backgroundColor: 'gray',
+                            }}
+                            onClick={eventhandler.onResetBtnClick}
+                        >
+                            정정
+                        </Button>
+                    </div>
                     <AcsDataGrid
                         className={`${classes.dataGridOdd} ${classes.dataGridMargin}`}
                         cols={columns1}
@@ -1956,17 +1988,12 @@ function MaterialInput() {
                         onSelectionModelChange={eventhandler.onSelectionModelChange}
                     ></AcsDataGrid>
                     <Button
-                        type="submit"
                         fullWidth
                         variant="contained"
                         name="checkDeleteBtn"
+                        className={`${classes.button} ${classes.half} ${classes.halfMargin}`}
                         style={{
-                            backgroundColor: '#f7b13d',
-                            color: 'white',
-                            fontSize: '1rem',
-                            fontWeight: 'bold',
-                            width: '49.5%',
-                            marginTop: '10px',
+                            backgroundColor: 'gray',
                         }}
                         onClick={eventhandler.onDeleteBtnClick}
                     >
@@ -1974,18 +2001,11 @@ function MaterialInput() {
                     </Button>
                     <AcsBadgeButton
                         badgeContent={sumList1.length}
-                        type="submit"
                         fullWidth
                         variant="contained"
                         name="okErrorBtn"
-                        style={{
-                            backgroundColor: '#f7b13d',
-                            color: 'white',
-                            fontSize: '1rem',
-                            fontWeight: 'bold',
-                            width: '49.5%',
-                            marginTop: '10px',
-                        }}
+                        className={`${classes.button} ${classes.half}`}
+                        style={{ backgroundColor: '#f7b13d' }}
                         onClick={eventhandler.onInputCompleteBtnClick}
                     >
                         입고확정
@@ -2059,6 +2079,25 @@ function MaterialInput() {
                         variant="contained"
                     >
                         {'그대로 진행'}
+                    </Button>
+                </AcsDialogCustom>
+                {/* 메시지 박스 (CUSTOM) - 위치 검증 여부 묻는 Dialog  */}
+                <AcsDialogCustom message={msg} open={dialogCustomrLocOpen} handleClose={eventhandler.dialogOnCancel}>
+                    <Button
+                        onClick={eventhandler.dialogOnOkay}
+                        style={{ backgroundColor: '#f7b13d', color: 'white' }}
+                        fullWidth
+                        variant="contained"
+                    >
+                        {'예'}
+                    </Button>
+                    <Button
+                        onClick={eventhandler.dialogOnCancel}
+                        style={{ backgroundColor: 'gray', color: 'white' }}
+                        fullWidth
+                        variant="contained"
+                    >
+                        {'아니요'}
                     </Button>
                 </AcsDialogCustom>
                 {/* 입고확정 버튼 클릭시 프로시저 실행 컬럼 FLAG 값이 "0"이 아닐때 띄우는 팝업창 */}

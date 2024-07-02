@@ -14,16 +14,16 @@ const PDA_API_GETDATE_URL = process.env.REACT_APP_PDA_API_GETDATE_URL;
 const PDA_API_GENERAL_URL = process.env.REACT_APP_PDA_API_GENERAL_URL;
 
 const PROC_PK_PDA_IV01_1_Init_D = 'U_PK_PDA_IV01_1_Init_D'; // 초기화
-const PROC_PK_PDA_IV01_1_L = 'U_PK_PDA_IV01_1_L'; // 거래명세서 스캔
-const PROC_PK_PDA_IV01_2_L = 'U_PK_PDA_IV01_2_L'; // 부품표 스캔
-const PROC_PK_PDA_IV01_11_L = 'U_PK_PDA_IV01_11_L'; // 위치스캔 (적재위치 표시)
-const PROC_PK_PDA_IV01_3_L = 'U_PK_PDA_IV01_3_L'; // 위치스캔 (품번 표시)
-const PROC_PK_PDA_IV01_4_L = 'U_PK_PDA_IV01_4_L'; // 위치스캔 (수량 표시)
-const RPOC_PK_PDA_IV01_1_1_S = 'U_PK_PDA_IV01_1_1_S'; // 리스트에 데이터 추가
-const PROC_PK_PDA_IV01_D = 'U_PK_PDA_IV01_1_D'; // 선택삭제
-const PROC_PK_PDA_IV01_3_S = 'U_PK_PDA_IV01_3_S'; // 입고확정 (입고수량 잔량여부 확인)
-const PROC_PK_PDA_IV01_7_L = 'U_PK_PDA_IV01_7_L'; // 입고확정 (잔량 표시)
-const PROC_PK_PDA_IV01_2_S = 'U_PK_PDA_IV01_2_S'; // 입고확정
+const PROC_PK_PDA_IV01_1_L      = 'U_PK_PDA_IV01_1_L';      // 거래명세서 스캔
+const PROC_PK_PDA_IV01_2_L      = 'U_PK_PDA_IV01_2_L';      // 부품표 스캔
+const PROC_PK_PDA_IV01_11_L     = 'U_PK_PDA_IV01_11_L';     // 위치스캔 (적재위치 표시)
+const PROC_PK_PDA_IV01_3_L      = 'U_PK_PDA_IV01_3_L';      // 위치스캔 (품번 표시)
+const PROC_PK_PDA_IV01_4_L      = 'U_PK_PDA_IV01_4_L';      // 위치스캔 (수량 표시)
+const RPOC_PK_PDA_IV01_1_1_S    = 'U_PK_PDA_IV01_1_1_S';    // 리스트에 데이터 추가
+const PROC_PK_PDA_IV01_D        = 'U_PK_PDA_IV01_1_D';      // 선택삭제
+const PROC_PK_PDA_IV01_3_S      = 'U_PK_PDA_IV01_3_S';      // 입고확정 (입고수량 잔량여부 확인)
+const PROC_PK_PDA_IV01_7_L      = 'U_PK_PDA_IV01_7_L';      // 입고확정 (잔량 표시)
+const PROC_PK_PDA_IV01_2_S      = 'U_PK_PDA_IV01_2_S';      // 입고확정
 
 let msg = '';
 let inv_id; // 부품표 스캔시 던져지는 매개변수

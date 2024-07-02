@@ -14,12 +14,11 @@ const useStyle = makeStyles({
   }
 });
 
-
 function AcsBadgeButton({ badgeContent, ...props }) {
   const classes = useStyle();
   return (
     <Badge classes={{badge:classes.badgeSize}} max={9999} className={classes.badgeButton} badgeContent={badgeContent} color='secondary'>
-      <Button {...props}> 
+      <Button {...props}>
         {props.children} 
       </Button>
     </Badge>
@@ -34,5 +33,4 @@ AcsBadgeButton.defaultProps = {
 
 AcsBadgeButton.propTypes = {
   children: PropTypes.string.isRequired  
-}
-
+};
