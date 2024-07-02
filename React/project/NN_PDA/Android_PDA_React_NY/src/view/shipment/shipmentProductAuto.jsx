@@ -20,19 +20,19 @@ import {
     Button,
     Dialog,
     DialogTitle,
-} from '@material-ui/core'; // MUI
-import { menuOpenContext } from '../../components/acsNavBar'; // 네비게이션 메뉴
-import { Clear } from '@material-ui/icons'; // X 아이콘
-import colors from '../../commons/colors'; // 색상
-import COMMON_MESSAGE from '../../commons/message'; // 에러메세지
-import AcsTabPanel from '../../components/acsTabPanel'; // 탭 페이지
-import AcsTextField from '../../components/acsTextField'; // 텍스트필드
-import AcsDataGrid from '../../components/acsDataGrid'; // 표
-import AcsSelect from '../../components/acsSelect'; // 셀렉트
-import AcsBadgeButton from '../../components/acsBadgeButton'; // 뱃지버튼
-import AcsCheckBox from '../../components/acsCheckBox'; // 체크박스
-import AcsDialog from '../../components/acsDialog'; // 다이얼로그
-import AcsDialogCustom from '../../components/acsDialogCustom'; // 커스텀 다이얼로그
+}                           from '@material-ui/core';                   // MUI
+import { menuOpenContext }  from '../../components/acsNavBar';          // 네비게이션 메뉴
+import { Clear }            from '@material-ui/icons';                  // X 아이콘
+import colors               from '../../commons/colors';                // 색상
+import COMMON_MESSAGE       from '../../commons/message';               // 에러메세지
+import AcsTabPanel          from '../../components/acsTabPanel';        // 탭 페이지
+import AcsTextField         from '../../components/acsTextField';       // 텍스트필드
+import AcsDataGrid          from '../../components/acsDataGrid';        // 표
+import AcsSelect            from '../../components/acsSelect';          // 셀렉트
+import AcsBadgeButton       from '../../components/acsBadgeButton';     // 뱃지버튼
+import AcsCheckBox          from '../../components/acsCheckBox';        // 체크박스
+import AcsDialog            from '../../components/acsDialog';          // 다이얼로그
+import AcsDialogCustom      from '../../components/acsDialogCustom'; // 커스텀 다이얼로그
 
 // API URL
 const PDA_API_GETDATE_URL = process.env.REACT_APP_PDA_API_GETDATE_URL;
@@ -2295,7 +2295,7 @@ function ShipmentProductAuto() {
             setDialogCustomrRestOpen(false);
             setDialogCustomrSaveCompleteOpen(false);
             setDialogCustomPrintFlagOpen(false);
-            //testttttttttt
+            //test
             if (dialogOkay === '출하중인출하지시초기화') {
                 // 임시데이터 삭제
                 loadInitOutNo();

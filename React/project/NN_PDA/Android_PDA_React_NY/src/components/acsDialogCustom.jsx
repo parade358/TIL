@@ -1,13 +1,14 @@
-import { DialogContentText } from '@material-ui/core';
-import Dialog from '@material-ui/core/Dialog';
-import MuiDialogActions from '@material-ui/core/DialogActions';
-import MuiDialogContent from '@material-ui/core/DialogContent';
-import MuiDialogTitle from '@material-ui/core/DialogTitle';
-import IconButton from '@material-ui/core/IconButton';
-import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import CloseIcon from '@material-ui/icons/Close';
-import React from 'react';
+import { DialogContentText }    from '@material-ui/core';
+import Dialog                   from '@material-ui/core/Dialog';
+import MuiDialogActions         from '@material-ui/core/DialogActions';
+import MuiDialogContent         from '@material-ui/core/DialogContent';
+import MuiDialogTitle           from '@material-ui/core/DialogTitle';
+import IconButton               from '@material-ui/core/IconButton';
+import { withStyles }           from '@material-ui/core/styles';
+import Typography               from '@material-ui/core/Typography';
+import CloseIcon                from '@material-ui/icons/Close';
+import React                    from 'react';
+
 const styles = (theme) => ({
     root: {
         margin: 0,
@@ -20,6 +21,7 @@ const styles = (theme) => ({
         color: theme.palette.grey[500],
     },
 });
+
 const DialogTitle = withStyles(styles)((props) => {
     const { children, classes, onClose, ...other } = props;
     return (
@@ -33,17 +35,20 @@ const DialogTitle = withStyles(styles)((props) => {
         </MuiDialogTitle>
     );
 });
+
 const DialogContent = withStyles((theme) => ({
     root: {
         padding: theme.spacing(2),
     },
 }))(MuiDialogContent);
+
 const DialogActions = withStyles((theme) => ({
     root: {
         margin: 0,
         padding: theme.spacing(1),
     },
 }))(MuiDialogActions);
+
 export default function AcsDialogCustom(props) {
     return (
         <div>
