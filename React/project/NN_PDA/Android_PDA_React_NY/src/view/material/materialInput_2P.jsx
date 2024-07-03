@@ -26,8 +26,8 @@ const PROC_PK_PDA_IV01_7_L      = 'U_PK_PDA_IV01_7_L';      // 입고확정 (잔
 const PROC_PK_PDA_IV01_2_S      = 'U_PK_PDA_IV01_2_S';      // 입고확정
 
 let msg = '';
-let inv_id; // 부품표 스캔시 던져지는 매개변수
-let transInDate; // '-' 뺀 입고일자
+let inv_id;         // 부품표 스캔시 던져지는 매개변수
+let transInDate;    // '-' 뺀 입고일자
 
 // 스타일
 const useStyle = makeStyles((theme) => ({
