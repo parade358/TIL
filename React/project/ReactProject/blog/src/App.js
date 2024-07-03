@@ -5,136 +5,42 @@ import { useState } from 'react';
 
 function App() {
 
-  const post = '신월 짬뽕 맛집';
-  // document.querySelector('h4').innerHTML = post
+  const [title, setTitle] = useState(['1', '2', '3'])
+  const [like, setLike] = useState(0);
 
-  const [title1,setTitle1] = useState('남자 코트 추천');
-  const [title2,setTitle2] = useState('신월 짬뽕 맛집');
-  const [title3,setTitle3] = useState('리액트 독학');
-  const [title, setTitle] = useState(['여자코트추천', '강남우동맛집', '파이썬독학']);
-  const [like, setLike] = useState([0,0,0]);
-  const [modal, setModal] = useState(false);
-  const [modalTitle, setModalTitle] = useState('');
-
-  function clickHandler (i, e){
-    let copy = [...like];
-    copy[i] = like[i] + 1
-    setLike(copy);
-  };
-
-  function changeTitle(){
-    let copy = [...title]
-    copy[0] = '남자코트추천'
-    setTitle(copy)
-  };
-
-  function indexTitle(){
-    let copy = [...title];
-    copy.sort();
-    setTitle(copy);
-      
-     let isDone = false;
-
-      if (3+5 == 8){
-        isDone = true;
-      }
-
-      if(isDone === true){
-        
-      }
-
+  function clickLike(){
+    setLike(like + 1);
   }
 
-  // [1,2,3].map(function(a){
-  //   return '1233211'
-  // })
+  function clickBtn(){
+    let copy = [...title]
+    console.log(copy)
+    copy[0] = 'test';
+    console.log(copy[0]);
+    setTitle(copy);
+  }
 
   return (
     <div className="App">
-
       <div className="black-nav">
-        <h4>ReactBlog</h4>
-      </div>
-
-      <Banner/>
-      {/* <button onClick={ indexTitle }>가나다순정렬</button> */}
-
-      {/* <button onClick={()=>{
-        let copy = title;
-        copy[0] = '토트넘';
-        setTitle(copy);
-      } }>글수정</button> */}
-
-      {/* <button onClick={ changeTitle }>글수정</button> */}
-
-      {/* <div className='list'>
-        <h4 onClick={()=> {if(modal == true){setModal(false);} else{setModal(true);}}}>
-          { title[0] } <span onClick={ plusLike }>👍</span>{like} 
-        </h4> 
-        <p>4월 12일 발행</p>
+        <h4>React</h4>
       </div>
       <div className='list'>
-        <h4>{ title[1] } <span onClick={ plusLike }>👍</span>{like} </h4> 
-        <p>4월 13일 발행</p>
+        <h4>{title[0]} <span onClick={ clickLike }>Like</span> {like} </h4>
+        <p>2월 17일 발행</p>
       </div>
       <div className='list'>
-        <h4>{ title[2] } <span onClick={ plusLike }>👍</span>{like} </h4> 
-        <p>4월 14일 발행</p>
-      </div> */}
-
-      {
-        title.map(function(a, i){
-          return (
-            <div className='list' key={i}>
-              <h4 onClick={()=> {setModalTitle(title[i]); if(modal == true){setModal(false);} else{setModal(true);}}}>
-                { title[i] } 
-              </h4>
-              <span onClick={()=>{ let copy = [...like];
-                                  copy[i] = copy[i] + 1;
-                                  setLike(copy);}}>
-              👍
-              </span>
-              {like[i]} 
-              <p>4월 12일 발행</p>
-            </div>
-          )
-        })
-      }
-
-      {/* {
-        조건식 ? 참일때 실행할 코드 : 거짓일 때 실행할 코드
-      } */}
-
-      {
-        modal == true ? <Modal modalTitle={modalTitle}/> : null 
-      }
-
-    </div>
-  );
-}
-
-function Modal(props){
-  return(
-    <div className='modal' style={{background : props.color}}>
-        <h4>{props.modalTitle}</h4>
-        <p>날짜</p>
-        <p>상세내용</p>
+        <h4>{title[1]} <span onClick={ clickLike }>Like</span> {like} </h4>
+        <p>2월 17일 발행</p>
       </div>
-  );
-}
+      <div className='list'>
+        <h4>{title[2]} <span onClick={ clickLike }>Like</span> {like} </h4>
+        <p>2월 17일 발행</p>
+      </div>
 
-function Banner() {
-  return (
-    <div className='banner'>
-      <h2>광고문의 : 010-7146-6529</h2>
+      <button onClick={ clickBtn }>Button</button>
     </div>
   );
-}
-
-// const Modal2 = () => {
-//   return(
-//     <div></div>
-//   );
-// }
-
+  
+} 
 export default App;
