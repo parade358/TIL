@@ -3,21 +3,6 @@
 import './App.css';
 import { useState } from 'react';
 
-
-// 컴포넌트 *반복적인 html 축약할때, 큰 페이지들, 자주변경되는것들
-function Modal(){
-  return(
-    <>
-    <div className="modal">
-        <h4>제목</h4>
-        <p>날짜</p>
-        <p>상세내용</p>
-    </div>
-    </>
-  );
-};
-
-
 export default function App() {
 
   const [title, setTitle] = useState(['다', '가', '나']);
@@ -84,5 +69,18 @@ export default function App() {
       <button onClick={ sortArray }>Button2</button>
 
     </div>
+  );
+};
+
+// 컴포넌트 *반복적인 html 축약할때, 큰 페이지들, 자주변경되는것들
+function Modal(){
+  return(
+    <>
+    <div className="modal">
+        <h4>제목</h4>
+        <p>날짜</p>
+        <p>상세내용</p>
+    </div>
+    </>
   );
 };

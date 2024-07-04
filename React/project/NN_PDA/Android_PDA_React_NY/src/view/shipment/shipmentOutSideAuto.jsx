@@ -705,7 +705,6 @@ function ShipmentOutSideAuto() {
             value: data.LOC_ID,
         }));
     };
-
     //저장 = 목록저장 + 리스트뷰 추가
     const saveDataAddDataList = () => {
         let in_qty = 0;
