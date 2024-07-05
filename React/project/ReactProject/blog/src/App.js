@@ -9,10 +9,6 @@ export default function App() {
   const [like,  setLike]  = useState(0);
   const [modal, setModal] = useState(false);
 
-  [1,2,3].map(function(){
-    console.log;
-  })
-
   function clickLike() {
     setLike(like + 1);
   };
@@ -46,28 +42,26 @@ export default function App() {
       <div className="black-nav">
         <h4>React</h4>
       </div>
-      <div className='list'>
-        <h4 onClick={ clickTitle }>{title[0]} <span onClick={ clickLike }>Like</span> {like} </h4>
-        <p>2월 17일 발행</p>
-      </div>
-      <div className='list'>
-        <h4 onClick={ clickTitle }>{title[1]} <span onClick={ clickLike }>Like</span> {like} </h4>
-        <p>2월 17일 발행</p>
-      </div>
-      <div className='list'>
-        <h4 onClick={ clickTitle }>{title[2]} <span onClick={ clickLike }>Like</span> {like} </h4>
-        <p>2월 17일 발행</p>
-      </div>
-
+      
       {
-        //html 작성하는곳이라 if문 불가능, 삼항연산자 활용
-        modal == true ? <Modal/> : null
+        [1,2,3].map(function(){
+          return (
+            <div className='list'>
+              <h4 onClick={ clickTitle }>{title[0]} <span onClick={ clickLike }>Like</span> {like} </h4>
+              <p>2월 17일 발행</p>
+            </div>
+          )
+        })
       }
 
 
       <button onClick={ clickBtn }>Button1</button>
       <button onClick={ sortArray }>Button2</button>
 
+      {
+        //html 작성하는곳이라 if문 불가능, 삼항연산자 활용
+        modal == true ? <Modal/> : null
+      }
     </div>
   );
 };
