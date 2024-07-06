@@ -44,7 +44,7 @@ export default function App() {
       </div>
       
       {
-        [1,2,3].map(function(){
+        title.map(function(a, i){
           return (
             <div className='list'>
               <h4 onClick={ clickTitle }>{title[0]} <span onClick={ clickLike }>Like</span> {like} </h4>
