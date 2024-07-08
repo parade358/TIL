@@ -1,14 +1,5 @@
-/*******************************************************************************************
-■ 문서제목 : 
-■ 작성목적 : 
-■ 실행예제 : 
-■ 비    고 :
-■ 주요변경내역
-VER         DATE          AUTHOR			DESCRIPTION
-*******************************************************************************************/
-
 import { useRef, useState, useEffect, useCallback, useContext } from 'react'; // 리액트 훅
-import { useHistory }       from 'react-router-dom'; // 히스토리
+import { useHistory } from 'react-router-dom'; // 히스토리
 
 import {
     makeStyles,
@@ -20,28 +11,31 @@ import {
     Button,
     Dialog,
     DialogTitle,
-}                           from '@material-ui/core';                   // MUI
-import { menuOpenContext }  from '../../components/acsNavBar';          // 네비게이션 메뉴
-import { Clear }            from '@material-ui/icons';                  // X 아이콘
-import colors               from '../../commons/colors';                // 색상
-import COMMON_MESSAGE       from '../../commons/message';               // 에러메세지
-import AcsTabPanel          from '../../components/acsTabPanel';        // 탭 페이지
-import AcsTextField         from './../../components/acsTextField';     // 텍스트필드
-import AcsDataGrid          from './../../components/acsDataGrid';      // 표
-import AcsBadgeButton       from './../../components/acsBadgeButton';   // 뱃지버튼
-import AcsDialog            from '../../components/acsDialog';          // 다이얼로그
-import AcsDialogCustom      from '../../components/acsDialogCustom';    // 커스텀 다이얼로그
+} from '@material-ui/core'; // MUI
+import { menuOpenContext } from '../../components/acsNavBar'; // 네비게이션 메뉴
+import { Clear } from '@material-ui/icons'; // X 아이콘
+import colors from '../../commons/colors'; // 색상
+import COMMON_MESSAGE from '../../commons/message'; // 에러메세지
+import AcsTabPanel from '../../components/acsTabPanel'; // 탭 페이지
+import AcsTextField from './../../components/acsTextField'; // 텍스트필드
+import AcsDataGrid from './../../components/acsDataGrid'; // 표
+import AcsBadgeButton from './../../components/acsBadgeButton'; // 뱃지버튼
+import AcsDialog from '../../components/acsDialog'; // 다이얼로그
+import AcsDialogCustom from '../../components/acsDialogCustom'; // 커스텀 다이얼로그
 
 // API URL
 const PDA_API_GETDATE_URL = process.env.REACT_APP_PDA_API_GETDATE_URL;
 const PDA_API_GENERAL_URL = process.env.REACT_APP_PDA_API_GENERAL_URL;
+
 
 // 프로시저 리스트
 const PROC_PK_PDA_DV01_L                = 'U_PK_PDA_DV01_L';                // 출하지시 조회
 const PROC_PK_PDA_DV01_1_L              = 'U_PK_PDA_DV01_1_L';              // 출하지시 세부목록 조회
 const PROC_PK_PDA_DV01_1_S              = 'U_PK_PDA_DV01_1_S';              // 출하지시선택 (출하지시목록 선점 처리)
 const PROC_PK_PDA_DV01_1_D              = 'U_PK_PDA_DV01_1_D';              // 화면 종료시 출하지시 선점처리 - 초기화
+const PROC_PK_PDA_DV07_1_L              = 'U_PK_PDA_DV07_1_L';              // 고객사 바코드 검증
 const PROC_PK_PDA_DV07_2_L              = 'U_PK_PDA_DV07_2_L';              // 입고표 정보조회 (품번, LOT, 위치, 수량)
+const PROC_PK_PDA_DV07_3_L              = 'U_PK_PDA_DV07_3_L';              // 고객사 라벨과 남양 라벨 수량 체크
 const PROC_PK_PDA_DV01_3_L              = 'U_PK_PDA_DV01_3_L';              // 선택된 출하지시 처리를 위한 기준 수량 표시 (신규)
 const PROC_PK_PDA_DV01_12_L             = 'U_PK_PDA_DV01_12_L';             // 선택된 출하지시 처리를 위한 기준 수량 표시 (저장)
 const PROC_PK_PDA_DV07_1_S              = 'U_PK_PDA_DV07_1_S';              // 출하목록임시저장
@@ -56,11 +50,11 @@ const PROC_PK_PDA_DV01_9_L              = 'U_PK_PDA_DV01_9_L';              // �
 const PROC_PK_PDA_DV01_10_L             = 'U_PK_PDA_DV01_10_L';             // 현재재고, 출하수량 조회
 const PROC_PK_PDA_IV05_6_L              = 'U_PK_PDA_IV05_6_L';              // 선택된 품목명 표시
 const PROC_PK_PDA_DV01_4_S              = 'U_PK_PDA_DV01_4_S';              // 출하지시번호를 저장처리
-const PROC_PK_PDA_DV07_1_L              = 'U_PK_PDA_DV07_1_L';              // 고객사 바코드 검증
-const PROC_PK_PDA_DV07_3_L              = 'U_PK_PDA_DV07_3_L';              // 고객사 라벨과 남양 라벨 수량 체크
 
-let msg         = '';   // 알림 메세지 담아둘 전역변수
-let printFlag   = 'N';  // 출문증발행 플래그
+
+let msg = ''; // 알림 메세지 담아둘 전역변수
+let printFlag = 'N'; // 출문증발행 플래그
+
 
 // CSS 스타일
 const useStyle = makeStyles((theme) => ({
@@ -252,13 +246,11 @@ function getRequestParam() {
 // 날짜 '-' 제거
 function transDateSplitArray(date) {
     const transDateArray = date.split('-');
-    console.log(transDateArray + '-----------');
     return transDateArray[0] + transDateArray[1] + transDateArray[2];
 }
 
-export default function ShipmentMutipleCustomerLabelReplacement() {
-
-    // =============== 공통 state ===============
+function ShipmentMutipleCustomerLabelReplacement() {
+    // =============== 공통  ===============
     const classes                                                               = useStyle();                                       // CSS 스타일
     const todayDateRef                                                          = useRef('');                                       // 오늘 날짜
     const { setMenuOpen }                                                       = useContext(menuOpenContext);                      // 메뉴
@@ -271,9 +263,9 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
     const [dialogOpen,                      setDialogOpen]                      = useState(false);                                  // 다이얼로그 (메시지창)
     const [dialogCancelGubun,               setDialogCancelGubun]               = useState('');                                     // 다이얼로그 (메시지창) - 출하저장, 출하완료 후 닫기 버튼 클릭시 구분
     const [dialogCustomOpen,                setDialogCustomOpen]                = useState(false);                                  // 다이얼로그 커스텀 (메시지창)
-    const [dialogCustomrRestOpen,           setDialogCustomrRestOpen]           = useState(false);                                  // 출하 진행 중 초기화 여부 Dialog
-    const [dialogCustomrSaveCompleteOpen,   setDialogCustomrSaveCompleteOpen]   = useState(false);                                  // 출하 진행 중 자징 여부 Dialog
-    const [dialogOkay,                      setDialogOkay]                      = useState('');                                     // 확인, 삭제 구분
+    const [dialogCustomrRestOpen,           setDialogCustomrRestOpen]           = useState(false);                                  // 다이얼로그 커스텀 (메시지창) - 초기화 여부 Dialog
+    const [dialogCustomrSaveCompleteOpen,   setDialogCustomrSaveCompleteOpen]   = useState(false);                                  // 다이얼로그 커스텀 (메시지창) - 출하 저장 여부 Dialog
+    const [dialogOkay,                      setDialogOkay]                      = useState('');                                     // 확인, 삭제 구분          
     const [backdropOpen,                    setBackdropOpen]                    = useState(false);                                  // 대기
     const scanLocationRef                                                       = useRef('customer');                               // 바코드 스캔 위치
     const onMessage                                                             = useCallback((event) => {ReadData(event);}, []);   // WebView에서 받아온 데이터
@@ -282,58 +274,67 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
     const forceUpdate                                                           = useCallback(() => updateState({}), []);           // forceUpdate
     let history                                                                 = useHistory();
 
-
     // =============== 출하지시 state ===============
-    const shipmentRequestDateRef                                                                = useRef('');                       // 출하의뢰일자
-    const [sumList1,                                setSumList1]                                = useState([]);                     // 출하지시 리스트
-    const selectedShippingNumberRef                                                             = useRef('');                       // 출하지시 리스트에서 선택한 출하지시번호
-    const selectedStateRef                                                                      = useRef('');                       // 출하지시 리스트에서 선택한 상태
-    const [sumList2,                                setSumList2]                                = useState([]);                     // 출하지시 세부 리스트
-    const [shipmentInstructionSelectBtnDisabled,    setShipmentInstructionSelectBtnDisabled]    = useState(true);                   // 출하지시선택 버튼 Disabled
-    const selectedPartIdRef                                                                     = useRef('');                       // 출하지시 세부 리스트에서 선택한 품번
-    const [openCurrentInventoryStatusForm,          setOpenCurrentInventoryStatusForm]          = useState(false);                  // 현재 재고현황 리스트 다이얼로그 - [현재 재고현황 팝업창]
-    const [textSelectedPartName,                    setTextSelectedPartName]                    = useState('');                     // 출하지시 리스트 목록에서 선택한 품명 - [현재 재고현황 팝업창]
-    const [sumList3,                                setSumList3]                                = useState([]);                     // 현재 재고현황 리스트 목록 - [현재 재고현황 팝업창]
-
-
+    const [sumList1,                                setSumList1]                                = useState([]);     // 출하지시 리스트
+    const [sumList2,                                setSumList2]                                = useState([]);     // 출하지시 세부 리스트
+    const [shipmentInstructionSelectBtnDisabled,    setShipmentInstructionSelectBtnDisabled]    = useState(true);   // 출하지시선택 버튼 Disabled
+    const [openCurrentInventoryStatusForm,          setOpenCurrentInventoryStatusForm]          = useState(false);  // 현재 재고현황 리스트 다이얼로그 - [현재 재고현황 팝업창]
+    const [textSelectedPartName,                    setTextSelectedPartName]                    = useState('');     // 출하지시 리스트 목록에서 선택한 품명 - [현재 재고현황 팝업창]
+    const [sumList3,                                setSumList3]                                = useState([]);     // 현재 재고현황 리스트 목록 - [현재 재고현황 팝업창]
+    
     // =============== 출하 state ===============
-    const [textShipmentInstruction,                 setTextShipmentInstruction]                 = useState('');     // 출하지시번호 Text
-    const textShipmentInstructionRef                                                            = useRef('');       // 출하지시번호 Text Ref
-    const customerLabelRef                                                                      = useRef();         // 고객사라벨 Text
+    const [textShipmentInstruction,                 setTextShipmentInstruction]                 = useState('');     // 출하지시번호 state
     const [customerLabelDisabled,                   setCustomerLabelDisabled]                   = useState(false);  // 고객사라벨 Disabled
-    const barcodeRef                                                                            = useRef('');       // 바코드 Text
     const [barcodeDisabled,                         setBarcodeDisabled]                         = useState(false);  // 바코드 Disabled
-    const [scanBarcodeList,                         setScanBarcodeList]                         = useState([]);     // 스캔한 바코드 리스트들
-    const textPartIdRef                                                                         = useRef('');       // 품번 Text Ref
-    const [textLotNo,                               setTextLotNo]                               = useState('');     // Lot No Text
-    const textLotNoRef                                                                          = useRef('');       // Lot No Text Ref
+    const [textPartId,                              setPartId]                                  = useState('');     // 품번 state
+    const [textLotNo,                               setTextLotNo]                               = useState('');     // Lot No state
     const [textPartName,                            setTextPartName]                            = useState('');     // 품명 Text
-    const textInputLocationRef                                                                  = useRef('');       // 입고표 위치 Text Ref
-    const textInputQtyRef                                                                       = useRef(0);        // 입고표 수량 Text Ref
-    const textCustomerQtyRef                                                                    = useRef(0);        // 총수량 Text Ref
-    const txtScancntRef                                                                         = useRef(0);        // 스캔횟수 Text Ref
-    const shipmentQtyRef                                                                        = useRef(0);        // 스캔수량 Text Ref
+    const [inputLocation,                           setInputLocation]                           = useState('');     // 입고표 위치 Text
+    const [inputQty,                                setInputQty]                                = useState(0);     // 입고표수량 Text
+    const [customerQty,                             setCustomerQty]                             = useState(0);     // 고객수량 Text
+    const [shipmentQty,                             setShipmentQty]                             = useState(0);     // 스캔한 수량 Text
+    const [scanCnt,                                 setScanCnt]                                 = useState(0);     // 스캔한 횟수 Text
     const [openShipmentDateChangeForm,              setOpenShipmentDateChangeForm]              = useState(false);  // 출하일자조정 다이얼로그 - [출하일자조정 팝업창]
-    const shipmentDateRef                                                                       = useRef('');       // 출하일자 Ref - [출하일자조정 팝업창]
     const [sumList4,                                setSumList4]                                = useState([]);     // 출하 리스트 목록
-    const sumList4Ref                                                                           = useRef([]);       // 출하 리스트 목록 Ref
-    const selectionModelRef                                                                     = useRef([]);       // 체크박스에 체크된 것들 Ref
-    const selectedShippingPartIdRef                                                             = useRef('');       // 출하 품번 리스트 목록에서 선택한 품번
-    const deleteSelectedDataRef                                                                 = useRef([]);       // 출하 품번 리스트 목록에서 삭제하려고 선택한 품번에 SCAN 개수가 0인 리스트
     const [openCurrentInventory_shipmentQtyForm,    setOpenCurrentInventory_shipmentQtyForm]    = useState(false);  // 현재재고, 출하수량 다이얼로그 - [현재재고, 출하수량 팝업창]
     const [textSelectedShippingPartName,            setTextSelectedShippingPartName]            = useState('');     // 출하 품번 목록 리스트에서 선택한 품명 - [현재재고, 출하수량 팝업창]
     const [sumList5,                                setSumList5]                                = useState([]);     // 현재재고, 출하수량 리스트 목록 - [현재재고, 출하수량 팝업창]
     const [dialogCustomrPrintFlagOpen,              setDialogCustomPrintFlagOpen]               = useState(false);  // 다이얼로그 커스텀 (발행 여부)
-
+    const [inputs,                                  setInputs]                                  = useState({ customerLabel: '', partLabel: '' });
+    
     // =============== 출문증재발행 state ===============
-    const reissueShipmentDateRef                        = useRef('');       // 출하일자
-    const [sumList6,            setSumList6]            = useState([]);     // 출문증재발행 리스트 목록 1
-    const selectedReissueShipmentNumberRef              = useRef('');       // 출문증재발행 리스트 목록 1에서 선택한 출하번호
-    const [sumList7,            setSumList7]            = useState([]);     // 출문증재발행 리스트 목록 2
-    const [reissueBtnDisabled,  setReissueBtnDisabled]  = useState(true);   // 재발행 버튼 Disabled
+    const [sumList6,                        setSumList6]            = useState([]);     // 출문증재발행 리스트 목록 1
+    const [sumList7,                        setSumList7]            = useState([]);     // 출문증재발행 리스트 목록 2
+    const [reissueBtnDisabled,              setReissueBtnDisabled]  = useState(true);   // 재발행 버튼 Disabled
+    
+    // =============== useRef ===============
+    const shipmentRequestDateRef            = useRef('');       // 출하의뢰일자
+    const selectedStateRef                  = useRef('');       // 출하지시 리스트에서 선택한 상태
+    const selectedPartIdRef                 = useRef('');       // 출하지시 세부 리스트에서 선택한 품번
+    const customerLabelRef                  = useRef('');       // 고객사라벨 Text
+    const textShipmentInstructionRef        = useRef('');       // 출하지시번호 Ref
+    const barcodeRef                        = useRef('');       // 바코드 Ref
+    const barcodeElementRef                 = useRef(null);     // 바코드 Ref
+    const barcodeListsRef                   = useRef([]);       // 바코드 리스트 Ref
+    const textPartIdRef                     = useRef('');       // 품번 Ref
+    const textLotNoRef                      = useRef('');       // Lot No Ref
+    const textInputLocationRef              = useRef('');       // 입고표 위치 Text Ref
+    const textInputQtyRef                   = useRef(0);        // 입고표 수량 Text Ref
+    const textCustomerQtyRef                = useRef(0);        // 고객수량 Text Ref
+    const shipmentQtyRef                    = useRef(0);        // 스캔한 수량 Text Ref
+    const shipmentDateRef                   = useRef('');       // 출하일자 Ref - [출하일자조정 팝업창]
+    const sumList4Ref                       = useRef([]);       // 출하 리스트 목록 Ref
+    const selectionModelRef                 = useRef([]);       // 체크박스에 체크된 것들 Ref
+    const selectedShippingPartIdRef         = useRef('');       // 출하 품번 리스트 목록에서 선택한 품번
+    const deleteSelectedDataRef             = useRef([]);       // 출하 품번 리스트 목록에서 삭제하려고 선택한 품번에 SCAN 개수가 0인 리스트
+    const reissueShipmentDateRef            = useRef('');       // 출하일자
+    const selectedReissueShipmentNumberRef  = useRef('');       // 출문증재발행 리스트 목록 1에서 선택한 출하번호
 
+    const {customerLabel, partLabel} = inputs; // 바코드 상태관리
+    
+    
     // =============== 이벤트 ===============
-
+    
     // 화면 처음 로드시 -> 임시데이터 삭제 -> WebView에서 데이터 받는 이벤트
     useEffect(() => {
         // 오늘 날짜 불러오기
@@ -423,6 +424,9 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
                     onMessageGubunRef.current = '출하지시탭로드';
                     // webView 데이터 요청
                     webViewPostMessage();
+
+                    // 테스트
+                    loadDevoutData();
                 })
                 .catch((error) => {
                     msg = COMMON_MESSAGE.FETCH_ERROR + error.message;
@@ -437,6 +441,9 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
             onMessageGubunRef.current = '출문증재발행탭로드';
             // webView 데이터 요청
             webViewPostMessage();
+        }
+        else {
+
         }
     }, [tabsValue]);
 
@@ -532,7 +539,7 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
         if (textSelectedShippingPartName !== '') {
             const requestOption = getRequestOptions(
                 PROC_PK_PDA_DV01_10_L,
-                getRequestParam(selectedShippingPartIdRef.current, selectedShippingNumberRef.current, pda_plant_id)
+                getRequestParam(selectedShippingPartIdRef.current, textShipmentInstructionRef.current, pda_plant_id)
             );
 
             setBackdropOpen(true);
@@ -629,7 +636,7 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
                 "'" +
                 del +
                 "'" +
-                selectedShippingNumberRef.current +
+                textShipmentInstructionRef.current +
                 "'" +
                 del +
                 "'" +
@@ -722,50 +729,123 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
             setBarcodeDisabled(false);
             if (textPartIdRef.current !== '') {
                 textPartIdRef.current = '';
+                setPartId(textPartIdRef.current);
             }
             setTextLotNo('');
             setTextPartName('');
             textInputLocationRef.current = '';
+            setInputLocation(textInputLocationRef.current);
             textCustomerQtyRef.current = 0;
-            txtScancntRef.current = 0;
+            setScanCnt(0);
             selectedPartIdRef.current = '';
         } else if (gubun === 'list') {
             setShipmentInstructionSelectBtnDisabled(true);
             setSumList1([]);
             setSumList2([]);
         } else if (gubun === 'scanFail') {
-            if (barcodeRef.current.value !== '') {
-                barcodeRef.current.value = '';
+            if (barcodeRef.current !== '') {
+                barcodeRef.current = '';
+                setInputs(inputs => ({ ...inputs, partLabel: '' }));
             }
             setBarcodeDisabled(false);
             if (textPartIdRef.current !== '') {
                 textPartIdRef.current = '';
+                setPartId(textPartIdRef.current);
             }
             setTextLotNo('');
             setTextPartName('');
             textInputLocationRef.current = '';
+            setInputLocation(textInputLocationRef.current);
             textCustomerQtyRef.current = 0;
-            txtScancntRef.current = 0;
+            setScanCnt(textCustomerQtyRef.current);
             shipmentQtyRef.current = 0;
+            setShipmentQty(shipmentQtyRef.current);
             selectedPartIdRef.current = '';
         } else if (gubun === 'reset') {
-            customerLabelRef.current.value = '';
-            setCustomerLabelDisabled(false);
-            barcodeRef.current.value = '';
-            setBarcodeDisabled(false);
+            setInputs({ customerLabel: '', partLabel: '' });
+            customerLabelRef.current = '';                  // 고객사라벨 
+            barcodeRef.current = '';                        // 바코드
             scanLocationRef.current = 'customer';
-            textPartIdRef.current = '';
-            setTextLotNo('');
-            setTextPartName('');
-            textInputLocationRef.current = '';
             textCustomerQtyRef.current = 0;
-            txtScancntRef.current = 0;
+            setScanCnt(0);
             shipmentQtyRef.current = 0;
+            setShipmentQty(0);
             selectedPartIdRef.current = '';
+            setCustomerLabelDisabled(false);                // 고객사라벨 disabled
+            textPartIdRef.current = '';                     // 품번 Ref
+            textLotNoRef.current = '';                      // Lot No Ref
+            textInputLocationRef.current = '';              // 입고표 위치 Text Ref
+            textInputQtyRef.current = 0;                    // 입고표 수량 Text Ref
+            setBarcodeDisabled(false);                      // 바코드 Disabled
+            setPartId(textPartIdRef.current);               // 품번 state
+            setTextLotNo(textLotNoRef.current);             // Lot No state
+            setTextPartName('');                            // 품명 Text
+            setInputLocation(textInputLocationRef.current); // 입고표 위치 Text
+            setInputQty(textInputQtyRef.current);           // 입고표수량 Text
+            setCustomerQty(textCustomerQtyRef.current);     // 고객사수량 state
         } else if (gubun === 'reissueList') {
             setSumList6([]);
             setSumList7([]);
             setReissueBtnDisabled(true);
+        } else if (gubun === 'tabValue') {
+            setInputs(inputs => ({ ...inputs, partLabel: '' }));
+            customerLabelRef.current = '';              
+            barcodeRef.current = '';                    
+            setTextShipmentInstruction('');             
+            textShipmentInstructionRef.current = '';    
+            setCustomerLabelDisabled(false);            
+            setBarcodeDisabled(false);                  
+            barcodeListsRef.current = [];                   
+            textPartIdRef.current = '';
+            setPartId('');                 
+            setTextLotNo('');                           
+            textLotNoRef.current = '';                  
+            setTextPartName('');                        
+            textInputLocationRef.current = '';  
+            setInputLocation('');        
+            textInputQtyRef.current = 0;                
+            textCustomerQtyRef.current = 0;             
+            setScanCnt(0);              
+            shipmentQtyRef.current = 0;
+            setShipmentQty(0);            
+            setSumList4([]);                            
+            sumList4Ref.current = [];                   
+            selectionModelRef.current = [];             
+            selectedShippingPartIdRef.current = '';     
+            deleteSelectedDataRef.current = [];         
+        } else if (gubun === '입고표 정정') {
+
+            setInputs(inputs => ({ ...inputs, partLabel: '' }));
+            barcodeRef.current = '';                  // 바코드
+            textPartIdRef.current = '';                     // 품번 Ref
+            textLotNoRef.current = '';                      // Lot No Ref
+            textInputLocationRef.current = '';              // 입고표 위치 Text Ref
+            textInputQtyRef.current = 0;                    // 입고표 수량 Text Ref
+            setBarcodeDisabled(false);                      // 바코드 Disabled
+            setPartId(textPartIdRef.current);               // 품번 state
+            setTextLotNo(textLotNoRef.current);             // Lot No state
+            setTextPartName('');                            // 품명 Text
+            setInputLocation(textInputLocationRef.current); // 입고표 위치 Text
+            setInputQty(textInputQtyRef.current);           // 입고표수량 Text
+            
+              
+        } else if (gubun === '고객 정정') {
+            setInputs({ customerLabel: '', partLabel: '' });
+            setCustomerLabelDisabled(false);                // 고객사라벨 disabled
+            customerLabelRef.current = '';            // 고객사라벨 
+            barcodeRef.current = '';                  // 바코드
+            textPartIdRef.current = '';                     // 품번 Ref
+            textLotNoRef.current = '';                      // Lot No Ref
+            textInputLocationRef.current = '';              // 입고표 위치 Text Ref
+            textInputQtyRef.current = 0;                    // 입고표 수량 Text Ref
+            setBarcodeDisabled(false);                      // 바코드 Disabled
+            setPartId(textPartIdRef.current);               // 품번 state
+            setTextLotNo(textLotNoRef.current);             // Lot No state
+            setTextPartName('');                            // 품명 Text
+            setInputLocation(textInputLocationRef.current); // 입고표 위치 Text
+            setInputQty(textInputQtyRef.current);           // 입고표수량 Text
+            textCustomerQtyRef.current = 0;                // 고객사수량
+            setCustomerQty(textCustomerQtyRef.current);     // 고객사수량 state
         }
     };
 
@@ -886,7 +966,8 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
                         vibration();
                         return;
                     }
-                    customerLabelRef.current.value = scannedData.data;
+                    customerLabelRef.current = scannedData.data;
+
                     chk_cust_barcode_no();
                     scanLocationRef.current = 'barcode';
                 } else if (scanLocationRef.current === 'barcode') {
@@ -896,7 +977,7 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
                         vibration();
                         return;
                     }
-                    if (customerLabelRef.current.value === '') {
+                    if (customerLabelRef.current === '') {
                         msg = '고객사 라벨 먼저 스캔하세요.';
                         setDialogOpen(true);
                         vibration();
@@ -916,7 +997,7 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
                         vibration();
                         return;
                     }
-                    barcodeRef.current.value = scannedData.data;
+                    barcodeRef.current = scannedData.data;
 
                     // 고객사 품번/사내품번 검증
                     checkCustomerNo(scannedData.data);
@@ -929,6 +1010,7 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
     const barcodeInfo = (scanData, gubun) => {
         // 입고표
         if (gubun === 'inputBarcode') {
+
             let unit_qty = scanData.substring(10, 17);
 
             let substringValue;
@@ -973,10 +1055,10 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
                     else {
                         const tmpArray = JSON.parse(data.returnValue[0]);
 
-                        barcodeRef.current.value = scanData;
+                        barcodeRef.current = scanData;
 
                         // 중복일 경우
-                        if (scanBarcodeList.includes(barcodeRef.current.value)) {
+                        if (barcodeListsRef.current.includes(barcodeRef.current)) {
                             msg = '이미 읽으신 내부 바코드입니다.';
                             setDialogOpen(true);
                             vibration();
@@ -988,55 +1070,68 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
                         // 중복이 아닐 경우
                         else {
                             textPartIdRef.current = tmpArray[0]['PART_ID'];
+                            setPartId(tmpArray[0]['PART_ID']);
+                            textLotNoRef.current = tmpArray[0]['LOT_NO']
                             setTextLotNo(tmpArray[0]['LOT_NO']);
                             setTextPartName(tmpArray[0]['PART_NAME']);
                             textInputLocationRef.current = tmpArray[0]['SUB_LOCATION_ID'];
-                            textInputQtyRef.current = unit_qty;
+                            setInputLocation(tmpArray[0]['SUB_LOCATION_ID']);
+                            textInputQtyRef.current = parseInt(unit_qty);
+                            setInputQty(parseInt(unit_qty));
 
                             //바코드리스트에 추가
                             addBarcode(
-                                barcodeRef.current.value,
+                                barcodeRef.current,
                                 textInputQtyRef.current,
                                 textInputLocationRef.current,
-                                textLotNo,
+                                textLotNoRef.current,
                                 textPartIdRef.current
                             );
 
                             let scanTotal = getBarcodeListSum(); // 지금까지 스캔한 수량
-                            let partQty = txtScancntRef; // 스캔해야 할 수량
+                            let partQty = textCustomerQtyRef.current; // 스캔해야 할 수량
 
                             if (scanTotal < partQty) {
-                                textPartIdRef.current = '';
-                                setTextLotNo('');
-                                setTextPartName('');
-                                textInputLocationRef.current = '';
-                                textInputQtyRef.current = '';
 
+                                // textPartIdRef.current = '';\
+                                // setPartid('');
+                                // setTextLotNo('');
+                                // setTextPartName('');
+                                // textInputLocationRef.current = '';
+                                // textInputQtyRef.current = 0;
+                                shipmentQtyRef.current = scanTotal; // 스캔수량 처리 로직
+                                setShipmentQty(scanTotal);
+                                setScanCnt(barcodeListsRef.current.length); // 스캔횟수처리로직
                                 barcodeRef.current.focus(); // 이어서 스캔
+
                             } else if (scanTotal === partQty) {
                                 saveDataAddDataList(); // 저장 + 리스트뷰 추가
                                 customerLabelRef.current.focus(); // 고객사 바코드 포커싱
                                 setBackdropOpen(false);
                             } else {
-                                const newScanBarcodeList = scanBarcodeList.slice(0, -1); //마지막 LIST삭제
-                                setScanBarcodeList(newScanBarcodeList);
-
+                                const newScanBarcodeList = barcodeListsRef.current.slice(0, -1); //마지막 LIST삭제
+                                barcodeListsRef.current = newScanBarcodeList
+                                
                                 msg = '고객사 라벨 수량을 넘어섰습니다.';
                                 setDialogOpen(true);
                                 vibration();
-
                                 textPartIdRef.current = '';
-                                setTextLotNo('');
+                                setPartId(textPartIdRef.current);
+                                textLotNoRef.current = '';
+                                setTextLotNo(textLotNoRef.current);
                                 setTextPartName('');
                                 textInputLocationRef.current = '';
-                                textInputQtyRef.current = '';
-
-                                customerLabelRef.current.focus(); // 다시 스캔
+                                setInputLocation('');
+                                textInputQtyRef.current = 0;
+                                setInputQty(0);
+                                setInputs(inputs => ({ ...inputs, partLabel: '' }));
+                                setBarcodeDisabled(false);
+                                barcodeElementRef.current.focus();
+                              
                             }
+                            
                         }
 
-                        txtScancntRef.current = scanBarcodeList.length; // 스캔횟수처리로직
-                        shipmentQtyRef.current = getBarcodeListSum(); // 스캔수량 처리 로직
                     }
                     setBackdropOpen(false);
                 })
@@ -1100,7 +1195,8 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
     const loadDevoutData = () => {
         const transDate = transDateSplitArray(shipmentRequestDateRef.current);
 
-        const requestOption = getRequestOptions(PROC_PK_PDA_DV01_L, getRequestParam(transDate, pda_plant_id));
+        // const requestOption = getRequestOptions(PROC_PK_PDA_DV01_L, getRequestParam(transDate, pda_plant_id));
+        const requestOption = getRequestOptions(PROC_PK_PDA_DV01_L, getRequestParam('20160218', pda_plant_id));
 
         setBackdropOpen(true);
         fetch(PDA_API_GENERAL_URL, requestOption)
@@ -1179,7 +1275,7 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
     const loadDevoutDetailData = () => {
         const requestOption = getRequestOptions(
             PROC_PK_PDA_DV01_1_L,
-            getRequestParam(selectedShippingNumberRef.current, pda_plant_id)
+            getRequestParam(textShipmentInstructionRef.current, pda_plant_id)
         );
 
         setBackdropOpen(true);
@@ -1305,7 +1401,7 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
     const selectDevout = () => {
         const requestOption = getRequestOptions(
             PROC_PK_PDA_DV01_1_S,
-            getRequestParam(selectedShippingNumberRef.current, pda_plant_id, pda_mac_address, pda_id)
+            getRequestParam(textShipmentInstructionRef.current, pda_plant_id, pda_mac_address, pda_id)
         );
 
         setBackdropOpen(true);
@@ -1334,7 +1430,7 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
                 }
                 // 결과 처리
                 else {
-                    setTextShipmentInstruction(selectedShippingNumberRef.current);
+                    setTextShipmentInstruction(textShipmentInstructionRef.current);
 
                     if (selectedStateRef.current === '신규') {
                         // 출하지시 선택되어 출하처리 화면에 기준이 될 출하수량 넣기
@@ -1361,7 +1457,7 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
 
         const requestOption = getRequestOptions(
             PROC_PK_PDA_DV01_3_L,
-            getRequestParam(selectedShippingNumberRef.current, pda_plant_id)
+            getRequestParam(textShipmentInstructionRef.current, pda_plant_id)
         );
 
         setBackdropOpen(true); // 로딩 시작
@@ -1429,7 +1525,7 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
 
         const requestOption = getRequestOptions(
             PROC_PK_PDA_DV01_12_L,
-            getRequestParam(selectedShippingNumberRef.current, pda_plant_id, pda_mac_address)
+            getRequestParam(textShipmentInstructionRef.current, pda_plant_id, pda_mac_address)
         );
 
         setBackdropOpen(true);
@@ -1493,7 +1589,7 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
 
     // 고객사 라벨과 남양 라벨 수량 체크
     const chk_cust_barcode_no = () => {
-        if (pda_plant_id === '' || textShipmentInstructionRef.current === '' || customerLabelRef.current.value === '') {
+        if (pda_plant_id === '' || textShipmentInstructionRef.current === '' || customerLabelRef.current === '') {
             msg = '공장번호, 출하지시번호, 고객사 라벨 중 빈 항목이 있습니다.';
             setDialogOpen(true);
             vibration();
@@ -1501,7 +1597,7 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
         }
 
         //고객사라벨에서 특수문자/공백제거
-        const custNo = customerLabelRef.current.value.replace(/[^a-zA-Z0-9가-힣]/g, '');
+        const custNo = customerLabelRef.current.replace(/[^a-zA-Z0-9가-힣]/g, '');
 
         const requestOption = getRequestOptions(
             PROC_PK_PDA_DV07_3_L,
@@ -1536,7 +1632,8 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
                     const tmpArray = JSON.parse(data.returnValue[0]);
                     console.log(tmpArray[0]['QTY']);
 
-                    textCustomerQtyRef.current = tmpArray[0]['QTY'];
+                    textCustomerQtyRef.current = parseInt(tmpArray[0]['QTY'], 10);
+                    setCustomerQty(tmpArray[0]['QTY']);
 
                     if (tmpArray[0]['QTY'] === '0' || tmpArray[0]['QTY'] === '') {
                         msg = '수량이 비거나 0일수는 없습니다.';
@@ -1562,15 +1659,15 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
     const checkCustomerNo = (scanData) => {
         if (
             textShipmentInstructionRef.current === '' ||
-            customerLabelRef.current.value === '' ||
-            barcodeRef.current.value === ''
+            customerLabelRef.current === '' ||
+            barcodeRef.current === ''
         ) {
             msg = '출하지시, 고객사 라벨, 입고표 중 빈 항목이 있습니다.';
             setDialogOpen(true);
             vibration();
             return;
         }
-        if (customerLabelRef.current.value === barcodeRef.current.value) {
+        if (customerLabelRef.current === barcodeRef.current) {
             msg = '고객사 라벨과 입고표가 같습니다.';
             setDialogOpen(true);
             vibration();
@@ -1590,18 +1687,24 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
             }
         }
 
-        const customerLabelText = customerLabelRef.current.value.replace(/[^a-zA-Z0-9가-힣]/g, '');
+        const customerLabel = customerLabelRef.current
+
+        const customerLabelText = customerLabel.replace(/[^a-zA-Z0-9가-힣]/g, '');
 
         const requestOption = getRequestOptions(
             PROC_PK_PDA_DV07_1_L,
             getRequestParam(inv_id, pda_plant_id, textShipmentInstructionRef.current, customerLabelText)
         );
+
         setBackdropOpen(true);
+
         fetch(PDA_API_GENERAL_URL, requestOption)
             .then((res) => res.json())
             .then((data) => {
                 // 사용자 메시지 처리
                 if (data.returnUserMessage !== null) {
+                    console.log('1');
+                    console.log(customerLabelRef.current);
                     msg = data.returnUserMessage;
                     setDialogOpen(true);
                     vibration();
@@ -1611,6 +1714,7 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
                 }
                 // 에러 메시지 처리
                 else if (data.returnErrorMsg !== null) {
+                    console.log('12');
                     msg = data.returnErrorMsg;
                     setDialogOpen(true);
                     vibration();
@@ -1624,10 +1728,10 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
                     setCustomerLabelDisabled(true);
                     // 바코드의 LOT_NO 위치 앞 두 글자 중 숫자가 포함되면 부품표 -> 읽지않음
                     if (isNaN(scanData.substring(17, 18)) || isNaN(scanData.substring(18, 19))) {
+                        barcodeRef.current = '';
                         msg = '부품표는 읽으실수 없으십니다.';
                         setDialogOpen(true);
                         vibration();
-                        barcodeRef.current.value = '';
                         setBackdropOpen(false);
                         return;
                     }
@@ -1640,6 +1744,7 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
             })
             .catch((error) => {
                 msg = COMMON_MESSAGE.FETCH_ERROR + error.message;
+                console.log('13');
                 setDialogOpen(true);
                 vibration();
                 reset('reset');
@@ -1658,20 +1763,20 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
             part_id: part_id,
         };
 
-        setScanBarcodeList([...scanBarcodeList, newBarcode]);
+        barcodeListsRef.current.push(newBarcode);
     };
 
     // 바코드 리스트의 총 qty 계산
     const getBarcodeListSum = () => {
-        return scanBarcodeList.reduce((total, item) => total + parseInt(item.qty, 10), 0);
+        return barcodeListsRef.current.reduce((total, item) => total + parseInt(item.qty, 10), 0);
     };
 
     // 리스트에 스캔 데이터 추가
     const saveDataAddDataList = () => {
         if (
-            barcodeRef.current.value === '' ||
-            customerLabelRef.current.value === '' ||
-            selectedShippingNumberRef.current === ''
+            barcodeRef.current === '' ||
+            customerLabelRef.current === '' ||
+            textShipmentInstructionRef.current === ''
         ) {
             msg = '비어있는 항목이 있습니다.';
             setDialogOpen(true);
@@ -1730,8 +1835,8 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
         let param_locid = ''; //위치 param;
         let param_barcode = ''; //바코드 param;
 
-        for (let i = 0; i < scanBarcodeList.length; i++) {
-            const list = scanBarcodeList[i];
+        for (let i = 0; i < barcodeListsRef.current.length; i++) {
+            const list = barcodeListsRef.current[i];
             param_partid += list.part_id + ';';
             param_inqty += list.qty + ';';
             param_lotno += list.lot_no + ';';
@@ -1741,7 +1846,7 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
 
         const transShipmentDateArray = shipmentDateRef.current.split('-');
         const transShipmentDate = transShipmentDateArray[0] + transShipmentDateArray[1] + transShipmentDateArray[2];
-        const custNo = customerLabelRef.current.value.replace(/[^a-zA-Z0-9가-힣]/g, '');
+        const custNo = customerLabelRef.current.replace(/[^a-zA-Z0-9가-힣]/g, '');
 
         const requestOption = getRequestOptions(
             PROC_PK_PDA_DV07_1_S,
@@ -1770,7 +1875,7 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
                     setDialogOpen(true);
                     vibration();
                     reset('reset');
-                    setScanBarcodeList([]); //성공하든 말든 바코드정보 지우기.
+                    barcodeListsRef.current = []; //성공하든 말든 바코드정보 지우기.
                     setBackdropOpen(false);
                     return;
                 }
@@ -1780,7 +1885,7 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
                     setDialogOpen(true);
                     vibration();
                     reset('reset');
-                    setScanBarcodeList([]); //성공하든 말든 바코드정보 지우기.
+                    barcodeListsRef.current = []; //성공하든 말든 바코드정보 지우기.
                     setBackdropOpen(false);
                     return;
                 }
@@ -1789,7 +1894,7 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
                     sumList4Ref.current[index]['SCAN'] =
                         parseInt(parseFloat(sumList4Ref.current[index]['SCAN'])) + shipmentQtyRef.current;
                     setSumList4(sumList4Ref.current);
-                    setScanBarcodeList([]); //성공하든 말든 바코드정보 지우기.
+                    barcodeListsRef.current = []; //성공하든 말든 바코드정보 지우기.
                     reset('reset');
                 }
                 setBackdropOpen(false);
@@ -1824,7 +1929,7 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
     const shippingSave = () => {
         const requestOption = getRequestOptions(
             PROC_PK_PDA_DV01_4_S,
-            getRequestParam(pda_plant_id, selectedShippingNumberRef.current, pda_mac_address, pda_id)
+            getRequestParam(pda_plant_id, textShipmentInstructionRef.current, pda_mac_address, pda_id)
         );
 
         setBackdropOpen(true);
@@ -1869,15 +1974,14 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
     // 출하확정
     const shipmentComplete = () => {
         const transShipmentCompleteDateArray = shipmentDateRef.current.split('-');
-        const transShipmentCompleteDate =
-            transShipmentCompleteDateArray[0] + transShipmentCompleteDateArray[1] + transShipmentCompleteDateArray[2];
+        const transShipmentCompleteDate = transShipmentCompleteDateArray[0] + transShipmentCompleteDateArray[1] + transShipmentCompleteDateArray[2];
 
         const requestOption = getRequestOptions(
             PROC_PK_PDA_DV01_3_WITH_FLAG_S,
             getRequestParam(
                 transShipmentCompleteDate,
                 pda_plant_id,
-                selectedShippingNumberRef.current,
+                textShipmentInstructionRef.current, 
                 pda_mac_address,
                 pda_id,
                 printFlag
@@ -2090,7 +2194,7 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
     const closeInitData = () => {
         const requestOption = getRequestOptions(
             PROC_PK_PDA_DV03_1_INIT_D,
-            getRequestParam(selectedShippingNumberRef.current, pda_mac_address, pda_id, pda_plant_id)
+            getRequestParam(textShipmentInstructionRef.current, pda_mac_address, pda_id, pda_plant_id)
         );
         setBackdropOpen(true);
         fetch(PDA_API_GENERAL_URL, requestOption)
@@ -2130,7 +2234,7 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
     const closeInitOutNo = () => {
         const requestOption = getRequestOptions(
             PROC_PK_PDA_DV01_1_D,
-            getRequestParam(selectedShippingNumberRef.current, pda_plant_id)
+            getRequestParam(textShipmentInstructionRef.current, pda_plant_id)
         );
         setBackdropOpen(true);
         fetch(PDA_API_GENERAL_URL, requestOption)
@@ -2196,9 +2300,14 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
                 setDialogOkay('출하중인출하지시초기화');
                 setResestTabsValue(newValue);
                 return;
+            } else {
+                setTabsValue(newValue);
+                reset('tabValue');
+                tabsValueRef.current = newValue;
             }
         }
         setTabsValue(newValue);
+        tabsValueRef.current = newValue;
     };
 
     // PDA 진동
@@ -2236,7 +2345,7 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
             setDialogCustomrRestOpen(false);
             setDialogCustomrSaveCompleteOpen(false);
             if (dialogOkay === '출하중인출하지시초기화') {
-                // 임시데이터 삭제
+                reset('tabValue');
                 loadInitOutNo();
             } else if (dialogOkay === 'delete') {
                 onMessageGubunRef.current = '출하품번리스트삭제';
@@ -2249,13 +2358,16 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
                 onMessageGubunRef.current = '출하저장';
                 // webView 데이터 요청
                 webViewPostMessage();
+
+                //웹테스트
+                shippingSave();
             } else if (dialogOkay === '출하확정') {
                 onMessageGubunRef.current = '출하확정';
                 // webView 데이터 요청
                 webViewPostMessage();
 
                 //웹테스트
-                // shipmentComplete();
+                shipmentComplete();
             } else if (dialogOkay === '재발행') {
                 onMessageGubunRef.current = '재발행';
                 // webView 데이터 요청
@@ -2278,19 +2390,19 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
                 // webView 데이터 요청
                 webViewPostMessage();
                 // 웹테스트
-                // loadDevoutData(e.target.value);
+                loadDevoutData(e.target.value);
             }
         },
         // 출하지시 리스트에서 한 행을 체크시 이벤트
         onShipmentInstructionRowSelected: (e) => {
-            selectedShippingNumberRef.current = e.data['id'];
+            textShipmentInstructionRef.current = e.data['id'];
             selectedStateRef.current = e.data['STATE'];
             onMessageGubunRef.current = '출하지시리스트클릭';
             // webView 데이터 요청
             webViewPostMessage();
 
             // 웹테스트
-            // loadDevoutDetailData();
+            loadDevoutDetailData();
         },
         // 세부 출하지시 리스트에서 한 행을 체크시 이벤트
         onShipmentInstructionDetailRowSelected: (e) => {
@@ -2300,7 +2412,7 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
             webViewPostMessage();
 
             // 웹테스트
-            // setOpenCurrentInventoryStatusForm(true);
+            setOpenCurrentInventoryStatusForm(true);
         },
         // 출하지시선택 버튼 이벤트
         onShipmentInstructionSelectBtnClick: (e) => {
@@ -2309,7 +2421,7 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
             webViewPostMessage();
 
             // 웹 테스트
-            // selectDevout();
+            selectDevout();
         },
         // 현재 재고현황 팝업창 로드 - [현재 재고현황 팝업창]
         onCurrentInventoryStatusFormEntered: (e) => {
@@ -2329,7 +2441,8 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
                 return;
             } else {
                 scanLocationRef.current = 'customer';
-                customerLabelRef.current.value = '';
+                customerLabelRef.current = '';
+                setInputs(inputs => ({ ...inputs, customerLabel: '' }));
             }
         },
         // 고객사라벨 키인 이벤트
@@ -2342,7 +2455,7 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
                     vibration();
                     return;
                 }
-                customerLabelRef.current.value = scanData;
+                customerLabelRef.current = scanData;
                 scanLocationRef.current = 'barcode';
             }
         },
@@ -2352,7 +2465,8 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
                 return;
             } else {
                 scanLocationRef.current = 'barcode';
-                barcodeRef.current.value = '';
+                barcodeRef.current = '';
+                setInputs(inputs => ({ ...inputs, partLabel: '' }));
             }
         },
         // 바코드 키인 이벤트
@@ -2365,7 +2479,7 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
                     vibration();
                     return;
                 }
-                if (customerLabelRef.current.value === '') {
+                if (customerLabelRef.current === '') {
                     msg = '고객사 라벨 먼저 스캔하세요.';
                     setDialogOpen(true);
                     vibration();
@@ -2385,7 +2499,7 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
                     vibration();
                     return;
                 }
-                barcodeRef.current.value = scanData;
+                barcodeRef.current = scanData;
                 // 고객사 품번/사내품번 검증
                 checkCustomerNo(scanData);
             }
@@ -2408,12 +2522,12 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
 
         // 입고표 정정
         onBarcodeResetBtnClick: (e) => {
-            reset('reset');
+            reset('입고표 정정');
         },
 
         // 고객 정정
         onCustomerResetBtnClick: (e) => {
-            reset('reset');
+            reset('고객 정정');
         },
 
         // 리스트에서 CELL 클릭시 이벤트
@@ -2567,7 +2681,7 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
         },
 
         // =============== 출문증재발행 탭 ===============
-        // 출하일자 변경시 이벤트
+        // 출하일자 변경시 이벤트 
         onReissueShipmentDateChange: (e) => {
             if (e.target.value === '') {
                 msg = '출하일자를 선택해주세요.';
@@ -2584,7 +2698,7 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
                 webViewPostMessage();
 
                 //웹테스트
-                // loadReissuanceOfPassport(e.target.value);
+                loadReissuanceOfPassport(e.target.value);
             }
         },
 
@@ -2629,67 +2743,66 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
         },
     };
 
+    const onChange = (event) => {
+        const {name, value} = event.target;
+        setInputs({ ...inputs, [name]: value  });
+    };
     // 출하지시목록 컬럼 데이터
     let columns1 = [
         { field: 'SHIPPING_NUMBER', headerName: '출하지시번호', width: 120, headerAlign: 'left', align: 'left' },
-        { field: 'CUSTOMER', headerName: '고객사', width: 80, headerAlign: 'left', align: 'left' },
-        { field: 'VEHICLE', headerName: '차량', width: 70, headerAlign: 'left', align: 'left' },
-        { field: 'SHIPPING_TIME', headerName: '출하시간', width: 90, headerAlign: 'left', align: 'left' },
-        { field: 'SHIP_TO', headerName: '출하처', width: 80, headerAlign: 'left', align: 'left' },
-        { field: 'STATE', headerName: '상태', width: 70, headerAlign: 'left', align: 'left' },
+        { field: 'CUSTOMER', headerName: '고객사', width: 120, headerAlign: 'left', align: 'left' },
+        { field: 'VEHICLE', headerName: '차량', width: 120, headerAlign: 'left', align: 'left' },
+        { field: 'SHIPPING_TIME', headerName: '출하시간', width: 120, headerAlign: 'left', align: 'left' },
+        { field: 'SHIP_TO', headerName: '출하처', width: 120, headerAlign: 'left', align: 'left' },
+        { field: 'STATE', headerName: '상태', width: 120, headerAlign: 'left', align: 'left' },
     ];
 
     // 세부출하지시목록 컬럼 데이터
     let columns2 = [
-        { field: 'PART_ID', headerName: '품번', width: 70, headerAlign: 'left', align: 'left' },
-        { field: 'PART_NAME', headerName: '품명', width: 70, headerAlign: 'left', align: 'left' },
-        { field: 'INSTRUCTION', headerName: '지시', width: 70, headerAlign: 'right', align: 'right' },
-        { field: 'INVENTORY', headerName: '재고', width: 70, headerAlign: 'right', align: 'right' },
+        { field: 'PART_ID', headerName: '품번', width: 120, headerAlign: 'left', align: 'left' },
+        { field: 'PART_NAME', headerName: '품명', width: 120, headerAlign: 'left', align: 'left' },
+        { field: 'INSTRUCTION', headerName: '지시', width: 120, headerAlign: 'right', align: 'right' },
+        { field: 'INVENTORY', headerName: '재고', width: 120, headerAlign: 'right', align: 'right' },
     ];
 
     //  재고현황 컬럼 데이터
     let columns3 = [
-        { field: 'LOCATION_ID', headerName: '위치', width: 70, headerAlign: 'left', align: 'left' },
-        { field: 'LOT_NO', headerName: 'LOT', width: 80, headerAlign: 'left', align: 'left' },
-        { field: 'INV_QTY', headerName: '재고', width: 70, headerAlign: 'right', align: 'right' },
+        { field: 'LOCATION_ID', headerName: '위치', width: 120, headerAlign: 'left', align: 'left' },
+        { field: 'LOT_NO', headerName: 'LOT', width: 120, headerAlign: 'left', align: 'left' },
+        { field: 'INV_QTY', headerName: '재고', width: 120, headerAlign: 'right', align: 'right' },
     ];
 
     // 출하품목록 컬럼 데이터
     let columns4 = [
-        { field: 'PART_ID', headerName: '품번', width: 70, headerAlign: 'left', align: 'left' },
-        { field: 'ORDER', headerName: '지시', width: 70, headerAlign: 'right', align: 'right' },
-        { field: 'SCAN', headerName: '스캔', width: 70, headerAlign: 'right', align: 'right' },
-        { field: 'PART_NAME', headerName: '품명', width: 70, headerAlign: 'left', align: 'left' },
+        { field: 'PART_ID', headerName: '품번', width: 120, headerAlign: 'left', align: 'left' },
+        { field: 'ORDER', headerName: '지시', width: 120, headerAlign: 'right', align: 'right' },
+        { field: 'SCAN', headerName: '스캔', width: 120, headerAlign: 'right', align: 'right' },
+        { field: 'PART_NAME', headerName: '품명', width: 120, headerAlign: 'left', align: 'left' },
     ];
 
     // 현재재고, 출하수량 컬럼 데이터
     let columns5 = [
-        { field: 'LOCATION_ID', headerName: '위치', width: 70, headerAlign: 'left', align: 'left' },
-        { field: 'LOT_NO', headerName: 'LOT', width: 80, headerAlign: 'left', align: 'left' },
-        { field: 'INV_QTY', headerName: '재고', width: 70, headerAlign: 'right', align: 'right' },
-        { field: 'SHIPMENT_QTY', headerName: '출하수량', width: 90, headerAlign: 'right', align: 'right' },
+        { field: 'LOCATION_ID', headerName: '위치', width: 120, headerAlign: 'left', align: 'left' },
+        { field: 'LOT_NO', headerName: 'LOT', width: 120, headerAlign: 'left', align: 'left' },
+        { field: 'INV_QTY', headerName: '재고', width: 120, headerAlign: 'right', align: 'right' },
+        { field: 'SHIPMENT_QTY', headerName: '출하수량', width: 120, headerAlign: 'right', align: 'right' },
     ];
 
     // 출문증 출하 정보 컬럼 데이터
     let columns6 = [
-        { field: 'SHIPMENT_TO', headerName: '출하처', width: 80, headerAlign: 'left', align: 'left' },
-        { field: 'VEHICLE', headerName: '차량', width: 70, headerAlign: 'left', align: 'left' },
-        { field: 'SHIPMENT_QTY', headerName: '출하량', width: 80, headerAlign: 'right', align: 'right' },
-        { field: 'SHIPMENT_NUMBER', headerName: '출하번호', width: 90, headerAlign: 'left', align: 'left' },
+        { field: 'SHIPMENT_TO', headerName: '출하처', width: 120, headerAlign: 'left', align: 'left' },
+        { field: 'VEHICLE', headerName: '차량', width: 120, headerAlign: 'left', align: 'left' },
+        { field: 'SHIPMENT_QTY', headerName: '출하량', width: 120, headerAlign: 'right', align: 'right' },
+        { field: 'SHIPMENT_NUMBER', headerName: '출하번호', width: 120, headerAlign: 'left', align: 'left' },
     ];
 
     // 출문증 출하품 정보 컬럼 데이터
     let columns7 = [
-        { field: 'PART_ID', headerName: '품번', width: 70, headerAlign: 'left', align: 'left' },
-        { field: 'LOT_NO', headerName: 'LOT.No', width: 90, headerAlign: 'left', align: 'left' },
-        { field: 'QTY', headerName: '수량', width: 70, headerAlign: 'right', align: 'right' },
+        { field: 'PART_ID', headerName: '품번', width: 120, headerAlign: 'left', align: 'left' },
+        { field: 'LOT_NO', headerName: 'LOT.No', width: 120, headerAlign: 'left', align: 'left' },
+        { field: 'QTY', headerName: '수량', width: 120, headerAlign: 'right', align: 'right' },
     ];
 
-    // =============== 테스트 함수 ==============
-
-    const test1 = () => {
-        chk_cust_barcode_no();
-    };
 
     // UI
     return (
@@ -2776,7 +2889,10 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
                         className={`${classes.marginBottom} ${classes.text}`}
                         label={'고객사라벨'}
                         id="txtCustomerLabel"
+                        name = "customerLabel"
+                        value = {customerLabel}
                         disabled={customerLabelDisabled}
+                        onChange = { onChange }
                         style={{ backgroundColor: customerLabelDisabled ? colors.PLight : colors.white }}
                         InputProps={{
                             endAdornment: (
@@ -2789,17 +2905,18 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
                                     <Clear />
                                 </IconButton>
                             ),
-                            inputProps: {
-                                ref: customerLabelRef,
-                            },
                         }}
+                        inputRef={customerLabelRef}
                         onKeyUp={eventhandler.onCustomerLabelKeyUp}
                     />
 
                     <AcsTextField
                         className={`${classes.marginBottom} ${classes.text}`}
                         label={'바코드'}
-                        id="txtBarcode"
+                        id="txtBarcode"                        
+                        name = "partLabel"
+                        value = {partLabel}
+                        onChange = { onChange }
                         disabled={barcodeDisabled}
                         style={{ backgroundColor: barcodeDisabled ? colors.PLight : colors.white }}
                         InputProps={{
@@ -2813,10 +2930,8 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
                                     <Clear />
                                 </IconButton>
                             ),
-                            inputProps: {
-                                ref: barcodeRef,
-                            },
                         }}
+                        inputRef = {barcodeElementRef}
                         onKeyUp={eventhandler.onBarcodeKeyUp}
                     />
                     <div className={`${classes.flexDiv}`}>
@@ -2825,7 +2940,7 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
                             label={'품번'}
                             id="txtPartId"
                             disabled
-                            value={textPartIdRef.current}
+                            value={textPartId}
                         />
                         <AcsTextField
                             className={`${classes.marginBottom} ${classes.marginRight} ${classes.textDisabled}`}
@@ -2848,14 +2963,14 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
                             label={'입고표 위치'}
                             id="txtInputLocation"
                             disabled
-                            value={textInputLocationRef.current}
+                            value={inputLocation}
                         />
                         <AcsTextField
                             className={`${classes.marginBottom} ${classes.half} ${classes.halfMargin} ${classes.textDisabled}`}
                             label={'입고표 수량'}
                             id="txtInputQty"
                             disabled
-                            value={textInputQtyRef.current}
+                            value={inputQty}
                         />
                     </div>
                     <div className={`${classes.flexDiv}`}>
@@ -2864,21 +2979,21 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
                             label={'고객수량'}
                             id="txtCustomerQty"
                             disabled
-                            value={textCustomerQtyRef.current}
+                            value={customerQty}
                         />
                         <AcsTextField
                             className={`${classes.textDisabled}`}
                             label={'스캔수량'}
                             id="txtShipmentQty"
                             disabled
-                            value={shipmentQtyRef.current}
+                            value={shipmentQty}
                         />
                         <AcsTextField
                             className={`${classes.textDisabled}`}
                             label={'스캔횟수'}
                             id="txtScancnt"
                             disabled
-                            value={txtScancntRef.current}
+                            value={scanCnt}
                         />
                     </div>
                     <div className={`${classes.flexDiv}`}>
@@ -3027,7 +3142,6 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
                             {'아니요(N)'}
                         </Button>
                     </AcsDialogCustom>
-                    <button onClick={test1}>라벨 수량 체크 테스트</button>
                 </AcsTabPanel>
 
                 {/* =============== 출문증재발행 탭 =============== */}
@@ -3062,7 +3176,6 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
                 {/* =============== 하단 탭 메뉴 =============== */}
                 <div className={classes.tabsDiv}>
                     <Tabs
-                        centered
                         value={tabsValue}
                         onChange={handleChange}
                         variant="scrollable"
@@ -3178,3 +3291,5 @@ export default function ShipmentMutipleCustomerLabelReplacement() {
         </>
     );
 }
+
+export default ShipmentMutipleCustomerLabelReplacement;
