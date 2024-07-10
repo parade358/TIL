@@ -1008,7 +1008,7 @@ function ShipmentMutipleCustomerLabelReplacement() {
 
     // 바코드 스캔 처리
     const barcodeInfo = (scanData, gubun) => {
-        // 입고표
+
         if (gubun === 'inputBarcode') {
 
             let unit_qty = scanData.substring(10, 17);
@@ -1127,7 +1127,6 @@ function ShipmentMutipleCustomerLabelReplacement() {
                                 setInputs(inputs => ({ ...inputs, partLabel: '' }));
                                 setBarcodeDisabled(false);
                                 barcodeElementRef.current.focus();
-                              
                             }
                             
                         }
