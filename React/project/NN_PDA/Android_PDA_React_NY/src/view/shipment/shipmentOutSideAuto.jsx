@@ -12,18 +12,19 @@ import COMMON_MESSAGE from '../../commons/message';
 import { Clear } from '@material-ui/icons';
 import colors from '../../commons/colors';
 
-const PROC_PK_PDA_DV02_2_D = 'U_PK_PDA_DV02_2_D'; // 초기화
-const PROC_PK_PDA_DV02_1_L = 'U_PK_PDA_DV02_1_L'; // 출하처 목록 조회
-const PROC_PK_PDA_DV08_2_L = 'U_PK_PDA_DV08_2_L'; //품목정보 표시
-const PROC_PK_PDA_DV08_1_S = 'U_PK_PDA_DV08_1_S'; //목록저장
-const PROC_PK_PDA_DV02_1_D = 'U_PK_PDA_DV02_1_D'; //목록 선택삭제
-const PROC_PK_PDA_DV08_2_WITH_FLAG_S = 'U_PK_PDA_DV08_2_WITH_FLAG_S'; //확정
-const PROC_PK_PDA_DV02_3_L = 'U_PK_PDA_DV02_3_L'; //출문증재발행 조회
-const PROC_PK_PDA_DV01_5_L = 'U_PK_PDA_DV01_5_L'; //출문증 세부조회
-const PROC_PK_PDA_DV02_4_S = 'U_PK_PDA_DV02_4_S'; //출문증 업데이트
+const PROC_PK_PDA_DV02_2_D              = 'U_PK_PDA_DV02_2_D';              // 초기화
+const PROC_PK_PDA_DV02_1_L              = 'U_PK_PDA_DV02_1_L';              // 출하처 목록 조회
+const PROC_PK_PDA_DV08_2_L              = 'U_PK_PDA_DV08_2_L';              //품목정보 표시
+const PROC_PK_PDA_DV08_1_S              = 'U_PK_PDA_DV08_1_S';              //목록저장
+const PROC_PK_PDA_DV02_1_D              = 'U_PK_PDA_DV02_1_D';              //목록 선택삭제
+const PROC_PK_PDA_DV08_2_WITH_FLAG_S    = 'U_PK_PDA_DV08_2_WITH_FLAG_S';    //확정
+const PROC_PK_PDA_DV02_3_L              = 'U_PK_PDA_DV02_3_L';              //출문증재발행 조회
+const PROC_PK_PDA_DV01_5_L              = 'U_PK_PDA_DV01_5_L';              //출문증 세부조회
+const PROC_PK_PDA_DV02_4_S              = 'U_PK_PDA_DV02_4_S';              //출문증 업데이트
 
 const PDA_API_GENERAL_URL = process.env.REACT_APP_PDA_API_GENERAL_URL;
 const PDA_API_GETDATE_URL = process.env.REACT_APP_PDA_API_GETDATE_URL;
+
 let msg = '';
 let printFlag = 'N';
 
@@ -183,12 +184,14 @@ const useStyle = makeStyles((theme) => ({
         marginTop: '10px',
     },
 }));
-// 일자 '-' 자르기
+
+// 날짜 '-' 자르기
 function transDateSplitArray(date) {
     const transDateArray = date.split('-');
     return transDateArray[0] + transDateArray[1] + transDateArray[2];
-}
-// Request Option
+};
+
+// DB 보내기전 파라미터 생성
 function getRequestOptions(serviceID, serviceParam) {
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
@@ -210,17 +213,35 @@ function getRequestOptions(serviceID, serviceParam) {
         redirect: 'follow',
     };
     return requestOptions;
-}
+};
 
-// Request Param
+// 구분자 생성
 function getRequestParam() {
     return [...arguments] //
         .map((el) => `'${el}'`)
         .join('&del;');
-}
+};
 
 function ShipmentOutSideAuto() {
+
     const classes = useStyle(); // CSS 스타일
+    const [tabsValue, setTabsValue] = useState(0); // Tabs 구분
+    const [, updateState] = useState(); // forceUpdate
+    const forceUpdate = useCallback(() => updateState({}), []); // forceUpdate
+    const pda_id = localStorage.getItem('PDA_ID'); // 사용자 ID
+    const [dialogOkay, setDialogOkay] = useState(''); // 확인, 삭제 구분
+    const [dialogCustomOpen, setDialogCustomOpen] = useState(false); // 다이얼로그 커스텀 (메시지창)
+    const [dialogCustomrRestOpen, setDialogCustomrResetOpen] = useState(false); // 다이얼로그 커스텀 (메시지창) - 이동 탭에서 이동 진행 중인 품번이 있을 경우 초기화 여부 묻는 Dialog
+    const [dialogCustomrPrintFlagOpen, setDialogCustomPrintFlagOpen] = useState(false); // 다이얼로그 커스텀 (메시지창) - 출하 탭에서 출하확정을 누른 후 발행 여부 묻는 Dialog
+    const [selectionModel, setSelectionModel] = useState([]); // 체크박스에 체크된 것들
+    const tabsValueRef = useRef(0);
+    const onMessageGubunRef = useRef('바코드현재창고'); // WebView로 데이터 요청 후 작업에 대한 구분
+    const [dialogOpen, setDialogOpen] = useState(false); // 다이얼로그 (메시지창)
+    const [backdropOpen, setBackdropOpen] = useState(false); // 대기
+    const pda_mac_address = localStorage.getItem('PDA_MAC_ADDRESS'); // PDA Mac Address
+    const nowDateRef = useRef(''); // 이동일자 Text
+    const pda_plant_id = localStorage.getItem('PDA_PLANT_ID'); // 공장 ID
+
     const stockingTicketRef = useRef(''); // 입고표No Text
     const [stockingTicketDisabled, setStockingTicketRefDisabled] = useState(false); // 입고표No Disabled
     const [currPos, setCurrPos] = useState(''); // 현재위치
@@ -229,9 +250,7 @@ function ShipmentOutSideAuto() {
     const [totCnt, setTotCnt] = useState(0); // 총 수량
     const [shipmentCnt, setShipmentCnt] = useState(0); // 출하 양
     const shipmentQtyRef = useRef(''); // 출하개수 Text
-    const [tabsValue, setTabsValue] = useState(0); // Tabs 구분
-    const [, updateState] = useState(); // forceUpdate
-    const forceUpdate = useCallback(() => updateState({}), []); // forceUpdate
+    
     const handleChange = (event, newValue) => {
         // if (tabsValue === 1) {
         //     onMessageGubunRef.current = '이동일자변경';
@@ -240,34 +259,19 @@ function ShipmentOutSideAuto() {
         // }
         setTabsValue(newValue);
     };
+
     const [selectedComboBoxBarcodeCurrentStorage, setSelectedComboBoxBarcodeCurrentStorage] = useState({
         value: '',
         label: '',
     }); // 선택된 현재창고 comboBox
+
     const comboBoxBarcodeCurrentStorageRef = useRef([]); // 현재창고 ComboBox
-    const [moveQtyAllCheck, setMoveQtyAllCheck] = useState(false); // 체크박스 체크여부
-    const [dialogCustomOpen, setDialogCustomOpen] = useState(false); // 다이얼로그 커스텀 (메시지창)
-    const [dialogOkay, setDialogOkay] = useState(''); // 확인, 삭제 구분
-    const [dialogCustomrRestOpen, setDialogCustomrResetOpen] = useState(false); // 다이얼로그 커스텀 (메시지창) - 이동 탭에서 이동 진행 중인 품번이 있을 경우 초기화 여부 묻는 Dialog
-    const [dialogCustomrPrintFlagOpen, setDialogCustomPrintFlagOpen] = useState(false); // 다이얼로그 커스텀 (메시지창) - 출하 탭에서 출하확정을 누른 후 발행 여부 묻는 Dialog
-    const [selectionModel, setSelectionModel] = useState([]); // 체크박스에 체크된 것들
-    const pda_plant_id = localStorage.getItem('PDA_PLANT_ID'); // 공장 ID
-    const tabsValueRef = useRef(0);
-    const onMessageGubunRef = useRef('바코드현재창고'); // WebView로 데이터 요청 후 작업에 대한 구분
-    const [dialogOpen, setDialogOpen] = useState(false); // 다이얼로그 (메시지창)
-    const [backdropOpen, setBackdropOpen] = useState(false); // 대기
-    const pda_mac_address = localStorage.getItem('PDA_MAC_ADDRESS'); // PDA Mac Address
-    const pda_id = localStorage.getItem('PDA_ID'); // 사용자 ID
-    const nowDateRef = useRef(''); // 이동일자 Text
+    const [moveQtyAllCheck, setMoveQtyAllCheck] = useState(false); // 체크박스 체크여부 
     const [sumList1, setSumList1] = useState([]); // 리스트 목록
     const sumList1Ref = useRef([]); // 리스트 목록 Ref
     const moveDateRef = useRef(''); // 이동일자 Text Ref
     const lotListRef = useRef([]);
-
     const [addListBtnDisabled, setAddListBtnDisabled] = useState(true); // 추가 버튼 Disabled
-
-    // ===========================================================================================================================
-    // 출문증재발행 Tabs state
     const [sumList2, setSumList2] = useState([]); // 리스트 목록
     const selectedReissueShipmentNumberRef = useRef(''); // 출문증재발행 리스트 목록 1에서 선택한 출하번호
     const [sumList3, setSumList3] = useState([]); // 리스트 목록
@@ -279,9 +283,11 @@ function ShipmentOutSideAuto() {
             window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'VIBRATION' }));
         }
     };
+
     const onMessage = useCallback((event) => {
         ReadData(event);
     }, []); // WebView에서 받아온 데이터
+
     useEffect(() => {
         // 오늘 날짜 불러오기
         fetch(PDA_API_GETDATE_URL, {
@@ -390,8 +396,11 @@ function ShipmentOutSideAuto() {
         };
     }, []);
 
+
     const ReadData = (e) => {
+
         const type = JSON.parse(e.data).type;
+
         console.log('ReadData : ', type);
 
         // Wifi 신호 강도 불러오기
@@ -407,6 +416,7 @@ function ShipmentOutSideAuto() {
                 vibration();
                 return;
             }
+
             // wifi 신호가 정상일때
             else {
                 // 출하 Tabs
@@ -459,6 +469,10 @@ function ShipmentOutSideAuto() {
             }
         }
     };
+
+
+
+
     // 바코드 Tabs 바코드 스캔
     const barcodeInfo = (scanData) => {
         let barcode = scanData.toString();
