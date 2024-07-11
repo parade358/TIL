@@ -440,6 +440,13 @@ function ShipmentOutSide() {
         }
     };
 
+    // PDA 카메라
+    const camera = () => {
+        if (window.ReactNativeWebView) {
+            window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'CAMERA' }));
+        }
+    };
+
     // 현재창고 배열
     const currentStorageArray = (obj) => {
         return obj.map((data) => ({
@@ -1297,9 +1304,7 @@ function ShipmentOutSide() {
 
     // 출하 탭 테스트
     const onTEST = () => {
-        loadCurrentStorage();
-        stockingTicketRef.current.value = '0011998208000025016021621';
-        barcodeInfo('0011998208000025016021621');
+        camera();
     };
 
     // 출문증 조회 테스트 - cys
@@ -1506,7 +1511,7 @@ function ShipmentOutSide() {
                     >
                         {'출하확정'}
                     </AcsBadgeButton>
-                    <Button onClick={onTEST}>TEST</Button>
+                    <Button onClick={onTEST}>camera TEST</Button>
                 </AcsTabPanel>
 
                 {/* 메시지 박스 (CUSTOM) - 출하 탭에서 출하확정을 누른 후 발행 여부 묻는 Dialog */}
