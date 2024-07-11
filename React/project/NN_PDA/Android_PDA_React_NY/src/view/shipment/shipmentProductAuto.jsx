@@ -1,12 +1,3 @@
-/*******************************************************************************************
-■ 문서제목 : shipmentProductAuto.jsx
-■ 작성목적 : 
-■ 실행예제 : 
-■ 비    고 :
-■ 주요변경내역
-VER         DATE          AUTHOR			DESCRIPTION
-*******************************************************************************************/
-
 import { useRef, useState, useEffect, useCallback, useContext } from 'react'; // 리액트 훅
 import { useHistory } from 'react-router-dom'; // 히스토리
 
@@ -20,47 +11,47 @@ import {
     Button,
     Dialog,
     DialogTitle,
-}                           from '@material-ui/core';                   // MUI
-import { menuOpenContext }  from '../../components/acsNavBar';          // 네비게이션 메뉴
-import { Clear }            from '@material-ui/icons';                  // X 아이콘
-import colors               from '../../commons/colors';                // 색상
-import COMMON_MESSAGE       from '../../commons/message';               // 에러메세지
-import AcsTabPanel          from '../../components/acsTabPanel';        // 탭 페이지
-import AcsTextField         from '../../components/acsTextField';       // 텍스트필드
-import AcsDataGrid          from '../../components/acsDataGrid';        // 표
-import AcsSelect            from '../../components/acsSelect';          // 셀렉트
-import AcsBadgeButton       from '../../components/acsBadgeButton';     // 뱃지버튼
-import AcsCheckBox          from '../../components/acsCheckBox';        // 체크박스
-import AcsDialog            from '../../components/acsDialog';          // 다이얼로그
-import AcsDialogCustom      from '../../components/acsDialogCustom'; // 커스텀 다이얼로그
+} from '@material-ui/core'; // MUI
+import { menuOpenContext } from '../../components/acsNavBar'; // 네비게이션 메뉴
+import { Clear } from '@material-ui/icons'; // X 아이콘
+import colors from '../../commons/colors'; // 색상
+import COMMON_MESSAGE from '../../commons/message'; // 에러메세지
+import AcsTabPanel from '../../components/acsTabPanel'; // 탭 페이지
+import AcsTextField from '../../components/acsTextField'; // 텍스트필드
+import AcsDataGrid from '../../components/acsDataGrid'; // 표
+import AcsSelect from '../../components/acsSelect'; // 셀렉트
+import AcsBadgeButton from '../../components/acsBadgeButton'; // 뱃지버튼
+import AcsCheckBox from '../../components/acsCheckBox'; // 체크박스
+import AcsDialog from '../../components/acsDialog'; // 다이얼로그
+import AcsDialogCustom from '../../components/acsDialogCustom'; // 커스텀 다이얼로그
 
 // API URL
 const PDA_API_GETDATE_URL = process.env.REACT_APP_PDA_API_GETDATE_URL;
 const PDA_API_GENERAL_URL = process.env.REACT_APP_PDA_API_GENERAL_URL;
 
 // 프로시저 리스트
-const PROC_PK_PDA_DV01_3_D              = 'U_PK_PDA_DV01_3_D';              // 화면 로드될 때 출하지시 및 임시 저장된 목록 초기화
-const PROC_PK_PDA_DV01_L                = 'U_PK_PDA_DV01_L';                // 출하지시 조회
-const PROC_PK_PDA_DV01_1_L              = 'U_PK_PDA_DV01_1_L';              // 출하지시 세부목록 조회
-const PROC_PK_PDA_IV05_6_L              = 'U_PK_PDA_IV05_6_L';              // 선택된 품목명 표시
-const PROC_PK_PDA_DV01_9_L              = 'U_PK_PDA_DV01_9_L';              // 출하지시 재고 조회
-const PROC_PK_PDA_DV05_1_S              = 'U_PK_PDA_DV05_1_S';              // 출하지시선택 (출하지시목록 선점 처리)
-const PROC_PK_PDA_DV01_3_L              = 'U_PK_PDA_DV01_3_L';              // 선택된 출하지시 처리를 위한 기준 수량 표시 (신규)
-const PROC_PK_PDA_DV01_12_L             = 'U_PK_PDA_DV01_12_L';             // 선택된 출하지시 처리를 위한 기준 수량 표시 (저장)
-const PROC_PK_PDA_DV01_6_L              = 'U_PK_PDA_DV01_6_L';              // 부품표 정보조회 (품번, LOT)
-const PROC_PK_PDA_DV01_7_L              = 'U_PK_PDA_DV01_7_L';              // 부품표 위치조회
-const PROC_PK_PDA_DV01_8_L              = 'U_PK_PDA_DV01_8_L';              // 부품표 수량조회
-const PROC_PK_PDA_DV01_2_L              = 'U_PK_PDA_DV01_2_L';              // 입고표 정보조회 (품번, LOT, 위치, 수량)
-const PROC_PK_PDA_DV05_2_S              = 'U_PK_PDA_DV05_2_S';              // 출하목록임시저장
-const PROC_PK_PDA_DV01_10_L             = 'U_PK_PDA_DV01_10_L';             // 현재재고, 출하수량 조회
-const PROC_PK_PDA_DV01_2_D              = 'U_PK_PDA_DV01_2_D';              // 출하목록임시저장 삭제 (리스트 데이터 삭제)
-const PROC_PK_PDA_DV05_4_S              = 'U_PK_PDA_DV05_4_S';              // 출하저장
-const PROC_PK_PDA_DV05_3_WITH_FLAG_S    = 'U_PK_PDA_DV05_3_WITH_FLAG_S';    // 출하확정
-const PROC_PK_PDA_DV01_4_L              = 'U_PK_PDA_DV01_4_L';              // 출문증 재발행 조회
-const PROC_PK_PDA_DV01_5_L              = 'U_PK_PDA_DV01_5_L';              // 출문증 세부목록 조회
-const PROC_PK_PDA_DV01_REPRT            = 'U_PK_PDA_DV01_Reprt';            // 재발행
-const PROC_PK_PDA_DV01_1_INIT_D         = 'U_PK_PDA_DV01_1_Init_D';         // 화면 종료시 임시저장된 목록 삭제처리 - 초기화
-const PROC_PK_PDA_DV01_1_D              = 'U_PK_PDA_DV01_1_D';              // 화면 종료시 출하지시 선점처리 - 초기화
+const PROC_PK_PDA_DV01_3_D = 'U_PK_PDA_DV01_3_D'; // 화면 로드될 때 출하지시 및 임시 저장된 목록 초기화
+const PROC_PK_PDA_DV01_L = 'U_PK_PDA_DV01_L'; // 출하지시 조회
+const PROC_PK_PDA_DV01_1_L = 'U_PK_PDA_DV01_1_L'; // 출하지시 세부목록 조회
+const PROC_PK_PDA_IV05_6_L = 'U_PK_PDA_IV05_6_L'; // 선택된 품목명 표시
+const PROC_PK_PDA_DV01_9_L = 'U_PK_PDA_DV01_9_L'; // 출하지시 재고 조회
+const PROC_PK_PDA_DV05_1_S = 'U_PK_PDA_DV05_1_S'; // 출하지시선택 (출하지시목록 선점 처리)
+const PROC_PK_PDA_DV01_3_L = 'U_PK_PDA_DV01_3_L'; // 선택된 출하지시 처리를 위한 기준 수량 표시 (신규)
+const PROC_PK_PDA_DV01_12_L = 'U_PK_PDA_DV01_12_L'; // 선택된 출하지시 처리를 위한 기준 수량 표시 (저장)
+const PROC_PK_PDA_DV01_6_L = 'U_PK_PDA_DV01_6_L'; // 부품표 정보조회 (품번, LOT)
+const PROC_PK_PDA_DV01_7_L = 'U_PK_PDA_DV01_7_L'; // 부품표 위치조회
+const PROC_PK_PDA_DV01_8_L = 'U_PK_PDA_DV01_8_L'; // 부품표 수량조회
+const PROC_PK_PDA_DV01_2_L = 'U_PK_PDA_DV01_2_L'; // 입고표 정보조회 (품번, LOT, 위치, 수량)
+const PROC_PK_PDA_DV05_2_S = 'U_PK_PDA_DV05_2_S'; // 출하목록임시저장
+const PROC_PK_PDA_DV01_10_L = 'U_PK_PDA_DV01_10_L'; // 현재재고, 출하수량 조회
+const PROC_PK_PDA_DV01_2_D = 'U_PK_PDA_DV01_2_D'; // 출하목록임시저장 삭제 (리스트 데이터 삭제)
+const PROC_PK_PDA_DV05_4_S = 'U_PK_PDA_DV05_4_S'; // 출하저장
+const PROC_PK_PDA_DV05_3_WITH_FLAG_S = 'U_PK_PDA_DV05_3_WITH_FLAG_S'; // 출하확정
+const PROC_PK_PDA_DV01_4_L = 'U_PK_PDA_DV01_4_L'; // 출문증 재발행 조회
+const PROC_PK_PDA_DV01_5_L = 'U_PK_PDA_DV01_5_L'; // 출문증 세부목록 조회
+const PROC_PK_PDA_DV01_REPRT = 'U_PK_PDA_DV01_Reprt'; // 재발행
+const PROC_PK_PDA_DV01_1_INIT_D = 'U_PK_PDA_DV01_1_Init_D'; // 화면 종료시 임시저장된 목록 삭제처리 - 초기화
+const PROC_PK_PDA_DV01_1_D = 'U_PK_PDA_DV01_1_D'; // 화면 종료시 출하지시 선점처리 - 초기화
 
 let printFlag = 'N';
 let msg = '';
@@ -775,6 +766,10 @@ function ShipmentProductAuto() {
             setSelectedComboBoxPartLocation({ value: '', label: '' });
             textTotalQtyRef.current = 0;
             textUnitQtyRef.current = 0;
+            setTextTotalQty('');
+            setCorrectionBtnVisible(true);
+            setAddListBtnVisible(true);
+            setTextUnitQty('');
             setShipmentQtyAllCheck(false);
             setAddListBtnDisabled(true);
             selectedPartIdRef.current = '';
@@ -798,6 +793,9 @@ function ShipmentProductAuto() {
             comboBoxPartLocationDisabledRef.current = true;
             textTotalQtyRef.current = 0;
             textUnitQtyRef.current = 0;
+            setTextTotalQty(0);
+
+            setTextUnitQty(0);
             if (shipmentQtyRef.current.value !== '') {
                 shipmentQtyRef.current.value = '';
             }
@@ -810,19 +808,22 @@ function ShipmentProductAuto() {
             textPartIdRef.current = '';
             setTextLotNo('');
             setTextPartName('');
+            setCorrectionBtnVisible(true);
+            setAddListBtnVisible(true);
             textInputLocationRef.current = '';
             textInputLocationDisabledRef.current = true;
             comboBoxPartLocationRef.current = [];
             setSelectedComboBoxPartLocation({ value: '', label: '' });
             comboBoxPartLocationDisabledRef.current = true;
             textTotalQtyRef.current = 0;
-            setTextTotalQty(0);
-            setTextUnitQty(0);
             textUnitQtyRef.current = 0;
             shipmentQtyRef.current.value = '';
             setShipmentQtyAllCheck(false);
             setAddListBtnDisabled(true);
             selectedPartIdRef.current = '';
+            setTextTotalQty('');
+
+            setTextUnitQty('');
             //window.scrollTo({top: 0});
         } else if (gubun === 'reissueList') {
             setSumList6([]);
@@ -2295,7 +2296,7 @@ function ShipmentProductAuto() {
             setDialogCustomrRestOpen(false);
             setDialogCustomrSaveCompleteOpen(false);
             setDialogCustomPrintFlagOpen(false);
-            //test
+            //testttttttttt
             if (dialogOkay === '출하중인출하지시초기화') {
                 // 임시데이터 삭제
                 loadInitOutNo();
@@ -2303,7 +2304,6 @@ function ShipmentProductAuto() {
                 onMessageGubunRef.current = '출하품번리스트삭제';
                 // webView 데이터 요청
                 webViewPostMessage();
-                deleteDataList();
             } else if (dialogOkay === '출하저장') {
                 onMessageGubunRef.current = '출하저장';
                 // webView 데이터 요청
@@ -2314,6 +2314,10 @@ function ShipmentProductAuto() {
                 webViewPostMessage();
             } else if (dialogOkay === '재발행') {
                 onMessageGubunRef.current = '재발행';
+                // webView 데이터 요청
+                webViewPostMessage();
+            } else if (dialogOkay === '출하확정') {
+                onMessageGubunRef.current = '출하확정';
                 // webView 데이터 요청
                 webViewPostMessage();
             }
@@ -2335,7 +2339,6 @@ function ShipmentProductAuto() {
                 onMessageGubunRef.current = '출하의뢰일자변경';
                 // webView 데이터 요청
                 webViewPostMessage();
-                loadDevoutData();
             }
         },
 
@@ -2347,7 +2350,6 @@ function ShipmentProductAuto() {
             onMessageGubunRef.current = '출하지시리스트클릭';
             // webView 데이터 요청
             webViewPostMessage();
-            loadDevoutDetailData();
         },
 
         // 리스트2 에서 한 행을 체크시 이벤트
@@ -2363,7 +2365,6 @@ function ShipmentProductAuto() {
             onMessageGubunRef.current = '출하지시선택';
             // webView 데이터 요청
             webViewPostMessage();
-            selectDevout();
         },
 
         // 현재 재고현황 팝업창 로드 - [현재 재고현황 팝업창]

@@ -1,37 +1,39 @@
 import { makeStyles, Tabs, Tab, IconButton, Backdrop, CircularProgress, Button } from '@material-ui/core';
-import { useTranslation } from 'react-i18next';
 import { useRef, useState, useEffect, useCallback } from 'react';
-import { Clear } from '@material-ui/icons';
-import colors from '../../commons/colors';
-import COMMON_MESSAGE from '../../commons/message';
-import AcsTabPanel from '../../components/acsTabPanel';
-import AcsTextField from './../../components/acsTextField';
-import AcsDataGrid from './../../components/acsDataGrid';
-import AcsSelect from './../../components/acsSelect';
-import AcsBadgeButton from './../../components/acsBadgeButton';
-import AcsRadioButton from '../../components/acsRadioButton';
-import AcsCheckBox from './../../components/acsCheckBox';
-import AcsDialog from '../../components/acsDialog';
-import AcsDialogCustom from '../../components/acsDialogCustom';
+import { Clear }        from '@material-ui/icons';
+import colors           from '../../commons/colors';
+import COMMON_MESSAGE   from '../../commons/message';
+import AcsTabPanel      from '../../components/acsTabPanel';
+import AcsTextField     from './../../components/acsTextField';
+import AcsDataGrid      from './../../components/acsDataGrid';
+import AcsSelect        from './../../components/acsSelect';
+import AcsBadgeButton   from './../../components/acsBadgeButton';
+import AcsRadioButton   from '../../components/acsRadioButton';
+import AcsCheckBox      from './../../components/acsCheckBox';
+import AcsDialog        from '../../components/acsDialog';
+import AcsDialogCustom  from '../../components/acsDialogCustom';
+
 
 const PDA_API_GETDATE_URL = process.env.REACT_APP_PDA_API_GETDATE_URL;
 const PDA_API_GENERAL_URL = process.env.REACT_APP_PDA_API_GENERAL_URL;
 
-const PROC_PK_PDA_IV05_1_Init_D = 'U_PK_PDA_IV05_1_Init_D'; // 초기화
-const PROC_PK_PDA_IV05_7_L = 'U_PK_PDA_IV05_7_L'; // 작업장별 재고조회
-const PROC_PK_PDA_IV05_1_L = 'U_PK_PDA_IV05_1_L'; // 작업장 정보
-const PROC_PK_PDA_IV05_6_L = 'U_PK_PDA_IV05_6_L'; // 선택된 품목명 조회
-const PROC_PK_PDA_IV05_9_L = 'U_PK_PDA_IV05_9_L'; // 선택된 자재에 대한 출고처리화면 데이터 조회
-const PROC_PK_PDA_IV05_3_L = 'U_PK_PDA_IV05_3_L'; // 선택된 품번이 존재하는 위치 조회
-const PROC_PK_PDA_IV05_4_L = 'U_PK_PDA_IV05_4_L'; // 대표위치 스캔시 위치검증
-const PROC_PK_PDA_IV05_5_L = 'U_PK_PDA_IV05_5_L'; // 바코드 스캔
-const PROC_PK_PDA_IV05_1_S = 'U_PK_PDA_IV05_1_S'; // 목록 저장
-const PROC_PK_PDA_IV05_1_D = 'U_PK_PDA_IV05_1_D'; // 삭제
-const PROC_PK_PDA_IV05_Confirm_S = 'U_PK_PDA_IV05_Confirm_S'; // 출고확정
+
+const PROC_PK_PDA_IV05_1_Init_D     = 'U_PK_PDA_IV05_1_Init_D';     // 초기화
+const PROC_PK_PDA_IV05_7_L          = 'U_PK_PDA_IV05_7_L';          // 작업장별 재고조회
+const PROC_PK_PDA_IV05_1_L          = 'U_PK_PDA_IV05_1_L';          // 작업장 정보
+const PROC_PK_PDA_IV05_6_L          = 'U_PK_PDA_IV05_6_L';          // 선택된 품목명 조회
+const PROC_PK_PDA_IV05_9_L          = 'U_PK_PDA_IV05_9_L';          // 선택된 자재에 대한 출고처리화면 데이터 조회
+const PROC_PK_PDA_IV05_3_L          = 'U_PK_PDA_IV05_3_L';          // 선택된 품번이 존재하는 위치 조회
+const PROC_PK_PDA_IV05_4_L          = 'U_PK_PDA_IV05_4_L';          // 대표위치 스캔시 위치검증
+const PROC_PK_PDA_IV05_5_L          = 'U_PK_PDA_IV05_5_L';          // 바코드 스캔
+const PROC_PK_PDA_IV05_1_S          = 'U_PK_PDA_IV05_1_S';          // 목록 저장
+const PROC_PK_PDA_IV05_1_D          = 'U_PK_PDA_IV05_1_D';          // 삭제
+const PROC_PK_PDA_IV05_Confirm_S    = 'U_PK_PDA_IV05_Confirm_S';    // 출고확정
+
 
 let msg = '';
 let transOutDate = '';
-let iCurIdx; //선택한 자재 index 저장(tabControl 0페이지로 넘어왔을 때 이전에 작업한 자재위치 저장)
+
 // 스타일
 const useStyle = makeStyles((theme) => ({
     root: {
@@ -195,52 +197,56 @@ const storageLotArray = (obj) => {
 };
 
 function MaterialOutput() {
-    const classes = useStyle(); // CSS 스타일
-    const [tabsValue, setTabsValue] = useState(0); // Tabs 구분
-    const tabsValueRef = useRef(0); // Tabs 구분 Ref
-    const todayDateRef = useRef('');
-    const [resestTabsValue, setResestTabsValue] = useState(1); // 출고 탭에서 출고 진행 중인 소재가 있을 경우 초기화한 후 이동할 Tabs
-    const [dialogOpen, setDialogOpen] = useState(false); // 다이얼로그 (메시지창)
-    const [dialogCustomOpen, setDialogCustomOpen] = useState(false); // 다이얼로그 (메시지창)
-    const [dialogCustomrRestOpen, setDialogCustomrRestOpen] = useState(false); // 다이얼로그 커스텀 (메시지창) - 출고 탭에서 출고 진행 중인 소재가 있을 경우 초기화 여부 묻는 Dialog
-    const [dialogOkay, setDialogOkay] = useState(''); // 확인, 삭제 구분
-    const [backdropOpen, setBackdropOpen] = useState(false); // 대기
-    const pda_id = localStorage.getItem('PDA_ID'); // 사용자 ID
-    const pda_plant_id = localStorage.getItem('PDA_PLANT_ID'); // 공장 ID
-    const pda_mac_address = localStorage.getItem('PDA_MAC_ADDRESS'); // PDA Mac Address
-    const onMessage = useCallback((event) => {
-        ReadData(event);
-    }, []); // WebView에서 받아온 데이터
-    const onMessageGubunRef = useRef('작업장재고1'); // WebView로 데이터 요청 후 작업에 대한 구분
-    const scanLocationRef = useRef('barcode'); // 바코드 스캔 위치
+
+    const classes                                               = useStyle();                                       // CSS 스타일
+    const pda_id                                                = localStorage.getItem('PDA_ID');                   // 사용자 ID
+    const pda_plant_id                                          = localStorage.getItem('PDA_PLANT_ID');             // 공장 ID
+    const pda_mac_address                                       = localStorage.getItem('PDA_MAC_ADDRESS');          // PDA Mac Address
+    const onMessage                                             = useCallback((event) => { ReadData(event); }, []); // WebView에서 받아온 데이터
+    const onMessageGubunRef                                     = useRef('작업장재고1');                             // WebView로 데이터 요청 후 작업에 대한 구분
+    const scanLocationRef                                       = useRef('barcode');                                // 바코드 스캔 위치
+    const [tabsValue,               setTabsValue]               = useState(0);                                      // Tabs 구분
+    const [resestTabsValue,         setResestTabsValue]         = useState(1);                                      // 초기화한 후 이동할 Tabs
+    const [dialogOpen,              setDialogOpen]              = useState(false);                                  // 다이얼로그 (메시지창)
+    const [dialogCustomOpen,        setDialogCustomOpen]        = useState(false);                                  // 다이얼로그 (메시지창)
+    const [dialogCustomrRestOpen,   setDialogCustomrRestOpen]   = useState(false);                                  // 초기화 여부 Dialog
+    const [dialogOkay,              setDialogOkay]              = useState('');                                     // 확인, 삭제 구분
+    const [backdropOpen,            setBackdropOpen]            = useState(false);                                  // 대기
+    const todayDateRef                                          = useRef('');
+    const tabsValueRef                                          = useRef(0);                                        // Tabs 구분 Ref
+
     // ===========================================================================================================================
     // 작업장재고 Tabs state
-    const [comboBoxWorkShop, setComboBoxWorkShop] = useState([]); // 작업장 comboBox
-    const [selectedComboBoxWorkShop, setSelectedComboBoxWorkShop] = useState({ value: '', label: '' }); // 선택된 작업장 comboBox
-    const [sumList1, setSumList1] = useState([]); // 리스트 목록
-    const [partName, setPartName] = useState(''); // 리스트에서 선택한 자재에 대한 품명
-    const selectedRow = useRef(''); // 리스트에서 선택한 로우
+    const [comboBoxWorkShop,            setComboBoxWorkShop]            = useState([]);                         // 작업장 comboBox
+    const [selectedComboBoxWorkShop,    setSelectedComboBoxWorkShop]    = useState({ value: '', label: '' });   // 선택된 작업장 comboBox
+    const [sumList1,                    setSumList1]                    = useState([]);                         // 리스트 목록
+    const [partName,                    setPartName]                    = useState('');                         // 리스트에서 선택한 자재에 대한 품명
+    const selectedRow                                                   = useRef('');                           // 리스트에서 선택한 로우
+    const textBarcodeRef                                                = useRef(null);
+    const [textBarcode,                 setTextBarcode]                 = useState('');
+    const [barcodeDisabled,             setBarcodeDisabled]             = useState(false);
+
     // ===========================================================================================================================
     // 출고 Tabs state
-    const textWorkShopRef = useRef(''); // 작업장 Text Ref
-    const [textPartId, setTextPartId] = useState(''); // 품번 Text
-    const [radioState, setRadioState] = useState('select'); // 라디오 버튼
-    const radioStateRef = useRef('select'); // 라디오 버튼 Ref
-    const [comboBoxStorageLot, setComboBoxStorageLot] = useState([]); // 창고, LOT comboBox
-    const [selectedComboBoxStorageLot, setSelectedComboBoxStorageLot] = useState({ value: '', label: '' }); // 선택된 창고, LOT comboBox
-    const selectedComboBoxStorageLotValueRef = useRef(''); // 선택된 창고, LOT value Ref
-    const locationRef = useRef(''); // 스캔 대표위치 Text
-    const barcodeRef = useRef(''); // 스캔 바코드 Text
-    const textLotNoRef = useRef(''); // 스캔한 바코드의 Lot No Text Ref
-    const textTotalQtyRef = useRef(0); // 총수량 Text Ref
-    const textUnitQtyRef = useRef(0); // 출고수량 Text Ref
-    const outQtyRef = useRef(''); // 출고개수 Text
-    const [outQtyAllChecked, setOutQtyAllChecked] = useState(false); // 체크박스 전체출고여부
-    const outQtyAllCheckedRef = useRef(false); // 체크박스 전체출고여부 Ref
-    const [addListBtnDisabled, setAddListBtnDisabled] = useState(true); // 추가 버튼 Disabled
-    const sumList2Ref = useRef([]); // 리스트 목록
-    const lotListRef = useRef([]);
-    const selectionModelRef = useRef([]); // 체크박스에 체크된 것들 Ref
+    const [textPartId,                  setTextPartId]                  = useState(''); // 품번 Text
+    const [radioState,                  setRadioState]                  = useState('select'); // 라디오 버튼
+    const [comboBoxStorageLot,          setComboBoxStorageLot]          = useState([]); // 창고, LOT comboBox
+    const [selectedComboBoxStorageLot,  setSelectedComboBoxStorageLot]  = useState({ value: '', label: '' }); // 선택된 창고, LOT comboBox
+    const [outQtyAllChecked,            setOutQtyAllChecked]            = useState(false); // 체크박스 전체출고여부
+    const [addListBtnDisabled,          setAddListBtnDisabled]          = useState(true); // 추가 버튼 Disabled
+    const textWorkShopRef                       = useRef('');       // 작업장 Text Ref
+    const radioStateRef                         = useRef('select'); // 라디오 버튼 Ref
+    const selectedComboBoxStorageLotValueRef    = useRef('');       // 선택된 창고, LOT value Ref
+    const locationRef                           = useRef('');       // 스캔 대표위치 Text
+    const barcodeRef                            = useRef('');       // 스캔 바코드 Text
+    const textLotNoRef                          = useRef('');       // 스캔한 바코드의 Lot No Text Ref
+    const textTotalQtyRef                       = useRef(0);        // 총수량 Text Ref
+    const textUnitQtyRef                        = useRef(0);        // 출고수량 Text Ref
+    const outQtyRef                             = useRef('');       // 출고개수 Text
+    const outQtyAllCheckedRef                   = useRef(false);    // 체크박스 전체출고여부 Ref
+    const sumList2Ref                           = useRef([]);       // 리스트 목록
+    const lotListRef                            = useRef([]);
+    const selectionModelRef                     = useRef([]);       // 체크박스에 체크된 것들 Ref
     // ===========================================================================================================================
 
     // 화면 처음 로드시
@@ -275,14 +281,16 @@ function MaterialOutput() {
         initData();
 
         document.addEventListener('message', onMessage);
-        workShopDataLoad(); // 테스트
-        return () => {
-            // 쓰레기 데이터 존재하면 삭제
-            initData();
 
+        workShopDataLoad(); // 테스트
+
+        return () => {
+
+            initData();
             console.log('handle 지움');
             document.removeEventListener('message', onMessage);
         };
+
     }, []);
 
     // Tab 변경시 이벤트
@@ -297,6 +305,12 @@ function MaterialOutput() {
         else {
             // 선택한 자재 출고처리화면으로 넘김
             selectPartOutProcessingScreen();
+
+            console.log('asdasdasdasd');
+
+            if(barcodeRef.current !== ''){
+                barcodeInfo(barcodeRef.current, 'barcodeScan');
+            }
         }
     }, [tabsValue]);
 
@@ -331,8 +345,6 @@ function MaterialOutput() {
                     // 결과 처리
                     else {
                         const tmpArray = JSON.parse(data.returnValue[0]);
-
-                        console.log(tmpArray);
 
                         let sumArray = [];
 
@@ -391,6 +403,7 @@ function MaterialOutput() {
             0,
             selectedComboBoxStorageLot.value.indexOf(';')
         );
+
     }, [selectedComboBoxStorageLot]);
 
     // 쓰레기 데이터 존재하면 삭제
@@ -558,21 +571,24 @@ function MaterialOutput() {
                         msg = '올바른 바코드 형식이 아닙니다.';
                         setDialogOpen(true);
                         vibration();
-                        barcodeRef.current.value = '';
+                        barcodeRef.current = '';
+                        setTextBarcode('');
                         return;
                     }
                     if (selectedRow.current === '') {
                         msg = '품번이 비었습니다.';
                         setDialogOpen(true);
                         vibration();
-                        barcodeRef.current.value = '';
+                        barcodeRef.current = '';
+                        setTextBarcode('');
                         return;
                     }
                     if (selectedComboBoxStorageLot.length === 0) {
                         msg = '저장된 보관처가 없습니다.';
                         setDialogOpen(true);
                         vibration();
-                        barcodeRef.current.value = '';
+                        barcodeRef.current = '';
+                        setTextBarcode('');
                         return;
                     }
                     if (lotListRef.current.length > 0) {
@@ -590,6 +606,8 @@ function MaterialOutput() {
                         barcodeInfo(scannedData.data, 'barcodeScan');
                     }
                 }
+            } else {
+
             }
         }
     };
@@ -669,26 +687,85 @@ function MaterialOutput() {
 
             let requestOption;
 
-            if (radioStateRef.current === 'select') {
+            if (tabsValueRef.current === 0) {
+                requestOption = getRequestOptions(
+                    PROC_PK_PDA_IV05_6_L,
+                    getRequestParam(lot_no, inv_id, unit_qty, null, pda_plant_id)
+                );
+
+                setBackdropOpen(true);
+                fetch(PDA_API_GENERAL_URL, requestOption)
+                    .then((res) => res.json())
+                    .then((data) => {
+                        // 사용자 메시지 처리
+                        if (data.returnUserMessage !== null) {
+                            msg = data.returnUserMessage;
+                            setDialogOpen(true);
+                            vibration();
+                            setBackdropOpen(false);
+                            return;
+                        }
+                        // 에러 메시지 처리
+                        else if (data.returnErrorMsg !== null) {
+                            msg = data.returnErrorMsg;
+                            setDialogOpen(true);
+                            vibration();
+                            setBackdropOpen(false);
+                            return;
+                        }
+                        // 결과 처리
+                        else {
+                            const tmpArray = JSON.parse(data.returnValue[0]);
+
+                            if (sumList1.some(item => item.PART_NAME === tmpArray[0]['PART_NAME'])) {
+
+                                setPartName(tmpArray[0]['PART_NAME']);
+                                selectedRow.current = tmpArray[0]['PART_ID'];
+                                barcodeRef.current = scanData;
+
+                            } else {
+
+                                msg = "작업장에 포함되어있지않은 바코드입니다.";
+                                setDialogOpen(true);
+                                vibration();
+                                setBackdropOpen(false);
+                                return;
+
+                            }
+
+
+                        }
+                        setBackdropOpen(false);
+                    })
+                    .catch((data) => {
+                        msg = COMMON_MESSAGE.FETCH_ERROR + data.value;
+                        setDialogOpen(true);
+                        vibration();
+                        setBackdropOpen(false);
+                        return;
+                    });
+            } else {
+                if (radioStateRef.current === 'select') {
+                console.log(selectedComboBoxStorageLotValueRef.current);
                 requestOption = getRequestOptions(
                     PROC_PK_PDA_IV05_5_L,
                     getRequestParam(
-                        selectedComboBoxStorageLotValueRef.current,
+                        '2PACK',
                         selectedRow.current,
                         inv_id,
                         lot_no,
                         pda_plant_id
                     )
                 );
-            } else {
-                requestOption = getRequestOptions(
-                    PROC_PK_PDA_IV05_5_L,
-                    getRequestParam(locationRef.current.value, selectedRow.current, inv_id, lot_no, pda_plant_id)
-                );
-            }
-
-            setBackdropOpen(true);
-            fetch(PDA_API_GENERAL_URL, requestOption)
+                } else {
+                    requestOption = getRequestOptions(
+                        PROC_PK_PDA_IV05_5_L,
+                        getRequestParam(locationRef.current, selectedRow.current, inv_id, lot_no, pda_plant_id)
+                    );
+                }
+                
+                setBackdropOpen(true);
+                fetch(PDA_API_GENERAL_URL, requestOption)
                 .then((res) => res.json())
                 .then((data) => {
                     // 사용자 메시지 처리
@@ -697,7 +774,8 @@ function MaterialOutput() {
                         setDialogOpen(true);
                         vibration();
                         setBackdropOpen(false);
-                        barcodeRef.current.value = '';
+                        barcodeRef.current = '';
+                        setTextBarcode('');
                         return;
                     }
                     // 에러 메시지 처리
@@ -706,14 +784,16 @@ function MaterialOutput() {
                         setDialogOpen(true);
                         vibration();
                         setBackdropOpen(false);
-                        barcodeRef.current.value = '';
+                        barcodeRef.current = '';
+                        setTextBarcode('');
                         return;
                     }
                     // 결과 처리
                     else {
                         const tmpArray = JSON.parse(data.returnValue[0]);
-
-                        barcodeRef.current.value = scanData;
+                        
+                        setTextBarcode(scanData);
+                        barcodeRef.current = scanData;
                         textLotNoRef.current = tmpArray[0]['LOT_NO'];
                         textTotalQtyRef.current = tmpArray[0]['IN_QTY'];
                         textUnitQtyRef.current = unit_qty;
@@ -731,6 +811,7 @@ function MaterialOutput() {
                     setBackdropOpen(false);
                     return;
                 });
+            }
         }
     };
 
@@ -796,6 +877,7 @@ function MaterialOutput() {
                 else {
                     const tmpArray = JSON.parse(data.returnValue[0]);
                     const tmpWorkShopArray = workShopArray(tmpArray);
+
                     setComboBoxWorkShop(tmpWorkShopArray);
                     if (tmpWorkShopArray.length > 0) {
                         setSelectedComboBoxWorkShop(tmpWorkShopArray[0]);
@@ -814,9 +896,12 @@ function MaterialOutput() {
 
     // 선택된 품목명 표시
     const selectedPartNameLoad = () => {
+
+        setTextBarcode('');
+
         const requestOption = getRequestOptions(
             PROC_PK_PDA_IV05_6_L,
-            getRequestParam(selectedRow.current, pda_plant_id)
+            getRequestParam(null, null, 0, selectedRow.current, pda_plant_id)
         );
 
         setBackdropOpen(true);
@@ -842,7 +927,6 @@ function MaterialOutput() {
                 // 결과 처리
                 else {
                     const tmpArray = JSON.parse(data.returnValue[0]);
-
                     setPartName(tmpArray[0]['PART_NAME']);
                 }
                 setBackdropOpen(false);
@@ -1007,7 +1091,7 @@ function MaterialOutput() {
         if (
             textWorkShopRef.current === '' ||
             selectedRow.current === '' ||
-            barcodeRef.current.value === '' ||
+            barcodeRef.current === '' ||
             textLotNoRef.current === '' ||
             textTotalQtyRef.current === ''
         ) {
@@ -1077,7 +1161,7 @@ function MaterialOutput() {
                     else {
                         sumList2Ref.current = [
                             {
-                                id: barcodeRef.current.value,
+                                id: barcodeRef.current,
                                 PART_ID: selectedRow.current,
                                 QTY: out_qty,
                                 LOT_NO: textLotNoRef.current,
@@ -1088,7 +1172,7 @@ function MaterialOutput() {
                         ];
                         lotListRef.current = [
                             {
-                                BARCODE: barcodeRef.current.value,
+                                BARCODE: barcodeRef.current,
                             },
                             ...lotListRef.current,
                         ];
@@ -1249,14 +1333,16 @@ function MaterialOutput() {
             scanLocationRef.current = 'barcode';
         } else if (gubun === 'radioBtnChange') {
             locationRef.current.value = '';
-            barcodeRef.current.value = '';
+            barcodeRef.current = '';
+            setTextBarcode('');
             textLotNoRef.current = '';
             textTotalQtyRef.current = 0;
             textUnitQtyRef.current = 0;
             outQtyRef.current.value = '';
         } else if (gubun === 'addDataList') {
             locationRef.current.value = '';
-            barcodeRef.current.value = '';
+            barcodeRef.current = '';
+            setTextBarcode('');
             textLotNoRef.current = '';
             textTotalQtyRef.current = 0;
             textUnitQtyRef.current = 0;
@@ -1329,12 +1415,9 @@ function MaterialOutput() {
 
         // 리스트에서 한 행을 체크시 이벤트
         onWorkShopInventoryRowSelected: (e) => {
+            
             onMessageGubunRef.current = '작업장재고3';
             selectedRow.current = e.data['PART_ID'];
-
-            iCurIdx = sumList1.findIndex((row) => row.PART_ID === selectedRow.current);
-
-            console.log(iCurIdx);
 
             // webView 데이터 요청
             webViewPostMessage();
@@ -1364,6 +1447,8 @@ function MaterialOutput() {
             onMessageGubunRef.current = '작업장재고4';
             // webView 데이터 요청
             webViewPostMessage();
+            setTabsValue(1);
+            tabsValueRef.current = 1;
         },
         // =========================================================
 
@@ -1389,6 +1474,7 @@ function MaterialOutput() {
         // 창고, LOT 선택시 이벤트
         onCmb_storageLotChanged: (e) => {
             const tmpdata = comboBoxStorageLot.filter((data) => data.value === e.target.value);
+            console.log(tmpdata[0]);
             setSelectedComboBoxStorageLot(tmpdata[0]);
         },
 
@@ -1432,8 +1518,40 @@ function MaterialOutput() {
         },
 
         // 바코드 X 버튼 이벤트
+        onBtnClearPartBarcode: (e) => {
+            setTextBarcode('');
+            barcodeRef.current = '';
+            scanLocationRef.current = 'barcode';
+        },
+
+        // 바코드 키인
+        onPartBarcodeKeyUp: (e) => {
+            const scanData = e.target.value;
+
+            if (e.keyCode === 13) {
+
+                if (scanData === '') {
+                    msg = '바코드를 입력해주세요.';
+                    setDialogOpen(true);
+                    vibration();
+                    return;
+                }
+                if (scanData.length !== 25) {
+                    msg = '올바른 바코드 형식이 아닙니다.';
+                    setDialogOpen(true);
+                    vibration();
+                    return;
+                }
+                
+                barcodeInfo(scanData, 'barcodeScan');
+                
+            }
+        },
+
+        // 바코드 X 버튼 이벤트
         onBtnClearBarcode: (e) => {
-            barcodeRef.current.value = '';
+            setTextBarcode('');
+            barcodeRef.current = '';
             scanLocationRef.current = 'barcode';
         },
 
@@ -1452,14 +1570,16 @@ function MaterialOutput() {
                     msg = '올바른 바코드 형식이 아닙니다.';
                     setDialogOpen(true);
                     vibration();
-                    barcodeRef.current.value = '';
+                    setTextBarcode('');
+                    barcodeRef.current = '';
                     return;
                 }
                 if (selectedRow.current === '') {
                     msg = '품번이 비었습니다.';
                     setDialogOpen(true);
                     vibration();
-                    barcodeRef.current.value = '';
+                    setTextBarcode('');
+                    barcodeRef.current = '';
                     return;
                 }
                 if (radioStateRef.current === 'select') {
@@ -1467,7 +1587,8 @@ function MaterialOutput() {
                         msg = '저장된 보관처가 없습니다.';
                         setDialogOpen(true);
                         vibration();
-                        barcodeRef.current.value = '';
+                        setTextBarcode('');
+                        barcodeRef.current = '';
                         return;
                     }
                 } else {
@@ -1475,7 +1596,8 @@ function MaterialOutput() {
                         msg = '대표위치를 입력해주세요.';
                         setDialogOpen(true);
                         vibration();
-                        barcodeRef.current.value = '';
+                        setTextBarcode('');
+                        barcodeRef.current = '';
                         return;
                     }
                 }
@@ -1522,7 +1644,9 @@ function MaterialOutput() {
         // 텍스트 초기화 이벤트
         onResetBtnClick: (e) => {
             locationRef.current.value = '';
-            barcodeRef.current.value = '';
+            setTextBarcode('');
+            barcodeRef.current = '';
+            setTextBarcode('');
             textLotNoRef.current = '';
             textTotalQtyRef.current = 0;
             textUnitQtyRef.current = 0;
@@ -1571,6 +1695,10 @@ function MaterialOutput() {
             setDialogOkay('complete');
         },
         // =========================================================
+    };
+
+    const inputBarcode = (event) => {
+        setTextBarcode(event.target.value);
     };
 
     // 라디오 버튼 데이터
@@ -1635,6 +1763,32 @@ function MaterialOutput() {
                         height="250px"
                         onRowSelected={eventhandler.onWorkShopInventoryRowSelected}
                     />
+
+                    <AcsTextField
+                        className={`${classes.marginBottom} ${classes.text}`}
+                        label={'바코드'}
+                        id="textBarcode"
+                        name = "textBarcode"
+                        value={textBarcode}
+                        onChange = { inputBarcode }
+                        disabled={barcodeDisabled}
+                        style={{ backgroundColor: barcodeDisabled ? colors.PLight : colors.white }}
+                        InputProps={{
+                            endAdornment: (
+                                <IconButton
+                                    onClick={eventhandler.onBtnClearPartBarcode}
+                                    style={{ padding: '0px 7px 0px 0px', left: '15px', height: '20px' }}
+                                    disableRipple={true}
+                                    disableFocusRipple={true}
+                                >
+                                    <Clear />
+                                </IconButton>
+                            ),
+                        }}
+                        inputRef = {textBarcodeRef}
+                        onKeyUp={eventhandler.onPartBarcodeKeyUp}
+                    />
+
                     <AcsTextField
                         className={`${classes.marginBottom} ${classes.text} ${classes.textDisabled}`}
                         label={'품명'}
@@ -1711,11 +1865,16 @@ function MaterialOutput() {
                     <AcsTextField
                         className={`${classes.marginBottom} ${classes.text}`}
                         label={'바코드'}
-                        id="txtBarcode"
+                        id="textBarcode"
+                        name = "textBarcode"
+                        value={textBarcode}
+                        onChange = { inputBarcode }
+                        disabled={barcodeDisabled}
+                        style={{ backgroundColor: barcodeDisabled ? colors.PLight : colors.white }}
                         InputProps={{
                             endAdornment: (
                                 <IconButton
-                                    onClick={eventhandler.onBtnClearBarcode}
+                                    onClick={eventhandler.onBtnClearPartBarcode}
                                     style={{ padding: '0px 7px 0px 0px', left: '15px', height: '20px' }}
                                     disableRipple={true}
                                     disableFocusRipple={true}
@@ -1723,12 +1882,11 @@ function MaterialOutput() {
                                     <Clear />
                                 </IconButton>
                             ),
-                            inputProps: {
-                                ref: barcodeRef,
-                            },
                         }}
-                        onKeyUp={eventhandler.onBarcodeKeyUp}
+                        inputRef = {textBarcodeRef}
+                        onKeyUp={eventhandler.onPartBarcodeKeyUp}
                     />
+
                     <AcsTextField
                         className={`${classes.marginBottom} ${classes.text} ${classes.textDisabled}`}
                         label={'Lot No'}
@@ -1835,7 +1993,6 @@ function MaterialOutput() {
                         centered
                         value={tabsValue}
                         onChange={handleChange}
-                        variant="scrollable"
                         scrollButtons="auto"
                         className={classes.tabs}
                     >
