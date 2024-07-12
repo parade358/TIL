@@ -457,6 +457,41 @@ function ACSNavBar({ menuName, menuOpened }) {
                                     </Link>
                                 </AccordionDetails>
                             </Accordion>
+
+                            <Divider />
+                            <Divider />
+                            <Divider />
+                            <Divider />
+                            <Divider />
+                            <Divider />
+                            <Divider />
+
+                            <Accordion expanded={expanded === 'test'} onChange={handleChange('test')}>
+                                <AccordionSummary
+                                    expandIcon={<ExpandMoreIcon />}
+                                    aria-controls="panel1a-content"
+                                    style={{ height: '15px' }}
+                                >
+                                    <ListItem>
+                                        <InventoryIcon className={classes.menuIcon} />
+                                        <ListItemText primary={t('테스트')} />
+                                    </ListItem>
+                                </AccordionSummary>
+                                <AccordionDetails style={{ display: 'block' }}>
+                                    <Divider />
+                                    <Link
+                                        to="/test"
+                                        style={{ textDecoration: 'none', color: '#000' }}
+                                        onClick={eventhandler.handleDrawerToggle}
+                                    >
+                                        <ListItem button className={classes.itemList}>
+                                            <DescriptionIcon />
+                                            <ListItemText primary={t('테스트')} />
+                                        </ListItem>
+                                    </Link>
+                                </AccordionDetails>
+                            </Accordion>
+
                         </List>
                         <List>
                             <div>
