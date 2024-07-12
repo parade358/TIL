@@ -23,11 +23,6 @@ export default function App() {
     setTitle(copy);
   };
 
-  function sortArray() {
-    let copy = [...title];
-    copy.sort();
-    setTitle(copy);
-  };
 
   function clickTitle() {
     if(modal === false)
@@ -61,12 +56,9 @@ export default function App() {
         })
       }
 
-
-      <button onClick={ sortArray }>Button2</button>
-
       {
         //html 작성하는곳이라 if문 불가능, 삼항연산자 활용
-        modal == true ? <Modal title={title} color='yellow'/> : null
+        modal == true ? <Modal title={title} color='yellow' clickBtn = {clickBtn}/> : null
       }
     </div>
   );
@@ -82,7 +74,7 @@ function Modal(props){
         <h4>{props.title[0]}</h4>
         <p>날짜</p>
         <p>상세내용</p>
-        <button onClick={ clickBtn }>글수정</button>
+        <button onClick={ props.clickBtn }>글수정</button>
     </div>
     </>
   );
