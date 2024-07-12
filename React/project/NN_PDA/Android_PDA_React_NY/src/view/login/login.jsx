@@ -13,9 +13,7 @@ import AcsDialog from '../../components/acsDialog';
 import AcsTextField from '../../components/acsTextField';
 
 //컴포넌트 변수 선언
-const PDA_API_GETDATE_URL = process.env.REACT_APP_PDA_API_GETDATE_URL;
 const PDA_API_GENERAL_URL = process.env.REACT_APP_PDA_API_GENERAL_URL;
-const PDA_API_DICTIONARY_URL = process.env.REACT_APP_PDA_API_DICTIONARY_URL;
 const PDA_VERSION = process.env.REACT_APP_PDA_VERSION;
 const PROC_ATM_SP_LOGIN_L = 'pk_ATM_sp_login_L'; // 로그인
 const PROC_PK_PDA_PLANT_NAME_L = 'U_PK_PDA_PLANT_NAME_L'; // 공장명

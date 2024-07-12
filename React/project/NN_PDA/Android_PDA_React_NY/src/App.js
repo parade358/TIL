@@ -19,6 +19,7 @@ import ShipmentProductAuto from './view/shipment/shipmentProductAuto';
 import MaterialInput from './view/material/materialInput';
 import ShipmentOutSideAuto from './view/shipment/shipmentOutSideAuto';
 import ShipmentOutSide from './view/shipment/shipmentOutSide';
+import Test from './view/test/test';
 function App() {
     return (
         <>
@@ -111,6 +112,11 @@ function App() {
                     <Route exact path="/inventoryMoveReceipt">
                         <ACSNavBar menuName="완제품이동" menuOpened={false} />
                         <InventoryMoveReceipt />
+                    </Route>
+
+                    <Route exact path="/test">
+                        <ACSNavBar menuName="테스트" menuOpened={false} />
+                        <Test />
                     </Route>
                 </Switch>
             </BrowserRouter>
