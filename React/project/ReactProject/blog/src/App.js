@@ -50,7 +50,7 @@ export default function App() {
         title.map(function(a, i){
           return (
             <div className='list' key={i}>
-              <h4 >{title[i]}  <span onClick={() => {
+              <h4 onClick={clickTitle}>{title[i]}  <span onClick={() => {
                                                       let copy = [...like];
                                                       copy[i] = copy[i] + 1;
                                                       setLike(copy);
@@ -62,25 +62,27 @@ export default function App() {
       }
 
 
-      <button onClick={ clickBtn }>Button1</button>
       <button onClick={ sortArray }>Button2</button>
 
       {
         //html 작성하는곳이라 if문 불가능, 삼항연산자 활용
-        modal == true ? <Modal/> : null
+        modal == true ? <Modal title={title} color='yellow'/> : null
       }
     </div>
   );
 };
 
 // 컴포넌트 *반복적인 html 축약할때, 큰 페이지들, 자주변경되는것들
-function Modal(){
+function Modal(props){
+
+
   return(
     <>
-    <div className="modal">
-        <h4>제목</h4>
+    <div className="modal" style={{background : props.color}}>
+        <h4>{props.title[0]}</h4>
         <p>날짜</p>
         <p>상세내용</p>
+        <button onClick={ clickBtn }>글수정</button>
     </div>
     </>
   );
