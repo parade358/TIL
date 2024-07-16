@@ -41,6 +41,7 @@ const PROC_PK_PDA_IV01_1_D = 'U_PK_PDA_IV01_1_D'; // 선택삭제  개발서버 
 const PROC_PK_PDA_IV01_2_S = 'U_PK_PDA_IV01_2_S'; //입고확정
 const PROC_PK_PDA_IV01_3_S = 'U_PK_PDA_IV01_3_S'; //입고수량 잔량여부 확인
 const PROC_PK_PDA_IV01_7_L = 'U_PK_PDA_IV01_7_L'; // 입고확정 (잔량 표시)
+const PROC_PK_ARRAY_TEST = 'U_PK_ARRAY_TEST';
 
 let msg = '';
 let inv_id; // 부품표 스캔시 던져지는 매개변수
@@ -1742,6 +1743,40 @@ function MaterialInput() {
                 });
         },
     };
+
+    const [numArray, setNumArray] = useState([1,2,3,4,5,6])
+
+    const arrayTest = async () => {
+        for (let i = 0; i < numArray.length; i++) {
+            const requestOption = getRequestOptions(PROC_PK_ARRAY_TEST, getRequestParam(numArray[i]));
+
+            try {
+                const res = await fetch(PDA_API_GENERAL_URL, requestOption);
+                const data = await res.json();
+
+                if (data.returnUserMessage !== null || data.returnErrorMsg !== null) {
+                    // 에러 또는 사용자 메시지가 있을 경우
+                    const newArray = numArray.slice(i + 1);
+                    setNumArray(newArray);
+                    console.log(newArray);
+                    msg = data.returnUserMessage;
+                    setDialogOpen(true);
+                    break;
+                } else {
+                    
+                }
+            } catch (error) {
+                // fetch 요청 에러 처리
+                const newArray = numArray.slice(i + 1);
+                setNumArray(newArray);
+                console.log(newArray);
+                msg = COMMON_MESSAGE.FETCH_ERROR + error.value;
+                setDialogOpen(true);
+                break;
+            }
+        }
+    };
+
     //dataGrid
     const columns1 = [
         { field: 'PART_ID', headerName: '품번', width: 160, headerAlign: 'left', align: 'left' },
@@ -1792,6 +1827,7 @@ function MaterialInput() {
                         }}
                         onChange={eventhandler.onMarterialInLocationChanged}
                     ></AcsSelect>
+                    <button onClick={arrayTest}>배열 테스트</button>
                 </AcsTabPanel>
                 {/* ================================================================================== */}
                 {/* 자재 */}

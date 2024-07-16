@@ -97,9 +97,10 @@ let msg = '';
 
 const PDA_API_IMAGE_URL = process.env.REACT_APP_PDA_API_IMAGE_URL;
 
+const PDA_API_IMAGE_LOAD_URL = process.env.REACT_APP_PDA_API_IMAGE_LOAD_URL;
+
 
 // =============== 데이터베이스 관련 로직 =================
-
 // const PDA_API_GENERAL_URL = process.env.REACT_APP_PDA_API_GENERAL_URL;
 // const PROC_PK_PDA_IMAGE_TEST_L = 'U_PK_PDA_IMAGE_TEST_L';
 // const PROC_PK_PDA_IMAGE_TEST_S = 'U_PK_PDA_IMAGE_TEST_S';
@@ -140,13 +141,13 @@ export default function Test () {
 
     const classes = useStyle(); // CSS 스타일
 
-    const [dialogOpen, setDialogOpen] = useState(false); // 다이얼로그 (메시지창)
-    const [image, setImage] = useState('');
+    const [dialogOpen,  setDialogOpen]  = useState(false);
+    const [image,       setImage]       = useState('');
 
     const onMessage = useCallback((event) => {
         ReadData(event);
-    }, []); // WebView에서 받아온 데이터
-
+    }, []); 
+    
     useEffect(() => {
         document.addEventListener('message', onMessage);
         return () => {
@@ -155,27 +156,24 @@ export default function Test () {
         };
     }, []);
 
-    // PDA 진동
     const vibration = () => {
         if (window.ReactNativeWebView) {
             window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'VIBRATION' }));
         }
     };
 
-    // PDA 카메라 ON
     const camera = () => {
         if (window.ReactNativeWebView) {
             window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'CAMERA' }));
         }
     };
 
-    // React Native WebView 에서 데이터 가져오기
+
     const ReadData = (e) => {
         const { imageSourceData } = JSON.parse(e.data);
         setImage(imageSourceData);
     };
 
-    // 메세지 다이얼로그 닫기
     const handleClose = (e) => {
         setDialogOpen(false);
     };
@@ -229,6 +227,37 @@ export default function Test () {
             msg = '저장할 이미지가 없습니다.'
             setDialogOpen(true);
         }
+    };
+
+    const loadImage = async () => {
+        
+        const fileName = 'image.jpg';
+    
+        try {
+            const requestOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ FileName: fileName }),
+            };
+    
+            const response = await fetch(PDA_API_IMAGE_LOAD_URL, requestOptions);
+
+            console.log(response);
+    
+            if (!response.ok) {
+                throw new Error(`이미지를 가져오지 못했습니다. (HTTP 상태 코드: ${response.status})`);
+            }
+    
+            const blobData = await response.blob();
+            const imageUrl = URL.createObjectURL(blobData);
+            setImage(imageUrl); // 이미지 URL을 상태로 설정
+
+        } catch (error) {
+            console.error('이미지를 불러오는 중 에러 발생:', error.message);
+            console.log(error);
+        }
+    };
+        
 
     // =============== 데이터베이스 관련 로직 =================
 
@@ -310,8 +339,7 @@ export default function Test () {
     //                     return;
     //                 });
     // };
-         
-    };
+    
        
     return(
     <>
@@ -319,7 +347,7 @@ export default function Test () {
             <button onClick={vibration}>진동</button>
             <button onClick={camera}>카메라</button>
             {/* <button onClick={saveImage}>사진저장</button> */}
-            {/* <button onClick={loadImage}>사진가져오기</button> */}
+            <button onClick={loadImage}>사진가져오기</button>
             <button onClick={saveImageFile}>사진파일저장</button>
         </div>
 
