@@ -3,9 +3,10 @@ import { makeStyles } from '@material-ui/core';
 import AcsDialog        from '../../components/acsDialog';
 
 const PDA_API_GENERAL_URL = process.env.REACT_APP_PDA_API_GENERAL_URL;
+const PDA_API_IMAGE_URL = process.env.REACT_APP_PDA_API_IMAGE_URL;
 
-const PROC_PK_PDA_IMAGE_TEST_L = 'U_PK_PDA_IMAGE_TEST_L'; // 2공장 O
-const PROC_PK_PDA_IMAGE_TEST_S = 'U_PK_PDA_IMAGE_TEST_S'; // 2공장 O
+const PROC_PK_PDA_IMAGE_TEST_L = 'U_PK_PDA_IMAGE_TEST_L';
+const PROC_PK_PDA_IMAGE_TEST_S = 'U_PK_PDA_IMAGE_TEST_S';
 
 const useStyle = makeStyles((theme) => ({
     root: {
@@ -259,13 +260,67 @@ export default function Test () {
                     });
     }
 
+    const saveImageFile = () => {
+
+        
+        if(image !== '')
+        {
+            const fileName = 'image.jpg';
+        
+            const requestOptions = {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json',},
+                body: JSON.stringify({ Base64Data: image, FileName: fileName }),
+                redirect: 'follow',
+            };
+
+            fetch(PDA_API_IMAGE_URL, requestOptions)
+            .then((res) => res.json())
+            .then((data) => {
+                        // 사용자 메시지 처리
+                        if (data.returnUserMessage !== null) {
+                            msg = '사용자메시지' + data.returnUserMessage;
+                            setDialogOpen(true);
+                            vibration();
+                            return;
+                        }
+                        // 에러 메시지 처리
+                        else if (data.returnErrorMsg !== null) {
+                            msg = '에러발생' + data.returnErrorMsg;
+                            setDialogOpen(true);
+                            vibration();
+                            return;
+                        }
+                        // 결과 처리
+                        else {
+                            msg = '파일저장 성공'
+                            setDialogOpen(true);
+                        }
+                    })
+                    .catch((error) => {
+                        msg = '에러발생' + error.message;
+                        setDialogOpen(true);
+                        vibration();
+                        return;
+                    });
+
+        }
+        else
+        {
+            msg = '저장할 이미지가 없습니다.'
+            setDialogOpen(true);
+        }
+                    
+    }
+                
     return(
     <>
         <div className={classes.root}>
             <button onClick={vibration}>진동</button>
             <button onClick={camera}>카메라</button>
-            <button onClick={saveImage}>사진저장</button>
-            <button onClick={loadImage}>사진가져오기</button>
+            {/* <button onClick={saveImage}>사진저장</button> */}
+            {/* <button onClick={loadImage}>사진가져오기</button> */}
+            <button onClick={saveImageFile}>사진파일저장</button>
         </div>
 
         <div>
