@@ -95,54 +95,54 @@ const useStyle = makeStyles((theme) => ({
 
 let msg = '';
 
-const PDA_API_IMAGE_URL = process.env.REACT_APP_PDA_API_IMAGE_URL;
-
-const PDA_API_IMAGE_LOAD_URL = process.env.REACT_APP_PDA_API_IMAGE_LOAD_URL;
+// =============== 로컬디스크 저장 관련 로직 =================
+// const PDA_API_IMAGE_URL = process.env.REACT_APP_PDA_API_IMAGE_URL;
+// const PDA_API_IMAGE_LOAD_URL = process.env.REACT_APP_PDA_API_IMAGE_LOAD_URL;
 
 
 // =============== 데이터베이스 관련 로직 =================
-// const PDA_API_GENERAL_URL = process.env.REACT_APP_PDA_API_GENERAL_URL;
-// const PROC_PK_PDA_IMAGE_TEST_L = 'U_PK_PDA_IMAGE_TEST_L';
-// const PROC_PK_PDA_IMAGE_TEST_S = 'U_PK_PDA_IMAGE_TEST_S';
+const PDA_API_GENERAL_URL = process.env.REACT_APP_PDA_API_GENERAL_URL;
+const PROC_PK_PDA_IMAGE_TEST_L = 'U_PK_PDA_IMAGE_TEST_L';
+const PROC_PK_PDA_IMAGE_TEST_S = 'U_PK_PDA_IMAGE_TEST_S';
 
 
-// // Request Option
-// function getRequestOptions(serviceID, serviceParam) {
-//         const myHeaders = new Headers();
-//         myHeaders.append('Content-Type', 'application/json');
+// Request Option
+function getRequestOptions(serviceID, serviceParam) {
+        const myHeaders = new Headers();
+        myHeaders.append('Content-Type', 'application/json');
     
-//         const raw = JSON.stringify({
-//         userID: localStorage.getItem('PDA_ID'),
-//         userPlant: localStorage.getItem('PDA_PLANT_ID'),
-//         serviceID: serviceID,
-//         serviceParam: serviceParam,
-//         serviceCallerEventType: 'onSubmit',
-//         serviceCallerEventName: 'onLoginClick',
-//         clientNetworkType: navigator.connection.effectiveType,
-//     });
+        const raw = JSON.stringify({
+        userID: localStorage.getItem('PDA_ID'),
+        userPlant: localStorage.getItem('PDA_PLANT_ID'),
+        serviceID: serviceID,
+        serviceParam: serviceParam,
+        serviceCallerEventType: 'onSubmit',
+        serviceCallerEventName: 'onLoginClick',
+        clientNetworkType: navigator.connection.effectiveType,
+    });
 
-//     const requestOptions = {
-//             method: 'POST',
-//             headers: myHeaders,
-//             body: raw,
-//             redirect: 'follow',
-//         };
-//         return requestOptions;
-//     }
+    const requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow',
+        };
+        return requestOptions;
+    }
     
-    // // Request Param
-    // function getRequestParam() {
-//     return [...arguments] //
-//         .map((el) => `'${el}'`)
-//         .join('&del;');
-// }
+    // Request Param
+    function getRequestParam() {
+    return [...arguments] //
+        .map((el) => `'${el}'`)
+        .join('&del;');
+}
 
 export default function Test () {
 
     const classes = useStyle(); // CSS 스타일
 
     const [dialogOpen,  setDialogOpen]  = useState(false);
-    const [image,       setImage]       = useState('');
+    const [imageData,   setImageData]       = useState('');
 
     const onMessage = useCallback((event) => {
         ReadData(event);
@@ -170,175 +170,186 @@ export default function Test () {
 
 
     const ReadData = (e) => {
-        const { imageSourceData } = JSON.parse(e.data);
-        setImage(imageSourceData);
+
+        const type = JSON.parse(e.data).type;
+        const imageSourceData  = JSON.parse(e.data).imageSourceData;
+
+        if(type === 'IMAGEDATA')
+        {
+            setImageData(imageSourceData);
+            saveImage(imageSourceData);
+        }
     };
 
     const handleClose = (e) => {
         setDialogOpen(false);
     };
 
-    const saveImageFile = () => {
-
-        if(image !== '')
-        {
-            const fileName = 'image.jpg';
-        
-            const requestOptions = {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json',},
-                body: JSON.stringify({ Base64Data: image, FileName: fileName }),
-                redirect: 'follow',
-            };
-
-            fetch(PDA_API_IMAGE_URL, requestOptions)
-            .then((res) => res.json())
-            .then((data) => {
-                        // 사용자 메시지 처리
-                        if (data.returnUserMessage !== null) {
-                            msg = '사용자메시지' + data.returnUserMessage;
-                            setDialogOpen(true);
-                            vibration();
-                            return;
-                        }
-                        // 에러 메시지 처리
-                        else if (data.returnErrorMsg !== null) {
-                            msg = '에러발생' + data.returnErrorMsg;
-                            setDialogOpen(true);
-                            vibration();
-                            return;
-                        }
-                        // 결과 처리
-                        else {
-                            msg = '파일저장 성공'
-                            setDialogOpen(true);
-                        }
-                    })
-                    .catch((error) => {
-                        msg = '에러발생' + error.message;
-                        setDialogOpen(true);
-                        vibration();
-                        return;
-                    });
-
-        }
-        else
-        {
-            msg = '저장할 이미지가 없습니다.'
-            setDialogOpen(true);
-        }
-    };
-
-    const loadImage = async () => {
-        
-        const fileName = 'image.jpg';
-    
-        try {
-            const requestOptions = {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ FileName: fileName }),
-            };
-    
-            const response = await fetch(PDA_API_IMAGE_LOAD_URL, requestOptions);
-
-            console.log(response);
-    
-            if (!response.ok) {
-                throw new Error(`이미지를 가져오지 못했습니다. (HTTP 상태 코드: ${response.status})`);
-            }
-    
-            const blobData = await response.blob();
-            const imageUrl = URL.createObjectURL(blobData);
-            setImage(imageUrl); // 이미지 URL을 상태로 설정
-
-        } catch (error) {
-            console.error('이미지를 불러오는 중 에러 발생:', error.message);
-            console.log(error);
-        }
-    };
-        
-
-    // =============== 데이터베이스 관련 로직 =================
-
-    // const saveImage = () => {
-    //     const requestOption = getRequestOptions(
-    //         PROC_PK_PDA_IMAGE_TEST_S,
-    //         getRequestParam('IMAGE2', image)
-    //     );
-
-    //     fetch(PDA_API_GENERAL_URL, requestOption)
-    //     .then((res) => res.json())
-    //     .then((data) => {
-    //         // 사용자 메시지 처리
-    //         if (data.returnUserMessage !== null) {
-    //             msg = data.returnUserMessage;
-    //             setDialogOpen(true);
-    //             vibration();
-    //             return;
-    //         }
-    //         // 에러 메시지 처리
-    //         else if (data.returnErrorMsg !== null) {
-    //             msg = data.returnErrorMsg;
-    //             setDialogOpen(true);
-    //             vibration();
-    //             return;
-    //         }
-    //         // 결과 처리
-    //         else {
-    //             msg = '저장성공';
-    //             setDialogOpen(true);
-    //         }
-    //     })
-    //     .catch((error) => {
-    //         msg = + error.message;
-    //         setDialogOpen(true);
-    //         vibration();
-    //         return;
-    //     });
-    // }
-
-    // const loadImage = () => {
-
-    //     const requestOption = getRequestOptions(
-    //         PROC_PK_PDA_IMAGE_TEST_L,
-    //         getRequestParam('IMAGE')
-    //     );
-
-    //     fetch(PDA_API_GENERAL_URL, requestOption)
-    //                 .then((res) => res.json())
-    //                 .then((data) => {
+    //#region =============== 로컬디스크 저장 관련 로직 =================
+    // const saveImageFile = () => {
+    //     if(imageData !== '')
+    //     {
+    //         const fileName = 'image.jpg';     
+    //         const requestOptions = {
+    //             method: 'POST',
+    //             headers: {'Content-Type': 'application/json',},
+    //             body: JSON.stringify({ Base64Data: imageData, FileName: fileName }),
+    //             redirect: 'follow',
+    //         };
+    //         fetch(PDA_API_IMAGE_URL, requestOptions)
+    //         .then((res) => res.json())
+    //         .then((data) => {
     //                     // 사용자 메시지 처리
     //                     if (data.returnUserMessage !== null) {
-    //                         msg = data.returnUserMessage;
+    //                         msg = '사용자메시지' + data.returnUserMessage;
     //                         setDialogOpen(true);
     //                         vibration();
     //                         return;
     //                     }
     //                     // 에러 메시지 처리
     //                     else if (data.returnErrorMsg !== null) {
-    //                         msg = data.returnErrorMsg;
+    //                         msg = '에러발생' + data.returnErrorMsg;
     //                         setDialogOpen(true);
     //                         vibration();
     //                         return;
     //                     }
     //                     // 결과 처리
     //                     else {
-
-    //                         const tmpArray = JSON.parse(data.returnValue[0]);
-    //                         setImage(tmpArray[0]['IMAGE_BASE64']);
-    //                         msg = '불러오기 성공'
+    //                         msg = '파일저장 성공'
     //                         setDialogOpen(true);
     //                     }
     //                 })
-
     //                 .catch((error) => {
-    //                     msg = + error.message;
+    //                     msg = '에러발생' + error.message;
     //                     setDialogOpen(true);
     //                     vibration();
     //                     return;
     //                 });
+    //     }
+    //     else
+    //     {
+    //         msg = '저장할 이미지가 없습니다.'
+    //         setDialogOpen(true);
+    //     }
     // };
+    // const loadImage = async () => {
+    //     const fileName = 'image.jpg';
+    //     try {
+    //         const requestOptions = {
+    //             method: 'POST',
+    //             headers: { 'Content-Type': 'application/json' },
+    //             body: JSON.stringify({ FileName: fileName }),
+    //         };
+    //        const response = await fetch(PDA_API_IMAGE_LOAD_URL, requestOptions);
+    //         console.log(response); 
+    //         if (!response.ok) {
+    //             throw new Error(`이미지를 가져오지 못했습니다. (HTTP 상태 코드: ${response.status})`);
+    //         } 
+    //         const blobData = await response.blob();
+    //         const imageUrl = URL.createObjectURL(blobData);
+    //         setImageData(imageUrl); // 이미지 URL을 상태로 설정
+    //     } catch (error) {
+    //         console.error('이미지를 불러오는 중 에러 발생:', error.message);
+    //         console.log(error);
+    //     }
+    // };
+    //#endregion
+
+
+    // =============== 데이터베이스 관련 로직 =================
+
+    const saveImage = (imageSourceData) => {
+
+        const date = new Date();
+        const formattedDate = date.toISOString().slice(0, 10).replace(/-/g, '');
+        const randomString = Array.from({ length: 10 }, () => 'abcdefghijklmnopqrstuvwxyz0123456789'.charAt(Math.floor(Math.random() * 36))).join('');
+        const imageName = formattedDate + randomString;
+
+        if(imageSourceData !== '')
+        {
+            const requestOption = getRequestOptions(
+                PROC_PK_PDA_IMAGE_TEST_S,
+                getRequestParam(imageName, imageSourceData)
+            );
+
+            fetch(PDA_API_GENERAL_URL, requestOption)
+            .then((res) => res.json())
+            .then((data) => {
+                // 사용자 메시지 처리
+                if (data.returnUserMessage !== null) {
+                    msg = data.returnUserMessage;
+                    setDialogOpen(true);
+                    vibration();
+                    return;
+                }
+                // 에러 메시지 처리
+                else if (data.returnErrorMsg !== null) {
+                    msg = data.returnErrorMsg;
+                    setDialogOpen(true);
+                    vibration();
+                    return;
+                }
+                // 결과 처리
+                else {
+                    msg = '저장성공';
+                    setDialogOpen(true);
+                }
+            })
+            .catch((error) => {
+                msg = + error.message;
+                setDialogOpen(true);
+                vibration();
+                return;
+            });
+        }
+        else
+        {
+             msg = '저장할 이미지가 없습니다.'
+             setDialogOpen(true);
+        }
+    }
+
+    const loadImage = () => {
+
+        const requestOption = getRequestOptions(
+            PROC_PK_PDA_IMAGE_TEST_L,
+            getRequestParam(3)
+        );
+
+        fetch(PDA_API_GENERAL_URL, requestOption)
+                    .then((res) => res.json())
+                    .then((data) => {
+                        // 사용자 메시지 처리
+                        if (data.returnUserMessage !== null) {
+                            msg = data.returnUserMessage;
+                            setDialogOpen(true);
+                            vibration();
+                            return;
+                        }
+                        // 에러 메시지 처리
+                        else if (data.returnErrorMsg !== null) {
+                            msg = data.returnErrorMsg;
+                            setDialogOpen(true);
+                            vibration();
+                            return;
+                        }
+                        // 결과 처리
+                        else {
+
+                            const tmpArray = JSON.parse(data.returnValue[0]);
+                            setImageData(tmpArray[0]['IMAGE_BASE64']);
+                            msg = '불러오기 성공'
+                            setDialogOpen(true);
+                        }
+                    })
+
+                    .catch((error) => {
+                        msg = + error.message;
+                        setDialogOpen(true);
+                        vibration();
+                        return;
+                    });
+    };
     
        
     return(
@@ -346,18 +357,15 @@ export default function Test () {
         <div className={classes.root}>
             <button onClick={vibration}>진동</button>
             <button onClick={camera}>카메라</button>
-            {/* <button onClick={saveImage}>사진저장</button> */}
+            <button onClick={saveImage}>사진저장</button>
             <button onClick={loadImage}>사진가져오기</button>
-            <button onClick={saveImageFile}>사진파일저장</button>
+            {/* <button onClick={saveImageFile}>사진파일저장</button> */}
         </div>
 
         <div>
-            {/* 이미지가 존재하는 경우에만 이미지를 렌더링합니다 */}
-      
                 <div>
-                    <img src={image} alt="사진" style={{ maxWidth: '100%', maxHeight: '300px' }} />
+                    <img src={imageData} alt="사진" style={{ maxWidth: '100%', maxHeight: '300px' }} />
                 </div>
-            
         </div>
 
         {/* 메시지 박스 */}
