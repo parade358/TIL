@@ -7,7 +7,7 @@ function AcsDataGrid({width, height, rows, cols, ...props}) {
   const changedcols = cols.map((column) => ({
         ...column,
         sortable: false,
-        }));      
+        }));
   const [pageSize, setPageSize] = useState(100); // Data Grid 페이지 row 개수
 
   const handlePageSizeChange = (e) => {
