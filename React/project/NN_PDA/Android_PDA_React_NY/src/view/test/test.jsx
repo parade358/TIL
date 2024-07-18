@@ -203,6 +203,7 @@ export default function Test() {
         setSelected(new Array(newImageData.length).fill(false));
     };
 
+    // fetch문 반복 X
     const clickSaveBtn = () => {
         imageData.forEach(imageSourceData => {
             saveImage(imageSourceData);
@@ -245,7 +246,6 @@ export default function Test() {
                     setDialogOpen(true);
                 }
             })
-
             .catch((error) => {
                 msg = + error.message;
                 setDialogOpen(true);
@@ -256,6 +256,7 @@ export default function Test() {
 
     const saveImage = (imageSourceData) => {
 
+        // 이름 난수 만드는 부분은 api에서 처리
         const date = new Date();
         const formattedDate = date.toISOString().slice(0, 10).replace(/-/g, '');
         const randomString = Array.from({ length: 10 }, () => 'abcdefghijklmnopqrstuvwxyz0123456789'.charAt(Math.floor(Math.random() * 36))).join('');
