@@ -134,14 +134,14 @@ function getRequestOptions(serviceID, serviceParam) {
         redirect: 'follow',
     };
     return requestOptions;
-}
+};
 
 // Request Param
 function getRequestParam() {
     return [...arguments] //
         .map((el) => `'${el}'`)
         .join('&del;');
-}
+};
 
 export default function Test() {
 
@@ -282,7 +282,7 @@ export default function Test() {
                     else if (data.returnErrorMsg !== null) {
                         msg = data.returnErrorMsg;
                         setDialogOpen(true);
-                        vibration();
+                        vibration();   
                         return;
                     }
                     // 결과 처리
@@ -340,4 +340,4 @@ export default function Test() {
             ></AcsDialog>
         </>
     );
-}
+};
