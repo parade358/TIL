@@ -224,7 +224,7 @@ function getRequestParam() {
     return [...arguments] //
         .map((el) => `'${el}'`)
         .join('&del;');
-}
+};
 
 function MaterialInput() {
     const classes = useStyle(); // CSS 스타일

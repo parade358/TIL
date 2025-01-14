@@ -314,6 +314,7 @@ export default function Test() {
                 <button onClick={loadImage}>사진가져오기</button>
                 {/* <button onClick={saveImageFile}>사진파일저장</button> */}
                 <button onClick={initImage}>초기화</button>
+                <input type='file'></input>
             </div>
 
             <div>
