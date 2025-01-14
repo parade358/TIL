@@ -275,7 +275,7 @@ function ShipmentProductAuto() {
     const [backdropOpen, setBackdropOpen] = useState(false); // 대기
 
     const pda_id = localStorage.getItem('PDA_ID'); // 사용자 ID
-    const pda_plant_id = localStorage.getItem('PDA_PLANT_ID'); // 공장 ID
+    const pda_plant_id = localStorage.getItem('PDA_PLANT_ID'); // 공장 ID 
     const pda_mac_address = localStorage.getItem('PDA_MAC_ADDRESS'); // PDA Mac Address
 
     const onMessage = useCallback((event) => {

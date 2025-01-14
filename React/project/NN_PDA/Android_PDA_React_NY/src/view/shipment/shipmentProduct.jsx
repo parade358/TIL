@@ -339,6 +339,13 @@ function ShipmentProduct() {
     const [reissueBtnDisabled, setReissueBtnDisabled] = useState(true); // 재발행 버튼 Disabled
     // ===========================================================================================================================
 
+
+    const [selectionModel, setSelectionModel] = useState([]);
+
+    const handleDeselectAll = () => {
+        setSelectionModel([]); // 모든 선택 해제
+    };
+
     // 화면 처음 로드시
     // 임시데이터 삭제
     // WebView에서 스캔 데이터 받는 이벤트
@@ -1147,7 +1154,7 @@ function ShipmentProduct() {
     // 출하지시 조회
     const loadDevoutData = () => {
         const transDate = transDateSplitArray(shipmentRequestDateRef.current);
-        const requestOption = getRequestOptions(PROC_PK_PDA_DV01_L, getRequestParam(transDate, pda_plant_id));
+        const requestOption = getRequestOptions(PROC_PK_PDA_DV01_L, getRequestParam('20160216', pda_plant_id));
         setBackdropOpen(true);
         fetch(PDA_API_GENERAL_URL, requestOption)
             .then((res) => res.json())
@@ -1948,6 +1955,8 @@ function ShipmentProduct() {
             });
     };
 
+
+
     // 출문증 재발행 조회
     const loadReissuanceOfPassport = () => {
         const reissueShipmentDate = transDateSplitArray(reissueShipmentDateRef.current);
@@ -2318,6 +2327,7 @@ function ShipmentProduct() {
             onMessageGubunRef.current = '출하지시리스트클릭';
             // webView 데이터 요청
             webViewPostMessage();
+            loadDevoutDetailData();
         },
 
         // 리스트2 에서 한 행을 체크시 이벤트
@@ -2336,6 +2346,7 @@ function ShipmentProduct() {
             onMessageGubunRef.current = '출하지시선택';
             // webView 데이터 요청
             webViewPostMessage();
+            selectDevout();
         },
 
         // 현재 재고현황 팝업창 로드 - [현재 재고현황 팝업창]
@@ -2467,6 +2478,7 @@ function ShipmentProduct() {
 
         // 삭제 버튼 이벤트
         onDeleteBtnClick: (e) => {
+            handleDeselectAll();
             const length = selectionModelRef.current.length;
 
             if (sumList4Ref.current.length === 0) {
@@ -2946,6 +2958,7 @@ function ShipmentProduct() {
                         rows={sumList4}
                         height="200px"
                         checkboxSelection={true}
+                        selectionModel={selectionModel}
                         disableSelectionOnClick
                         onCellClick={eventhandler.onShipmentCellClick}
                         onSelectionModelChange={eventhandler.onSelectionModelChange}

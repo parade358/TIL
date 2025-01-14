@@ -290,10 +290,10 @@ function ShipmentMutipleCustomerLabelReplacement() {
     const [textLotNo,                               setTextLotNo]                               = useState('');     // Lot No state
     const [textPartName,                            setTextPartName]                            = useState('');     // 품명 Text
     const [inputLocation,                           setInputLocation]                           = useState('');     // 입고표 위치 Text
-    const [inputQty,                                setInputQty]                                = useState(0);     // 입고표수량 Text
-    const [customerQty,                             setCustomerQty]                             = useState(0);     // 고객수량 Text
-    const [shipmentQty,                             setShipmentQty]                             = useState(0);     // 스캔한 수량 Text
-    const [scanCnt,                                 setScanCnt]                                 = useState(0);     // 스캔한 횟수 Text
+    const [inputQty,                                setInputQty]                                = useState(0);      // 입고표수량 Text
+    const [customerQty,                             setCustomerQty]                             = useState(0);      // 고객수량 Text
+    const [shipmentQty,                             setShipmentQty]                             = useState(0);      // 스캔한 수량 Text
+    const [scanCnt,                                 setScanCnt]                                 = useState(0);      // 스캔한 횟수 Text
     const [openShipmentDateChangeForm,              setOpenShipmentDateChangeForm]              = useState(false);  // 출하일자조정 다이얼로그 - [출하일자조정 팝업창]
     const [sumList4,                                setSumList4]                                = useState([]);     // 출하 리스트 목록
     const [openCurrentInventory_shipmentQtyForm,    setOpenCurrentInventory_shipmentQtyForm]    = useState(false);  // 현재재고, 출하수량 다이얼로그 - [현재재고, 출하수량 팝업창]
