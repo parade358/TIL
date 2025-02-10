@@ -1,9 +1,20 @@
+@font-face {
+    font-family: 'nanumSquare';
+    src: url(../font/NanumSquareR.ttf);
+}
+
+p,h1,h2,h3,h4,span {
+    transform: rotate(0.04deg);
+}
+
+
 div, input, textarea {
     box-sizing: border-box;
 }
 
 body {
     margin: 0px;
+    font-family: 'nanumSquare';
 }
 
 
@@ -75,7 +86,7 @@ body {
 .main-background {
     width: 100%;
     height: 500px;
-    background-image: url(../shoes.jpg);
+    background-image: url(../image/shoes.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -170,6 +181,8 @@ body {
     margin-left: auto;
 }
 
+/* 테이블 관련 CSS */
+
 td, th {
     border: 1px solid black;
 }
@@ -225,4 +238,67 @@ table {
 
 .input-test:focus {
     border-bottom: 2px solid red;
+}
+
+
+/* flex 관련 css */
+
+.flex-container {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.flex-item {
+    margin-right: 10px;
+}
+
+
+/* 반응형 UI */
+
+.frame {
+    width: 80%;
+    max-width: 1000px;
+    margin: auto;
+    margin-bottom: 50px;
+}
+
+.frame>div{
+    float: left;
+    width: 25%;
+    text-align: center;
+}
+
+@media screen and (max-width: 1200px) {
+    .main-title {
+        font-size: 30px;
+    }
+
+    .flex-item {
+        font-size: 12px;
+    }
+
+    .frame>div {
+        float : left;
+        width : 50%;
+    }
+
+    .frame {
+        max-width: 600px;
+    }
+    
+}
+
+@media screen and (max-width: 768px) {
+
+    .main-title {
+        font-size: 20px;
+    }
+
+    .frame>div {
+        float : none;
+        width : 100%;
+      }
+      
 }
