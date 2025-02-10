@@ -1,0 +1,36 @@
+body {
+    margin: 0px;
+}
+
+.frame {
+    width: 80%;
+    max-width: 1000px;
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+
+.frame>div{
+    float: left;
+    width: 25%;
+}
+
+@media screen and (max-width: 1200px) {
+
+    .frame>div {
+        float : left;
+        width : 50%;
+    }
+
+}
+
+@media screen and (max-width: 768px) {
+
+    .frame>div {
+        float : none;
+        width : 100%;
+      }
+      
+}
+

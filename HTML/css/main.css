@@ -1,0 +1,304 @@
+@font-face {
+    font-family: 'nanumSquare';
+    src: url(../font/NanumSquareR.ttf);
+}
+
+p,h1,h2,h3,h4,span {
+    transform: rotate(0.04deg);
+}
+
+
+div, input, textarea {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0px;
+    font-family: 'nanumSquare';
+}
+
+
+
+.profile {
+    width: 100px; 
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.title {
+    font-size: 16px; 
+    text-align: center;
+}
+
+.main-box p, .main-background p {
+    text-align: center;
+}
+
+.box {
+    width: 100px;
+    background-color: cadetblue;
+    margin: 10px;
+    padding: 40px;
+    display: block;
+    border-radius: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 10px;
+    color: white;
+    box-shadow: 10px 10px 5px 1px gray;
+}
+
+.container {
+    width: 800px;
+}
+
+.header {
+    width: 100%;
+    height: 100px;
+    background-color: aquamarine;
+}
+
+.left-menu {
+    width: 20%;
+    height: 400px;
+    background-color: cornflowerblue;
+    display: inline-block;
+    vertical-align: top;
+    /* float: left; */
+}
+
+.right { 
+    width: 80%;
+    height: 400px;
+    background-color: coral;
+    display: inline-block;
+    /* float: left; */
+}
+
+.footer {
+    width: 100%;
+    height: 100px;
+    background-color: grey;
+    /* clear: left; */
+}
+
+.main-background {
+    width: 100%;
+    height: 500px;
+    background-image: url(../image/shoes.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 1px;
+}
+
+.main-title {
+    text-align: center;
+    color: white;
+    font-size: 40px;
+    margin-top: 70px;
+}
+
+.main-content {
+    color: white;
+    font-size: 20px;
+    margin-top: 30px;
+}
+
+.main-button {
+    /* position: relative;(relative : 내 원래위치를 기준으로 이동) 좌표이동가능 */
+    /* top: 100px; */
+    border-radius: 5px;
+    width: 100px;
+    height: 50px;
+    margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    background-color: white;
+}
+
+.main-box {
+    text-align: center;
+    height: 200px;
+    width: 80%;
+    max-width: 700px;
+    background-color: #eee;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    top: -70px;
+    box-sizing: border-box;
+}
+
+.box-title {
+    text-align: center;
+    color: black;
+    font-size: 25px;
+    padding-top: 20px;
+}
+
+.box-content {
+    color: black;
+    font-size: 15px;
+}
+
+.form-background {
+    background-color: #373737;
+    padding: 30px;
+}
+
+.form-white {
+    background-color: white;
+    padding: 30px;
+    width: 80%;
+    max-width: 600px;
+    margin: auto;
+}
+
+.form-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 20px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+.w-100{
+    width: 100%;
+    padding: 10px
+}
+
+.w-50 {
+    float: left;
+    width: 50%;
+    padding: 10px
+}
+
+.yellow-button {
+    padding: 10px;
+    display: block;
+    margin-left: auto;
+}
+
+/* 테이블 관련 CSS */
+
+td, th {
+    border: 1px solid black;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+.cart-background {
+    background-color: #B2CCD6;
+    padding: 30px;
+}
+
+.cart-table td, .cart-table th {
+    padding: 15px;
+    border: 1px solid #B2CCD6;
+}
+
+.cart-table {
+    width: 100%;
+    max-width: 700px;
+    margin: auto;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.cart-table th:nth-child(2) {
+    width: 400px;
+}
+
+.btn {
+    padding: 15px;
+    font-size: 20px;
+    border: none;
+    border-radius: 10px;
+    background-color: coral;
+    color: white;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: chocolate;
+}
+
+.btn:focus {
+    background-color: grey;
+}
+
+.btn:active {
+    background-color: brown;
+    border: 2px solid black;
+}
+
+.input-test:focus {
+    border-bottom: 2px solid red;
+}
+
+
+/* flex 관련 css */
+
+.flex-container {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.flex-item {
+    margin-right: 10px;
+}
+
+
+/* 반응형 UI */
+
+.frame {
+    width: 80%;
+    max-width: 1000px;
+    margin: auto;
+    margin-bottom: 50px;
+}
+
+.frame>div{
+    float: left;
+    width: 25%;
+    text-align: center;
+}
+
+@media screen and (max-width: 1200px) {
+    .main-title {
+        font-size: 30px;
+    }
+
+    .flex-item {
+        font-size: 12px;
+    }
+
+    .frame>div {
+        float : left;
+        width : 50%;
+    }
+
+    .frame {
+        max-width: 600px;
+    }
+    
+}
+
+@media screen and (max-width: 768px) {
+
+    .main-title {
+        font-size: 20px;
+    }
+
+    .frame>div {
+        float : none;
+        width : 100%;
+      }
+      
+}
