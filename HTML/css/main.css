@@ -130,6 +130,12 @@ body {
     position: relative;
     top: -70px;
     box-sizing: border-box;
+    border-radius: 10px;
+}
+
+.main-box p {
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .box-title {
@@ -301,4 +307,73 @@ table {
         width : 100%;
       }
       
+}
+
+/* 아이콘 */
+
+.frame i {
+    background-color: burlywood;
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    padding-top: 25px;
+    box-sizing: border-box; /* 박스 동그랗게 만들기 */
+    color: white;
+    margin-top: 20px;
+}
+
+/* 트랜지션으로 애니메이션 */
+
+.shop-bg {
+    background-color: #eee;
+    padding: 20px;
+}
+
+.shop-container {
+    display: flex;
+    width: 90%;
+    margin: auto;
+}
+
+.shop-item {
+    width: 33%;
+    padding: 10px;
+}
+
+.shop-item img {
+    width: 100%;
+    display: block;
+}
+
+.overlay-wrap {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.overlay {
+    margin-top: 100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    transition: all 0.75s;
+}
+
+.overlay-text {
+    margin-top: 0px;
+    padding-left: 50px;
+    color: white;
+    font-size: 20px;
+}
+
+.overlay-price {
+    padding-left: 50px;
+    padding-top: 50px;
+    color: white;
+    font-size: 50px;
+}
+
+
+.overlay-wrap:hover .overlay{
+    margin-top: 50%;
 }
