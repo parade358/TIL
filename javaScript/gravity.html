@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>중력 시뮬레이터</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+            display: block;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="simCanvas" width="500" height="400"></canvas>
+    <script>
+        const canvas = document.getElementById("simCanvas");
+        const ctx = canvas.getContext("2d");
+
+        let ball = { x: 250, y: 50, radius: 20, velocityY: 0, gravity: 1, bounce: 0.7 };
+
+        function update() {
+            
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            
+            ball.velocityY += ball.gravity;
+            ball.y += ball.velocityY;
+
+            if (ball.y + ball.radius > canvas.height) {
+                ball.y = canvas.height - ball.radius;
+                ball.velocityY *= -ball.bounce;
+            }
+
+            ctx.beginPath();
+            ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+            ctx.fillStyle = "black";
+            ctx.fill();
+            ctx.closePath();
+
+            requestAnimationFrame(update);
+        }
+
+        update();
+    </script>
+</body>
+</html>

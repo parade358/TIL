@@ -356,7 +356,7 @@ table {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.3);
-    transition: all 0.75s;
+    transition: all 1s;
 }
 
 .overlay-text {
